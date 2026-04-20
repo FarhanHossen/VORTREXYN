@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -9,7 +9,7 @@ export function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
       
-      const sections = ['home', 'projects', 'experience', 'skills', 'contact'];
+      const sections = ['home', 'projects', 'education', 'experience', 'skills', 'contact'];
       const current = sections.find(section => {
         const el = document.getElementById(section);
         if (el) {
@@ -41,6 +41,7 @@ export function Navbar() {
   const navItems = [
     { id: 'home', label: 'Home' },
     { id: 'projects', label: 'Projects' },
+    { id: 'education', label: 'Education' },
     { id: 'experience', label: 'Experience' },
     { id: 'skills', label: 'Skills' },
     { id: 'contact', label: 'Contact' },
@@ -64,6 +65,7 @@ export function Navbar() {
           {navItems.map((item) => (
             <button
               key={item.id}
+              data-testid={`nav-${item.id}`}
               onClick={() => scrollTo(item.id)}
               className={`text-sm tracking-wide transition-colors relative ${
                 activeSection === item.id ? 'text-primary font-medium' : 'text-muted-foreground hover:text-foreground'

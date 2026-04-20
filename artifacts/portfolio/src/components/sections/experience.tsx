@@ -3,25 +3,28 @@ import { motion } from 'framer-motion';
 const experience = [
   {
     id: 1,
-    role: 'Senior Software Engineer',
-    company: 'Vanguard Systems',
-    period: '2021 — Present',
-    description: 'Lead the core infrastructure team building distributed data processing pipelines. Architected a real-time event streaming service that improved throughput by 400%. Mentored a team of 5 engineers and established rigorous CI/CD practices.',
+    role: 'Team Member',
+    company: 'Woolworths Regional Distribution Centre (Primary Connect)',
+    location: 'Moorebank, NSW',
+    period: 'Nov 2025 — Present',
+    description: 'Operating in a fully automated warehouse environment using WMS and barcode scanning systems. Monitoring inventory flow of up to 1.5 million products daily and troubleshooting sensor and system issues. Performed product verification at 900 units/hour while identifying software-related discrepancies. Contributed to efficiency improvement from 40% to 70% through optimized automation and issue resolution.',
   },
   {
     id: 2,
-    role: 'Software Developer',
-    company: 'Nova Logic',
-    period: '2018 — 2021',
-    description: 'Developed full-stack web applications serving enterprise clients. Migrated legacy monolithic architecture to highly decoupled microservices. Implemented comprehensive test suites increasing coverage from 20% to 85%.',
+    role: 'Junior Chef / Kitchen Hand',
+    company: 'Matinee Coffee',
+    location: 'Marrickville, NSW',
+    period: 'Jul 2024 — Oct 2025',
+    description: 'Prepared and presented high-quality dishes while supporting kitchen operations, including ingredient preparation, stock monitoring, and collaboration with senior chefs. Maintained efficient back-of-house workflow, contributing to consistent quality metrics and smooth service operations.',
   },
   {
     id: 3,
-    role: 'Frontend Engineer',
-    company: 'Apex Digital',
-    period: '2016 — 2018',
-    description: 'Built responsive, high-performance interfaces for complex SaaS platforms using React. Collaborated closely with design teams to translate complex UX requirements into maintainable component libraries.',
-  }
+    role: 'Houseperson / Room Attendant',
+    company: 'Crown Towers Sydney',
+    location: 'Barangaroo, NSW',
+    period: 'Sep 2023 — Jun 2024',
+    description: 'Supported luxury hotel housekeeping operations by transporting linens, amenities, and equipment across floors to ensure timely room readiness. Maintained high standards of cleanliness and presentation in line with Crown Towers Sydney luxury standards, consistently meeting turnaround time metrics.',
+  },
 ];
 
 export function Experience() {
@@ -59,15 +62,14 @@ export function Experience() {
                 </div>
                 
                 <div className="flex-1 relative">
-                  {/* Timeline dot - only visible on mobile */}
                   <div className="absolute -left-[39px] top-1.5 w-3 h-3 bg-primary rounded-full md:hidden" />
-                  {/* Timeline line - only visible on mobile */}
                   {index !== experience.length - 1 && (
                     <div className="absolute -left-8 top-6 bottom-[-80px] w-[1px] bg-border md:hidden" />
                   )}
                   
                   <h3 className="text-xl font-bold mb-1">{job.role}</h3>
-                  <div className="text-primary font-mono text-sm mb-6">{job.company}</div>
+                  <div className="text-primary font-mono text-sm mb-1">{job.company}</div>
+                  <div className="text-muted-foreground/60 font-mono text-xs mb-5">{job.location}</div>
                   
                   <p className="text-muted-foreground leading-relaxed">
                     {job.description}

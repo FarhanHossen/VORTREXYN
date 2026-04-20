@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 export function Hero() {
   return (
     <section id="home" className="min-h-[100dvh] flex items-center pt-20 relative overflow-hidden">
-      {/* Decorative background elements */}
       <div className="absolute top-1/4 -right-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
       
@@ -37,9 +36,9 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed"
           >
-            I build precise, performant, and scalable digital experiences. 
-            Focused on crafting high-end developer tools and sophisticated web applications 
-            where architecture meets aesthetics.
+            Master of IT graduate from the University of Technology Sydney, specializing in 
+            Enterprise Software Development. Graduated with Distinction, with a foundation in 
+            Computer Science and Engineering from BRAC University. Based in Sydney, NSW.
           </motion.p>
           
           <motion.div
@@ -50,6 +49,7 @@ export function Hero() {
           >
             <Button 
               size="lg" 
+              data-testid="button-view-work"
               onClick={() => {
                 document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
               }}
@@ -60,6 +60,7 @@ export function Hero() {
             <Button 
               variant="outline" 
               size="lg"
+              data-testid="button-get-in-touch"
               onClick={() => {
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
               }}

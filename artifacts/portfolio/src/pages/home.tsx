@@ -2,13 +2,13 @@ import { Navbar } from "@/components/layout/navbar";
 import { Hero } from "@/components/sections/hero";
 import { Projects } from "@/components/sections/projects";
 import { Experience } from "@/components/sections/experience";
+import { Education } from "@/components/sections/education";
 import { Skills } from "@/components/sections/skills";
 import { Contact } from "@/components/sections/contact";
 
 export default function Home() {
   return (
     <div className="min-h-[100dvh] bg-background text-foreground font-sans selection:bg-primary selection:text-primary-foreground">
-      {/* Noise texture overlay for texture/warmth */}
       <div 
         className="fixed inset-0 z-50 pointer-events-none opacity-20 mix-blend-overlay"
         style={{
@@ -19,6 +19,7 @@ export default function Home() {
       <main>
         <Hero />
         <Projects />
+        <Education />
         <Experience />
         <Skills />
         <Contact />
