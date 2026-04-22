@@ -6,27 +6,27 @@ import { Badge } from '@/components/ui/badge';
 const projects = [
   {
     id: 1,
+    title: 'Vortrexyn — Premium Car Rental System',
+    description: 'A full-stack multi-page web application for a premium car rental service. Users can browse vehicles, make reservations, and pay online via PayPal. An admin dashboard allows staff to manage bookings, fleet stock, and custom vehicles with AI-generated images powered by OpenAI DALL-E 3. Integrates Firebase Firestore for real-time data, EmailJS for automated booking confirmations, and a Node.js/Express backend for image generation proxying.',
+    tags: ['HTML5', 'JavaScript', 'Tailwind CSS', 'Firebase', 'Node.js', 'Express', 'OpenAI DALL-E 3', 'PayPal SDK'],
+    github: 'https://github.com/FarhanHossen/vortrexyn-car-rental',
+    demo: null,
+    type: 'Full-stack Web App'
+  },
+  {
+    id: 2,
     title: 'Nexus API Gateway',
-    description: 'A high-performance, distributed API gateway built in Node.js and Rust. Handles rate limiting, authentication, and intelligent routing for microservices architecture.',
-    tags: ['TypeScript', 'Rust', 'Redis', 'Docker'],
+    description: 'A high-performance, distributed API gateway built in Node.js. Handles rate limiting, authentication, and intelligent routing for microservices architecture.',
+    tags: ['TypeScript', 'Node.js', 'Redis', 'Docker'],
     github: '#',
     demo: '#',
     type: 'Backend Infrastructure'
   },
   {
-    id: 2,
-    title: 'Orbit CLI',
-    description: 'A lightning-fast terminal workflow tool for developers. Automates environment setups, manages local databases, and orchestrates complex build pipelines with zero config.',
-    tags: ['Go', 'CLI', 'Shell', 'Systems'],
-    github: '#',
-    demo: '#',
-    type: 'Developer Tooling'
-  },
-  {
     id: 3,
     title: 'Aether Analytics',
-    description: 'Real-time telemetry dashboard for edge computing nodes. Processes millions of events per second with an optimized React frontend rendering complex WebGL charts without frame drops.',
-    tags: ['React', 'PostgreSQL', 'Kafka', 'WebGL'],
+    description: 'Real-time telemetry dashboard processing live event streams with an optimized React frontend and complex data visualizations.',
+    tags: ['React', 'PostgreSQL', 'Node.js', 'Chart.js'],
     github: '#',
     demo: '#',
     type: 'Full-stack App'
@@ -49,7 +49,7 @@ export function Projects() {
             <h2 className="text-3xl font-bold tracking-tight">Selected Work</h2>
           </div>
           <p className="text-muted-foreground max-w-2xl">
-            A showcase of systems and applications I've engineered. Focused on solving complex technical challenges with elegant architecture.
+            A showcase of applications and systems I've built, applying skills from my IT and Computer Science background.
           </p>
         </motion.div>
 
@@ -88,14 +88,28 @@ export function Projects() {
                       </div>
                       
                       <div className="flex items-center gap-6 mt-auto">
-                        <a href={project.github} className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-sm font-mono">
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          data-testid={`link-github-${project.id}`}
+                          className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-sm font-mono"
+                        >
                           <Github size={18} />
                           Source
                         </a>
-                        <a href={project.demo} className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-sm font-mono">
-                          <ExternalLink size={18} />
-                          Live Demo
-                        </a>
+                        {project.demo && project.demo !== '#' && (
+                          <a
+                            href={project.demo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            data-testid={`link-demo-${project.id}`}
+                            className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-sm font-mono"
+                          >
+                            <ExternalLink size={18} />
+                            Live Demo
+                          </a>
+                        )}
                       </div>
                     </div>
                   </div>
