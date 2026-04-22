@@ -1,0 +1,20 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "b0kCtslAB9-dcwSUsGiJw"
+uri = "file://artifacts/portfolio/src/assets/project-vortrexyn.png"
+type = "image"
+title = "car rental app dark UI"
+
+[[generated]]
+id = "UXk90JVC35STFEsi8J5jg"
+uri = "file://artifacts/portfolio/src/assets/project-api-gateway.png"
+type = "image"
+title = "API gateway infrastructure dark"
+
+[[generated]]
+id = "Iwg6HS5-2RGE-6N7L1BsI"
+uri = "file://artifacts/portfolio/src/assets/project-analytics.png"
+type = "image"
+title = "analytics dashboard dark UI"

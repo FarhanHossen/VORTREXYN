@@ -2,6 +2,9 @@ import { motion } from 'framer-motion';
 import { ExternalLink, Github, Terminal } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import vortrexynImg from '@/assets/project-vortrexyn.png';
+import apiGatewayImg from '@/assets/project-api-gateway.png';
+import analyticsImg from '@/assets/project-analytics.png';
 
 const projects = [
   {
@@ -11,7 +14,8 @@ const projects = [
     tags: ['HTML5', 'JavaScript', 'Tailwind CSS', 'Firebase', 'Node.js', 'Express', 'OpenAI DALL-E 3', 'PayPal SDK'],
     github: 'https://github.com/FarhanHossen/vortrexyn-car-rental',
     demo: null,
-    type: 'Full-stack Web App'
+    type: 'Full-stack Web App',
+    image: vortrexynImg,
   },
   {
     id: 2,
@@ -19,8 +23,9 @@ const projects = [
     description: 'A high-performance, distributed API gateway built in Node.js. Handles rate limiting, authentication, and intelligent routing for microservices architecture.',
     tags: ['TypeScript', 'Node.js', 'Redis', 'Docker'],
     github: '#',
-    demo: '#',
-    type: 'Backend Infrastructure'
+    demo: null,
+    type: 'Backend Infrastructure',
+    image: apiGatewayImg,
   },
   {
     id: 3,
@@ -28,9 +33,10 @@ const projects = [
     description: 'Real-time telemetry dashboard processing live event streams with an optimized React frontend and complex data visualizations.',
     tags: ['React', 'PostgreSQL', 'Node.js', 'Chart.js'],
     github: '#',
-    demo: '#',
-    type: 'Full-stack App'
-  }
+    demo: null,
+    type: 'Full-stack App',
+    image: analyticsImg,
+  },
 ];
 
 export function Projects() {
@@ -53,7 +59,7 @@ export function Projects() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-8">
+        <div className="grid grid-cols-1 gap-10">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -62,31 +68,46 @@ export function Projects() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className="bg-card/50 border-border overflow-hidden hover:border-primary/50 transition-colors group rounded-none">
+              <Card className="bg-card/50 border-border overflow-hidden hover:border-primary/50 transition-all duration-300 group rounded-none">
                 <CardContent className="p-0">
-                  <div className="flex flex-col md:flex-row">
-                    <div className="p-8 md:p-12 flex-1 flex flex-col justify-center">
+                  <div className="flex flex-col lg:flex-row">
+                    {/* Image */}
+                    <div className="lg:w-2/5 shrink-0 overflow-hidden bg-secondary/30">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        data-testid={`img-project-${project.id}`}
+                        className="w-full h-56 lg:h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                      />
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-8 md:p-10 flex-1 flex flex-col justify-center">
                       <div className="flex items-center gap-2 text-primary font-mono text-xs mb-4">
                         <Terminal size={14} />
                         <span>{project.type}</span>
                       </div>
-                      
+
                       <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
                         {project.title}
                       </h3>
-                      
-                      <p className="text-muted-foreground mb-8 leading-relaxed max-w-xl">
+
+                      <p className="text-muted-foreground mb-8 leading-relaxed">
                         {project.description}
                       </p>
-                      
+
                       <div className="flex flex-wrap gap-2 mb-8">
                         {project.tags.map(tag => (
-                          <Badge key={tag} variant="secondary" className="font-mono text-xs bg-secondary/50 rounded-none border border-border">
+                          <Badge
+                            key={tag}
+                            variant="secondary"
+                            className="font-mono text-xs bg-secondary/50 rounded-none border border-border"
+                          >
                             {tag}
                           </Badge>
                         ))}
                       </div>
-                      
+
                       <div className="flex items-center gap-6 mt-auto">
                         <a
                           href={project.github}
@@ -98,7 +119,7 @@ export function Projects() {
                           <Github size={18} />
                           Source
                         </a>
-                        {project.demo && project.demo !== '#' && (
+                        {project.demo && (
                           <a
                             href={project.demo}
                             target="_blank"
