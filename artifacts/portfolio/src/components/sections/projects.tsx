@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion';
-import { Github, ExternalLink, Terminal, Code2, Layers, Smartphone, Globe } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Github, ExternalLink, Terminal, Code2, Layers, Smartphone, Globe, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const PROJECTS = [
   {
@@ -18,13 +19,13 @@ const PROJECTS = [
       { src: '/screenshots/bubble-pop-splash.png', alt: 'Splash screen' },
       { src: '/screenshots/bubble-pop-signin.png', alt: 'Sign in' },
       { src: '/screenshots/bubble-pop-signup.png', alt: 'Sign up' },
+      { src: '/screenshots/bubble-pop-reset.png', alt: 'Reset password' },
       { src: '/screenshots/bubble-pop-lobby.png', alt: 'Game lobby & settings' },
       { src: '/screenshots/bubble-pop-leaderboard.png', alt: 'Global leaderboard' },
       { src: '/screenshots/bubble-pop-gameplay-easy.png', alt: 'Gameplay — Easy' },
       { src: '/screenshots/bubble-pop-gameplay-medium.png', alt: 'Gameplay — Medium' },
       { src: '/screenshots/bubble-pop-gameplay-hard.png', alt: 'Gameplay — Hard' },
       { src: '/screenshots/bubble-pop-gameplay-extreme.png', alt: 'Gameplay — Extreme' },
-      { src: '/screenshots/bubble-pop-reset.png', alt: 'Reset password' },
     ],
     tags: ['React Native', 'Expo', 'TypeScript', 'Firebase', 'Firestore', 'EAS', 'App Store Connect', 'Cloudflare', 'REST APIs', 'Git'],
     github: 'https://github.com/FarhanHossen/Bubble-Pop',
@@ -57,6 +58,107 @@ const fadeUp = {
     transition: { duration: 0.5, delay: i * 0.08, ease: 'easeOut' },
   }),
 };
+
+function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: string }[] }) {
+  const [active, setActive] = useState(0);
+  const total = screenshots.length;
+
+  const prev = () => setActive((i) => Math.max(0, i - 1));
+  const next = () => setActive((i) => Math.min(total - 1, i + 1));
+
+  const indices = [active - 1, active, active + 1].filter((i) => i >= 0 && i < total);
+
+  return (
+    <div className="mb-6">
+      <div className="relative flex items-center justify-center" style={{ height: 260 }}>
+        <button
+          onClick={prev}
+          disabled={active === 0}
+          className="absolute left-0 z-10 flex items-center justify-center w-7 h-7 rounded-full transition-all"
+          style={{
+            background: 'hsl(221 39% 11%)',
+            border: '1px solid hsl(215 33% 22%)',
+            color: active === 0 ? 'hsl(215 33% 22%)' : 'hsl(215 20% 68%)',
+            cursor: active === 0 ? 'default' : 'pointer',
+          }}
+        >
+          <ChevronLeft size={14} />
+        </button>
+
+        <div className="flex items-center justify-center gap-3 w-full px-10">
+          <AnimatePresence mode="popLayout">
+            {indices.map((i) => {
+              const isCenter = i === active;
+              return (
+                <motion.div
+                  key={screenshots[i].src}
+                  layout
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{
+                    opacity: isCenter ? 1 : 0.45,
+                    scale: isCenter ? 1 : 0.82,
+                    filter: isCenter ? 'blur(0px)' : 'blur(3px)',
+                  }}
+                  exit={{ opacity: 0, scale: 0.7 }}
+                  transition={{ duration: 0.35, ease: 'easeInOut' }}
+                  onClick={() => !isCenter && setActive(i)}
+                  className="shrink-0 rounded-xl overflow-hidden"
+                  style={{
+                    width: isCenter ? 128 : 90,
+                    height: isCenter ? 228 : 160,
+                    border: isCenter ? '2px solid rgba(56,189,248,0.5)' : '1px solid hsl(215 33% 22%)',
+                    cursor: isCenter ? 'default' : 'pointer',
+                    boxShadow: isCenter ? '0 0 24px rgba(56,189,248,0.15)' : 'none',
+                  }}
+                >
+                  <img
+                    src={screenshots[i].src}
+                    alt={screenshots[i].alt}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </div>
+
+        <button
+          onClick={next}
+          disabled={active === total - 1}
+          className="absolute right-0 z-10 flex items-center justify-center w-7 h-7 rounded-full transition-all"
+          style={{
+            background: 'hsl(221 39% 11%)',
+            border: '1px solid hsl(215 33% 22%)',
+            color: active === total - 1 ? 'hsl(215 33% 22%)' : 'hsl(215 20% 68%)',
+            cursor: active === total - 1 ? 'default' : 'pointer',
+          }}
+        >
+          <ChevronRight size={14} />
+        </button>
+      </div>
+
+      <div className="flex justify-center gap-1.5 mt-3">
+        {screenshots.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setActive(i)}
+            className="rounded-full transition-all"
+            style={{
+              width: i === active ? 16 : 5,
+              height: 5,
+              background: i === active ? 'hsl(199 93% 60%)' : 'hsl(215 33% 22%)',
+            }}
+          />
+        ))}
+      </div>
+
+      <p className="text-center font-mono text-xs mt-2" style={{ color: 'hsl(215 16% 50%)' }}>
+        {screenshots[active].alt}
+      </p>
+    </div>
+  );
+}
 
 export function Projects() {
   return (
@@ -163,28 +265,7 @@ export function Projects() {
               </ul>
 
               {'screenshots' in p && p.screenshots && p.screenshots.length > 0 && (
-                <div className="mb-5 -mx-1">
-                  <div
-                    className="flex gap-2.5 overflow-x-auto pb-2"
-                    style={{ scrollbarWidth: 'thin', scrollbarColor: 'hsl(215 33% 22%) transparent' }}
-                  >
-                    {p.screenshots.map((shot) => (
-                      <div
-                        key={shot.src}
-                        className="shrink-0 rounded-lg overflow-hidden"
-                        style={{ width: 100, height: 178, border: '1px solid hsl(215 33% 22%)' }}
-                      >
-                        <img
-                          src={shot.src}
-                          alt={shot.alt}
-                          title={shot.alt}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <ScreenshotCarousel screenshots={p.screenshots} />
               )}
 
               <div className="flex flex-wrap gap-2">
