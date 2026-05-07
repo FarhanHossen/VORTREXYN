@@ -3,7 +3,26 @@ import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import type { MotionValue } from 'framer-motion';
 import { Github, ExternalLink, Terminal, Code2, Layers, Smartphone, Globe, ChevronLeft, ChevronRight } from 'lucide-react';
 
-const SLOT_SPACING = 130;
+type CarouselConfig = {
+  slotSpacing: number;
+  containerHeight: number;
+  widths:  [number, number, number]; // [outer, inner, center]
+  heights: [number, number, number];
+};
+
+const PORTRAIT_CONFIG: CarouselConfig = {
+  slotSpacing:     130,
+  containerHeight: 330,
+  widths:  [68,  108, 162],
+  heights: [121, 192, 288],
+};
+
+const LANDSCAPE_CONFIG: CarouselConfig = {
+  slotSpacing:     215,
+  containerHeight: 220,
+  widths:  [134, 195, 274],
+  heights: [84,  122, 171],
+};
 
 const PROJECTS = [
   {
@@ -46,6 +65,22 @@ const PROJECTS = [
       'Developed an admin dashboard with booking management, fleet stock control, and AI-generated vehicle images using OpenAI DALL-E 3.',
       'Deployed to a custom domain with Node.js/Express backend serving a static HTML/CSS/JS frontend.',
     ],
+    screenshots: [
+      { src: '/screenshots/car-rental-signin.png',          alt: 'Sign in' },
+      { src: '/screenshots/car-rental-signup.png',          alt: 'Create account' },
+      { src: '/screenshots/car-rental-reset.png',           alt: 'Reset password' },
+      { src: '/screenshots/car-rental-fleet.png',           alt: 'Browse fleet' },
+      { src: '/screenshots/car-rental-car-detail.png',      alt: 'Car detail & booking' },
+      { src: '/screenshots/car-rental-confirm-order.png',   alt: 'Confirm order' },
+      { src: '/screenshots/car-rental-my-reservations.png', alt: 'My reservations' },
+      { src: '/screenshots/car-rental-profile.png',         alt: 'My profile' },
+      { src: '/screenshots/car-rental-admin-overview.png',  alt: 'Admin — overview' },
+      { src: '/screenshots/car-rental-admin-bookings.png',  alt: 'Admin — all bookings' },
+      { src: '/screenshots/car-rental-admin-fleet.png',     alt: 'Admin — fleet inventory' },
+      { src: '/screenshots/car-rental-admin-users.png',     alt: 'Admin — all users' },
+      { src: '/screenshots/car-rental-admin-revenue.png',   alt: 'Admin — revenue stats' },
+      { src: '/screenshots/car-rental-admin-add-vehicle.png', alt: 'Admin — add vehicle' },
+    ],
     tags: ['JavaScript', 'HTML5', 'CSS3', 'Node.js', 'Express.js', 'Firebase', 'Firestore', 'OpenAI API', 'PayPal SDK', 'REST APIs', 'Git'],
     github: 'https://github.com/FarhanHossen/vortrexyn-car-rental',
     demo: 'https://vortrexyn-premium-car-rental-system.com/',
@@ -68,30 +103,31 @@ function SlotImage({
   screenshot,
   offset,
   onSlotClick,
+  cfg,
 }: {
   trackX: MotionValue<number>;
   virtualPos: number;
   screenshot: { src: string; alt: string };
-  offset: number;   // static: -2 | -1 | 0 | 1 | 2
+  offset: number;
   onSlotClick: () => void;
+  cfg: CarouselConfig;
 }) {
-  const screenX = useTransform(trackX, (tx) => tx + virtualPos * SLOT_SPACING);
+  const { slotSpacing, widths, heights } = cfg;
+  const screenX = useTransform(trackX, (tx) => tx + virtualPos * slotSpacing);
 
-  // 5-point centeredness: outer=0, inner=0.45, center=1
   const centeredness = useTransform(
     screenX,
-    [-2 * SLOT_SPACING, -SLOT_SPACING, 0, SLOT_SPACING, 2 * SLOT_SPACING],
+    [-2 * slotSpacing, -slotSpacing, 0, slotSpacing, 2 * slotSpacing],
     [0, 0.45, 1, 0.45, 0],
     { clamp: true },
   );
 
-  // Three visual levels: outer → inner → center
-  const opacity   = useTransform(centeredness, [0, 0.45, 1], [0.10, 0.45, 1]);
-  const blurPx    = useTransform(centeredness, [0, 0.45, 1], [7,    2.8,  0]);
+  const opacity   = useTransform(centeredness, [0, 0.45, 1], [0.10,       0.45,       1]);
+  const blurPx    = useTransform(centeredness, [0, 0.45, 1], [7,          2.8,        0]);
   const filter    = useTransform(blurPx, (b) => `blur(${b}px)`);
-  const imgWidth  = useTransform(centeredness, [0, 0.45, 1], [68,   108,  162]);
-  const imgHeight = useTransform(centeredness, [0, 0.45, 1], [121,  192,  288]);
-  const borderA   = useTransform(centeredness, [0, 0.45, 1], [0.04, 0.15, 0.55]);
+  const imgWidth  = useTransform(centeredness, [0, 0.45, 1], [widths[0],  widths[1],  widths[2]]);
+  const imgHeight = useTransform(centeredness, [0, 0.45, 1], [heights[0], heights[1], heights[2]]);
+  const borderA   = useTransform(centeredness, [0, 0.45, 1], [0.04,       0.15,       0.55]);
   const border    = useTransform(borderA, (a) => `2px solid rgba(56,189,248,${a})`);
   const shadow    = useTransform(centeredness, [0, 0.45, 1], [
     '0 0 0px rgba(56,189,248,0)',
@@ -134,24 +170,31 @@ function SlotImage({
   );
 }
 
-function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: string }[] }) {
-  // centerVirtual is an unbounded integer; actual image = ((v % total) + total) % total
+function ScreenshotCarousel({
+  screenshots,
+  landscape = false,
+}: {
+  screenshots: { src: string; alt: string }[];
+  landscape?: boolean;
+}) {
+  const cfg = landscape ? LANDSCAPE_CONFIG : PORTRAIT_CONFIG;
+  const { slotSpacing, containerHeight } = cfg;
+
   const [centerVirtual, setCenterVirtual] = useState(0);
-  const trackX      = useMotionValue(0);   // rest position = -centerVirtual * SLOT_SPACING
+  const trackX      = useMotionValue(0);
   const isDragging  = useRef(false);
   const startX      = useRef(0);
-  const baseTrackX  = useRef(0);           // trackX value at pointer-down
+  const baseTrackX  = useRef(0);
   const busy        = useRef(false);
   const total       = screenshots.length;
 
   const imgAt = (v: number) => ((v % total) + total) % total;
   const activeImg   = imgAt(centerVirtual);
 
-  // Navigate by N steps (+ve = forward/next, -ve = backward/prev)
   const navigateSteps = (steps: number) => {
     if (busy.current || steps === 0) return;
     busy.current = true;
-    const target = -centerVirtual * SLOT_SPACING - steps * SLOT_SPACING;
+    const target = -centerVirtual * slotSpacing - steps * slotSpacing;
     const duration = Math.min(0.32 + (Math.abs(steps) - 1) * 0.07, 0.58);
     animate(trackX, target, {
       type: 'tween',
@@ -177,21 +220,18 @@ function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: 
 
   const onPointerMove = (e: React.PointerEvent) => {
     if (!isDragging.current) return;
-    const delta = e.clientX - startX.current;
-    trackX.set(baseTrackX.current + delta);
+    trackX.set(baseTrackX.current + (e.clientX - startX.current));
   };
 
   const onPointerUp = (e: React.PointerEvent) => {
     if (!isDragging.current) return;
     isDragging.current = false;
     const rawDelta = e.clientX - startX.current;
-    // How many full slots did the drag cover?
-    const rawSteps = -Math.round(rawDelta / SLOT_SPACING);
+    const rawSteps = -Math.round(rawDelta / slotSpacing);
     const steps = Math.max(-(total - 1), Math.min(total - 1, rawSteps));
     if (steps !== 0) {
       navigateSteps(steps);
     } else {
-      // Didn't reach the next slot — snap back
       animate(trackX, baseTrackX.current, { type: 'spring', stiffness: 400, damping: 38 });
     }
   };
@@ -219,7 +259,7 @@ function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: 
     <div className="mb-6 select-none">
       <div
         className="relative"
-        style={{ height: 330, overflow: 'hidden', touchAction: 'pan-y', cursor: 'grab' }}
+        style={{ height: containerHeight, overflow: 'hidden', touchAction: 'pan-y', cursor: 'grab' }}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
@@ -236,6 +276,7 @@ function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: 
             screenshot={screenshots[imgAt(centerVirtual + off)]}
             offset={off}
             onSlotClick={off < 0 ? prev : off > 0 ? next : () => {}}
+            cfg={cfg}
           />
         ))}
 
@@ -252,7 +293,7 @@ function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: 
               const diff = ((i - activeImg) + total) % total;
               const shortDiff = diff > total / 2 ? diff - total : diff;
               if (shortDiff === 0) return;
-              navigate(shortDiff > 0 ? -1 : 1);
+              navigateSteps(shortDiff > 0 ? -1 : 1);
             }}
             className="rounded-full transition-all"
             style={{
@@ -378,7 +419,7 @@ export function Projects() {
               </ul>
 
               {'screenshots' in p && p.screenshots && p.screenshots.length > 0 && (
-                <ScreenshotCarousel screenshots={p.screenshots} />
+                <ScreenshotCarousel screenshots={p.screenshots} landscape={p.id === 2} />
               )}
 
               <div className="flex flex-wrap gap-2">
