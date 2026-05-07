@@ -62,27 +62,23 @@ const fadeUp = {
   }),
 };
 
+// Each image sits at a fixed position on the track: virtualPos * SLOT_SPACING.
+// trackX is the motion value for the track offset (starts at 0, goes negative as you advance).
+// screenX of image at virtualPos = trackX + virtualPos * SLOT_SPACING.
+// By never jumping trackX (only animating it), there are zero position discontinuities.
 function SlotImage({
-  dragX,
-  slotPos,
+  trackX,
+  virtualPos,
   screenshot,
   onSlotClick,
 }: {
-  dragX: MotionValue<number>;
-  slotPos: -1 | 0 | 1;
+  trackX: MotionValue<number>;
+  virtualPos: number;
   screenshot: { src: string; alt: string };
   onSlotClick: () => void;
 }) {
-  const baseX = slotPos * SLOT_SPACING;
-
-  const totalX = useTransform(dragX, (v) => baseX + v);
-
-  const centeredness = useTransform(
-    totalX,
-    [-SLOT_SPACING, 0, SLOT_SPACING],
-    [0, 1, 0],
-    { clamp: true },
-  );
+  const screenX     = useTransform(trackX, (tx) => tx + virtualPos * SLOT_SPACING);
+  const centeredness = useTransform(screenX, [-SLOT_SPACING, 0, SLOT_SPACING], [0, 1, 0], { clamp: true });
 
   const opacity   = useTransform(centeredness, [0, 1], [0.32, 1]);
   const blurPx    = useTransform(centeredness, [0, 1], [4, 0]);
@@ -92,15 +88,16 @@ function SlotImage({
   const borderA   = useTransform(centeredness, [0, 1], [0.1, 0.55]);
   const border    = useTransform(borderA, (a) => `2px solid rgba(56,189,248,${a})`);
   const shadow    = useTransform(centeredness, [0, 1], ['0 0 0px rgba(56,189,248,0)', '0 0 30px rgba(56,189,248,0.2)']);
+  const halfW     = useTransform(imgWidth,  (w) => -w / 2);
+  const halfH     = useTransform(imgHeight, (h) => -h / 2);
 
-  const halfW = useTransform(imgWidth,  (w) => -w / 2);
-  const halfH = useTransform(imgHeight, (h) => -h / 2);
+  const isCenter = virtualPos === Math.round(-trackX.get() / SLOT_SPACING);
 
   return (
     <div style={{ position: 'absolute', left: '50%', top: '50%' }}>
       <motion.div
         style={{
-          x: useTransform([totalX, halfW] as MotionValue[], ([tx, hw]: number[]) => tx + hw),
+          x: useTransform([screenX, halfW] as MotionValue[], ([sx, hw]: number[]) => sx + hw),
           y: halfH,
           opacity,
           filter,
@@ -111,10 +108,9 @@ function SlotImage({
           borderRadius: 16,
           overflow: 'hidden',
           background: 'hsl(222 48% 7%)',
-          cursor: slotPos === 0 ? 'grab' : 'pointer',
-          flexShrink: 0,
+          cursor: isCenter ? 'grab' : 'pointer',
         }}
-        onClick={() => slotPos !== 0 && onSlotClick()}
+        onClick={() => !isCenter && onSlotClick()}
       >
         <img
           src={screenshot.src}
@@ -129,26 +125,29 @@ function SlotImage({
 }
 
 function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: string }[] }) {
-  const [active, setActive] = useState(0);
-  const dragX      = useMotionValue(0);
-  const isDragging = useRef(false);
-  const startX     = useRef(0);
-  const busy       = useRef(false);
-  const total      = screenshots.length;
+  // centerVirtual is an unbounded integer; actual image = ((v % total) + total) % total
+  const [centerVirtual, setCenterVirtual] = useState(0);
+  const trackX      = useMotionValue(0);   // rest position = -centerVirtual * SLOT_SPACING
+  const isDragging  = useRef(false);
+  const startX      = useRef(0);
+  const baseTrackX  = useRef(0);           // trackX value at pointer-down
+  const busy        = useRef(false);
+  const total       = screenshots.length;
 
-  const leftIdx  = (active - 1 + total) % total;
-  const rightIdx = (active + 1) % total;
+  const imgAt = (v: number) => ((v % total) + total) % total;
+  const activeImg   = imgAt(centerVirtual);
 
   const navigate = (dir: -1 | 1) => {
     if (busy.current) return;
     busy.current = true;
-    animate(dragX, dir * SLOT_SPACING, {
+    const target = -centerVirtual * SLOT_SPACING + dir * SLOT_SPACING;
+    animate(trackX, target, {
       type: 'tween',
-      duration: 0.36,
+      duration: 0.34,
       ease: [0.25, 0.46, 0.45, 0.94],
       onComplete: () => {
-        setActive((i) => (i - dir + total) % total);
-        dragX.jump(0);
+        // trackX is now at -(centerVirtual - dir) * SLOT_SPACING — no jump needed
+        setCenterVirtual((v) => v - dir);
         busy.current = false;
       },
     });
@@ -161,22 +160,25 @@ function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: 
     if (busy.current) return;
     isDragging.current = true;
     startX.current = e.clientX;
+    baseTrackX.current = trackX.get();
     (e.currentTarget as Element).setPointerCapture(e.pointerId);
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
     if (!isDragging.current) return;
-    dragX.set(e.clientX - startX.current);
+    const delta = e.clientX - startX.current;
+    // Slight resistance at extremes
+    trackX.set(baseTrackX.current + delta * 0.92);
   };
 
   const onPointerUp = (e: React.PointerEvent) => {
     if (!isDragging.current) return;
     isDragging.current = false;
     const delta = e.clientX - startX.current;
-    if (Math.abs(delta) > 52) {
-      navigate(delta < 0 ? -1 : 1);
+    if (Math.abs(delta) > 50) {
+      navigate(delta > 0 ? 1 : -1);
     } else {
-      animate(dragX, 0, { type: 'spring', stiffness: 380, damping: 36 });
+      animate(trackX, baseTrackX.current, { type: 'spring', stiffness: 380, damping: 36 });
     }
   };
 
@@ -211,9 +213,10 @@ function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: 
       >
         {arrowBtn(prev, 'left')}
 
-        <SlotImage dragX={dragX} slotPos={-1} screenshot={screenshots[leftIdx]}  onSlotClick={prev} />
-        <SlotImage dragX={dragX} slotPos={0}  screenshot={screenshots[active]}   onSlotClick={() => {}} />
-        <SlotImage dragX={dragX} slotPos={1}  screenshot={screenshots[rightIdx]} onSlotClick={next} />
+        {/* Render left, center, and right virtual slots — positions are stable on the track */}
+        <SlotImage trackX={trackX} virtualPos={centerVirtual - 1} screenshot={screenshots[imgAt(centerVirtual - 1)]} onSlotClick={prev} />
+        <SlotImage trackX={trackX} virtualPos={centerVirtual}     screenshot={screenshots[imgAt(centerVirtual)]}     onSlotClick={() => {}} />
+        <SlotImage trackX={trackX} virtualPos={centerVirtual + 1} screenshot={screenshots[imgAt(centerVirtual + 1)]} onSlotClick={next} />
 
         {arrowBtn(next, 'right')}
       </div>
@@ -225,15 +228,16 @@ function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: 
             key={i}
             onClick={() => {
               if (busy.current) return;
-              const diff = i - active;
-              if (diff === 0) return;
-              navigate(diff < 0 ? 1 : -1);
+              const diff = ((i - activeImg) + total) % total;
+              const shortDiff = diff > total / 2 ? diff - total : diff;
+              if (shortDiff === 0) return;
+              navigate(shortDiff > 0 ? -1 : 1);
             }}
             className="rounded-full transition-all"
             style={{
-              width: i === active ? 18 : 5,
+              width: i === activeImg ? 18 : 5,
               height: 5,
-              background: i === active ? 'hsl(199 93% 60%)' : 'hsl(215 33% 22%)',
+              background: i === activeImg ? 'hsl(199 93% 60%)' : 'hsl(215 33% 22%)',
             }}
           />
         ))}
@@ -241,8 +245,8 @@ function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: 
 
       {/* Caption */}
       <p className="text-center font-mono text-xs mt-2" style={{ color: 'hsl(215 16% 50%)' }}>
-        {screenshots[active].alt}
-        <span style={{ color: 'hsl(215 33% 28%)' }}> · {active + 1}/{total}</span>
+        {screenshots[activeImg].alt}
+        <span style={{ color: 'hsl(215 33% 28%)' }}> · {activeImg + 1}/{total}</span>
       </p>
     </div>
   );
