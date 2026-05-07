@@ -147,24 +147,25 @@ function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: 
   const imgAt = (v: number) => ((v % total) + total) % total;
   const activeImg   = imgAt(centerVirtual);
 
-  const navigate = (dir: -1 | 1) => {
-    if (busy.current) return;
+  // Navigate by N steps (+ve = forward/next, -ve = backward/prev)
+  const navigateSteps = (steps: number) => {
+    if (busy.current || steps === 0) return;
     busy.current = true;
-    const target = -centerVirtual * SLOT_SPACING + dir * SLOT_SPACING;
+    const target = -centerVirtual * SLOT_SPACING - steps * SLOT_SPACING;
+    const duration = Math.min(0.32 + (Math.abs(steps) - 1) * 0.07, 0.58);
     animate(trackX, target, {
       type: 'tween',
-      duration: 0.34,
+      duration,
       ease: [0.25, 0.46, 0.45, 0.94],
       onComplete: () => {
-        // trackX is now at -(centerVirtual - dir) * SLOT_SPACING — no jump needed
-        setCenterVirtual((v) => v - dir);
+        setCenterVirtual((v) => v + steps);
         busy.current = false;
       },
     });
   };
 
-  const prev = () => navigate(1);
-  const next = () => navigate(-1);
+  const prev = () => navigateSteps(-1);
+  const next = () => navigateSteps(1);
 
   const onPointerDown = (e: React.PointerEvent) => {
     if (busy.current) return;
@@ -177,18 +178,21 @@ function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: 
   const onPointerMove = (e: React.PointerEvent) => {
     if (!isDragging.current) return;
     const delta = e.clientX - startX.current;
-    // Slight resistance at extremes
-    trackX.set(baseTrackX.current + delta * 0.92);
+    trackX.set(baseTrackX.current + delta);
   };
 
   const onPointerUp = (e: React.PointerEvent) => {
     if (!isDragging.current) return;
     isDragging.current = false;
-    const delta = e.clientX - startX.current;
-    if (Math.abs(delta) > 50) {
-      navigate(delta > 0 ? 1 : -1);
+    const rawDelta = e.clientX - startX.current;
+    // How many full slots did the drag cover?
+    const rawSteps = -Math.round(rawDelta / SLOT_SPACING);
+    const steps = Math.max(-(total - 1), Math.min(total - 1, rawSteps));
+    if (steps !== 0) {
+      navigateSteps(steps);
     } else {
-      animate(trackX, baseTrackX.current, { type: 'spring', stiffness: 380, damping: 36 });
+      // Didn't reach the next slot — snap back
+      animate(trackX, baseTrackX.current, { type: 'spring', stiffness: 400, damping: 38 });
     }
   };
 
