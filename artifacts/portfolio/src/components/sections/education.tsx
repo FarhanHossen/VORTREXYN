@@ -6,6 +6,7 @@ const education = [
     id: 1,
     degree: 'Master of Information Technology',
     specialization: 'Enterprise Software Development',
+    subMajor: 'Sub-major: Cyber Security',
     institution: 'University of Technology Sydney',
     location: 'Sydney, NSW',
     period: 'Aug 2023 — Jul 2025',
@@ -60,7 +61,11 @@ export function Education() {
               </div>
 
               <h3 className="text-xl font-bold mb-1">{edu.degree}</h3>
-              <div className="text-muted-foreground text-sm mb-4">{edu.specialization}</div>
+              <div className="text-muted-foreground text-sm mb-1">{edu.specialization}</div>
+              {'subMajor' in edu && edu.subMajor && (
+                <div className="text-muted-foreground/60 text-xs font-mono mb-4">{edu.subMajor}</div>
+              )}
+              {!('subMajor' in edu && edu.subMajor) && <div className="mb-4" />}
               <div className="text-primary font-mono text-sm mb-4">{edu.institution}</div>
 
               <div className="inline-block border border-primary/30 px-3 py-1 text-xs font-mono text-primary/80 bg-primary/5">
