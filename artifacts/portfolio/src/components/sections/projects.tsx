@@ -212,6 +212,8 @@ function ScreenshotCarousel({
 
   const onPointerDown = (e: React.PointerEvent) => {
     if (busy.current) return;
+    // Don't steal pointer from arrow buttons
+    if ((e.target as Element).closest('button')) return;
     isDragging.current = true;
     startX.current = e.clientX;
     baseTrackX.current = trackX.get();
