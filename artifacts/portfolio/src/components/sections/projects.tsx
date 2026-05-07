@@ -1,6 +1,9 @@
 import { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import type { MotionValue } from 'framer-motion';
 import { Github, ExternalLink, Terminal, Code2, Layers, Smartphone, Globe, ChevronLeft, ChevronRight } from 'lucide-react';
+
+const SLOT_SPACING = 158;
 
 const PROJECTS = [
   {
@@ -59,114 +62,160 @@ const fadeUp = {
   }),
 };
 
+function SlotImage({
+  dragX,
+  slotPos,
+  screenshot,
+  onSlotClick,
+}: {
+  dragX: MotionValue<number>;
+  slotPos: -1 | 0 | 1;
+  screenshot: { src: string; alt: string };
+  onSlotClick: () => void;
+}) {
+  const baseX = slotPos * SLOT_SPACING;
+
+  const totalX = useTransform(dragX, (v) => baseX + v);
+
+  const centeredness = useTransform(
+    totalX,
+    [-SLOT_SPACING, 0, SLOT_SPACING],
+    [0, 1, 0],
+    { clamp: true },
+  );
+
+  const opacity   = useTransform(centeredness, [0, 1], [0.32, 1]);
+  const blurPx    = useTransform(centeredness, [0, 1], [4, 0]);
+  const filter    = useTransform(blurPx, (b) => `blur(${b}px)`);
+  const imgWidth  = useTransform(centeredness, [0, 1], [106, 164]);
+  const imgHeight = useTransform(centeredness, [0, 1], [190, 292]);
+  const borderA   = useTransform(centeredness, [0, 1], [0.1, 0.55]);
+  const border    = useTransform(borderA, (a) => `2px solid rgba(56,189,248,${a})`);
+  const shadow    = useTransform(centeredness, [0, 1], ['0 0 0px rgba(56,189,248,0)', '0 0 30px rgba(56,189,248,0.2)']);
+
+  const halfW = useTransform(imgWidth,  (w) => -w / 2);
+  const halfH = useTransform(imgHeight, (h) => -h / 2);
+
+  return (
+    <div style={{ position: 'absolute', left: '50%', top: '50%' }}>
+      <motion.div
+        style={{
+          x: useTransform([totalX, halfW] as MotionValue[], ([tx, hw]: number[]) => tx + hw),
+          y: halfH,
+          opacity,
+          filter,
+          width: imgWidth,
+          height: imgHeight,
+          border,
+          boxShadow: shadow,
+          borderRadius: 16,
+          overflow: 'hidden',
+          background: 'hsl(222 48% 7%)',
+          cursor: slotPos === 0 ? 'grab' : 'pointer',
+          flexShrink: 0,
+        }}
+        onClick={() => slotPos !== 0 && onSlotClick()}
+      >
+        <img
+          src={screenshot.src}
+          alt={screenshot.alt}
+          style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'top', display: 'block' }}
+          draggable={false}
+          loading="lazy"
+        />
+      </motion.div>
+    </div>
+  );
+}
+
 function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: string }[] }) {
   const [active, setActive] = useState(0);
-  const [dragOffset, setDragOffset] = useState(0);
-  const dragging = useRef(false);
-  const startX = useRef(0);
-  const total = screenshots.length;
-
-  const prev = () => setActive((i) => (i - 1 + total) % total);
-  const next = () => setActive((i) => (i + 1) % total);
-
-  const onPointerDown = (e: React.PointerEvent) => {
-    dragging.current = true;
-    startX.current = e.clientX;
-    setDragOffset(0);
-    (e.currentTarget as Element).setPointerCapture(e.pointerId);
-  };
-
-  const onPointerMove = (e: React.PointerEvent) => {
-    if (!dragging.current) return;
-    setDragOffset((e.clientX - startX.current) * 0.45);
-  };
-
-  const onPointerUp = (e: React.PointerEvent) => {
-    if (!dragging.current) return;
-    dragging.current = false;
-    const delta = e.clientX - startX.current;
-    if (Math.abs(delta) > 55) delta > 0 ? prev() : next();
-    setDragOffset(0);
-  };
+  const dragX      = useMotionValue(0);
+  const isDragging = useRef(false);
+  const startX     = useRef(0);
+  const busy       = useRef(false);
+  const total      = screenshots.length;
 
   const leftIdx  = (active - 1 + total) % total;
   const rightIdx = (active + 1) % total;
 
+  const navigate = (dir: -1 | 1) => {
+    if (busy.current) return;
+    busy.current = true;
+    animate(dragX, dir * SLOT_SPACING, {
+      type: 'tween',
+      duration: 0.36,
+      ease: [0.25, 0.46, 0.45, 0.94],
+      onComplete: () => {
+        setActive((i) => (i - dir + total) % total);
+        dragX.jump(0);
+        busy.current = false;
+      },
+    });
+  };
+
+  const prev = () => navigate(1);
+  const next = () => navigate(-1);
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    if (busy.current) return;
+    isDragging.current = true;
+    startX.current = e.clientX;
+    (e.currentTarget as Element).setPointerCapture(e.pointerId);
+  };
+
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!isDragging.current) return;
+    dragX.set(e.clientX - startX.current);
+  };
+
+  const onPointerUp = (e: React.PointerEvent) => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    const delta = e.clientX - startX.current;
+    if (Math.abs(delta) > 52) {
+      navigate(delta < 0 ? -1 : 1);
+    } else {
+      animate(dragX, 0, { type: 'spring', stiffness: 380, damping: 36 });
+    }
+  };
+
+  const arrowBtn = (onClick: () => void, side: 'left' | 'right') => (
+    <button
+      onClick={(e) => { e.stopPropagation(); onClick(); }}
+      className="absolute z-20 flex items-center justify-center w-8 h-8 rounded-full transition-all"
+      style={{
+        [side]: 4,
+        top: '50%',
+        transform: 'translateY(-50%)',
+        background: 'hsl(221 39% 14%)',
+        border: '1px solid hsl(215 33% 22%)',
+        color: 'hsl(215 20% 68%)',
+      }}
+      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'hsl(199 93% 60%)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(56,189,248,0.4)'; }}
+      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'hsl(215 20% 68%)'; (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 22%)'; }}
+    >
+      {side === 'left' ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
+    </button>
+  );
+
   return (
     <div className="mb-6 select-none">
       <div
-        className="relative flex items-center justify-center"
-        style={{ height: 330, touchAction: 'pan-y', cursor: 'grab' }}
+        className="relative"
+        style={{ height: 330, overflow: 'hidden', touchAction: 'pan-y', cursor: 'grab' }}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
       >
-        {/* Left arrow */}
-        <button
-          onClick={(e) => { e.stopPropagation(); prev(); }}
-          className="absolute left-0 z-20 flex items-center justify-center w-8 h-8 rounded-full transition-all"
-          style={{ background: 'hsl(221 39% 14%)', border: '1px solid hsl(215 33% 22%)', color: 'hsl(215 20% 68%)' }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'hsl(199 93% 60%)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(56,189,248,0.4)'; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'hsl(215 20% 68%)'; (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 22%)'; }}
-        >
-          <ChevronLeft size={16} />
-        </button>
+        {arrowBtn(prev, 'left')}
 
-        {/* Three-slot strip — draggable */}
-        <div
-          className="flex items-center justify-center gap-4 w-full px-12"
-          style={{
-            transform: `translateX(${dragOffset}px)`,
-            transition: dragOffset === 0 ? 'transform 0.38s cubic-bezier(0.25,0.46,0.45,0.94)' : 'none',
-          }}
-        >
-          {([leftIdx, active, rightIdx] as const).map((idx, slot) => {
-            const isCenter = slot === 1;
-            return (
-              <motion.div
-                key={`slot${slot}`}
-                animate={{
-                  opacity: isCenter ? 1 : 0.38,
-                  filter: isCenter ? 'blur(0px)' : 'blur(3.5px)',
-                }}
-                transition={{ duration: 0.32, ease: 'easeInOut' }}
-                onClick={(e) => { e.stopPropagation(); if (!isCenter) { slot === 0 ? prev() : next(); } }}
-                className="shrink-0 rounded-2xl overflow-hidden"
-                style={{
-                  width: isCenter ? 162 : 108,
-                  height: isCenter ? 290 : 193,
-                  border: isCenter ? '2px solid rgba(56,189,248,0.55)' : '1px solid hsl(215 33% 22%)',
-                  cursor: isCenter ? 'grab' : 'pointer',
-                  boxShadow: isCenter ? '0 0 32px rgba(56,189,248,0.18)' : 'none',
-                  background: 'hsl(222 48% 8%)',
-                  transition: 'width 0.32s ease, height 0.32s ease, border 0.32s ease, box-shadow 0.32s ease',
-                  flexShrink: 0,
-                }}
-              >
-                <img
-                  src={screenshots[idx].src}
-                  alt={screenshots[idx].alt}
-                  className="w-full h-full"
-                  style={{ objectFit: 'contain', objectPosition: 'top' }}
-                  loading="lazy"
-                  draggable={false}
-                />
-              </motion.div>
-            );
-          })}
-        </div>
+        <SlotImage dragX={dragX} slotPos={-1} screenshot={screenshots[leftIdx]}  onSlotClick={prev} />
+        <SlotImage dragX={dragX} slotPos={0}  screenshot={screenshots[active]}   onSlotClick={() => {}} />
+        <SlotImage dragX={dragX} slotPos={1}  screenshot={screenshots[rightIdx]} onSlotClick={next} />
 
-        {/* Right arrow */}
-        <button
-          onClick={(e) => { e.stopPropagation(); next(); }}
-          className="absolute right-0 z-20 flex items-center justify-center w-8 h-8 rounded-full transition-all"
-          style={{ background: 'hsl(221 39% 14%)', border: '1px solid hsl(215 33% 22%)', color: 'hsl(215 20% 68%)' }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'hsl(199 93% 60%)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(56,189,248,0.4)'; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'hsl(215 20% 68%)'; (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 22%)'; }}
-        >
-          <ChevronRight size={16} />
-        </button>
+        {arrowBtn(next, 'right')}
       </div>
 
       {/* Dot indicators */}
@@ -174,7 +223,12 @@ function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: 
         {screenshots.map((_, i) => (
           <button
             key={i}
-            onClick={() => setActive(i)}
+            onClick={() => {
+              if (busy.current) return;
+              const diff = i - active;
+              if (diff === 0) return;
+              navigate(diff < 0 ? 1 : -1);
+            }}
             className="rounded-full transition-all"
             style={{
               width: i === active ? 18 : 5,
