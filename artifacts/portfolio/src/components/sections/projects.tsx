@@ -4,22 +4,6 @@ import { Github, ExternalLink, Terminal, Code2, Layers, Smartphone, Globe } from
 const PROJECTS = [
   {
     id: 1,
-    title: 'VORTREXYN Car Rental',
-    subtitle: 'Full-Stack Car Rental Platform',
-    year: '2024',
-    type: 'web' as const,
-    bullets: [
-      'Built a full-stack car rental platform with 625+ vehicles, user authentication, real-time Firestore database, and PayPal live payment integration.',
-      'Developed an admin dashboard with booking management, fleet stock control, and AI-generated vehicle images using OpenAI DALL-E 3.',
-      'Deployed to a custom domain with Node.js/Express backend serving a static HTML/CSS/JS frontend.',
-    ],
-    tags: ['JavaScript', 'HTML5', 'CSS3', 'Node.js', 'Express.js', 'Firebase', 'Firestore', 'OpenAI API', 'PayPal SDK', 'REST APIs', 'Git'],
-    github: 'https://github.com/FarhanHossen/vortrexyn-car-rental',
-    demo: 'https://vortrexyn-premium-car-rental-system.com/',
-    demoLabel: 'Live Site',
-  },
-  {
-    id: 2,
     title: 'VORTREXYN Bubble Pop',
     subtitle: 'Cross-Platform Arcade Mobile Game',
     year: '2025',
@@ -34,6 +18,22 @@ const PROJECTS = [
     github: 'https://github.com/FarhanHossen/Bubble-Pop',
     demo: 'https://apps.apple.com/us/app/vortrexyn-bubble-pop/id6764064306',
     demoLabel: 'App Store',
+  },
+  {
+    id: 2,
+    title: 'VORTREXYN Car Rental',
+    subtitle: 'Full-Stack Car Rental Platform',
+    year: '2024',
+    type: 'web' as const,
+    bullets: [
+      'Built a full-stack car rental platform with 625+ vehicles, user authentication, real-time Firestore database, and PayPal live payment integration.',
+      'Developed an admin dashboard with booking management, fleet stock control, and AI-generated vehicle images using OpenAI DALL-E 3.',
+      'Deployed to a custom domain with Node.js/Express backend serving a static HTML/CSS/JS frontend.',
+    ],
+    tags: ['JavaScript', 'HTML5', 'CSS3', 'Node.js', 'Express.js', 'Firebase', 'Firestore', 'OpenAI API', 'PayPal SDK', 'REST APIs', 'Git'],
+    github: 'https://github.com/FarhanHossen/vortrexyn-car-rental',
+    demo: 'https://vortrexyn-premium-car-rental-system.com/',
+    demoLabel: 'Live Site',
   },
 ];
 
