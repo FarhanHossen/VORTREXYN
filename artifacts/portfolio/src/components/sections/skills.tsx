@@ -61,7 +61,7 @@ export function Skills() {
                     className="font-mono text-xs px-2.5 py-1.5 rounded transition-colors"
                     style={{
                       background: 'hsl(222 48% 11%)',
-                      color: 'hsl(210 40% 84%)',
+                      color: 'hsl(215 25% 78%)',
                       border: '1px solid hsl(215 33% 17%)',
                     }}
                   >
@@ -95,7 +95,7 @@ function SectionHeader({
     >
       <div className="flex items-center gap-2 mb-2">
         <span style={{ color: 'hsl(199 93% 60%)' }}>{icon}</span>
-        <span className="font-mono text-xs" style={{ color: 'hsl(215 25% 27%)' }}>
+        <span className="font-mono text-xs" style={{ color: 'hsl(215 16% 50%)' }}>
           // {label}
         </span>
       </div>

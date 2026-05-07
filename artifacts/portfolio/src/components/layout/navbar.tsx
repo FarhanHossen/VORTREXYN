@@ -76,7 +76,7 @@ export function Navbar() {
               onClick={() => scrollTo(item.id)}
               className="font-mono text-xs transition-colors duration-200"
               style={{
-                color: activeSection === item.id ? 'hsl(199 93% 60%)' : 'hsl(215 16% 47%)',
+                color: activeSection === item.id ? 'hsl(199 93% 60%)' : 'hsl(215 16% 60%)',
               }}
               onMouseEnter={(e) => {
                 if (activeSection !== item.id)
@@ -84,7 +84,7 @@ export function Navbar() {
               }}
               onMouseLeave={(e) => {
                 if (activeSection !== item.id)
-                  (e.currentTarget as HTMLElement).style.color = 'hsl(215 16% 47%)';
+                  (e.currentTarget as HTMLElement).style.color = 'hsl(215 16% 60%)';
               }}
             >
               <span style={{ color: 'hsl(199 93% 60%)' }}>./</span>
@@ -100,14 +100,14 @@ export function Navbar() {
           rel="noopener noreferrer"
           data-testid="nav-github"
           className="font-mono text-xs px-3 py-1.5 rounded flex items-center gap-1.5 transition-all duration-200"
-          style={{ border: '1px solid hsl(215 33% 17%)', color: 'hsl(215 16% 47%)' }}
+          style={{ border: '1px solid hsl(215 33% 22%)', color: 'hsl(215 16% 60%)' }}
           onMouseEnter={(e) => {
             (e.currentTarget as HTMLElement).style.color = 'hsl(199 93% 60%)';
             (e.currentTarget as HTMLElement).style.borderColor = 'hsl(199 93% 60%)';
           }}
           onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.color = 'hsl(215 16% 47%)';
-            (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 17%)';
+            (e.currentTarget as HTMLElement).style.color = 'hsl(215 16% 60%)';
+            (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 22%)';
           }}
         >
           <Github size={13} /> GitHub

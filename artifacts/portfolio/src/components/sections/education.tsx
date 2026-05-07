@@ -63,25 +63,25 @@ export function Education() {
                     {edu.degree}
                   </h3>
                   {edu.major && (
-                    <p className="text-sm mb-0.5" style={{ color: 'hsl(215 19% 65%)' }}>
+                    <p className="text-sm mb-0.5" style={{ color: 'hsl(215 25% 75%)' }}>
                       {edu.major}
                     </p>
                   )}
                   {edu.subMajor && (
-                    <p className="font-mono text-xs mt-1 mb-2" style={{ color: 'hsl(215 16% 47%)' }}>
+                    <p className="font-mono text-xs mt-1 mb-2" style={{ color: 'hsl(215 16% 58%)' }}>
                       {edu.subMajor}
                     </p>
                   )}
                   <p className="font-mono text-sm mt-2" style={{ color: 'hsl(199 93% 60%)' }}>
                     {edu.institution}
                   </p>
-                  <p className="font-mono text-xs mt-0.5" style={{ color: 'hsl(215 16% 47%)' }}>
+                  <p className="font-mono text-xs mt-0.5" style={{ color: 'hsl(215 16% 55%)' }}>
                     {edu.location}
                   </p>
                 </div>
 
                 <div className="flex flex-col items-start sm:items-end gap-2 shrink-0">
-                  <span className="font-mono text-xs" style={{ color: 'hsl(215 16% 47%)' }}>
+                  <span className="font-mono text-xs" style={{ color: 'hsl(215 16% 55%)' }}>
                     {edu.period}
                   </span>
                   <span
@@ -122,7 +122,7 @@ function SectionHeader({
     >
       <div className="flex items-center gap-2 mb-2">
         <span style={{ color: 'hsl(199 93% 60%)' }}>{icon}</span>
-        <span className="font-mono text-xs" style={{ color: 'hsl(215 25% 27%)' }}>
+        <span className="font-mono text-xs" style={{ color: 'hsl(215 16% 50%)' }}>
           // {label}
         </span>
       </div>

@@ -23,7 +23,7 @@ export function Contact() {
           viewport={{ once: true }}
           className="mt-10 max-w-xl"
         >
-          <p className="text-sm leading-relaxed mb-8" style={{ color: 'hsl(215 16% 47%)' }}>
+          <p className="text-sm leading-relaxed mb-8" style={{ color: 'hsl(215 25% 72%)' }}>
             I'm currently open to new opportunities in software development. Whether you have a role
             in mind, a project idea, or just want to connect — feel free to reach out. I'll get back
             to you as soon as possible.
@@ -65,14 +65,14 @@ export function Contact() {
                     target={href.startsWith('http') ? '_blank' : undefined}
                     rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     className="font-mono text-sm transition-colors"
-                    style={{ color: 'hsl(215 19% 65%)' }}
+                    style={{ color: 'hsl(215 25% 72%)' }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(199 93% 60%)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = 'hsl(215 19% 65%)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = 'hsl(215 25% 72%)')}
                   >
                     {label}
                   </a>
                 ) : (
-                  <span className="font-mono text-sm" style={{ color: 'hsl(215 19% 65%)' }}>
+                  <span className="font-mono text-sm" style={{ color: 'hsl(215 25% 72%)' }}>
                     {label}
                   </span>
                 )}
@@ -93,7 +93,7 @@ export function Contact() {
 
       {/* Footer */}
       <div className="max-w-6xl mx-auto px-6 mt-20 pt-8" style={{ borderTop: '1px solid hsl(215 33% 17%)' }}>
-        <p className="font-mono text-xs text-center" style={{ color: 'hsl(215 25% 27%)' }}>
+        <p className="font-mono text-xs text-center" style={{ color: 'hsl(215 16% 45%)' }}>
           <span style={{ color: 'hsl(215 33% 17%)' }}>// </span>
           Built by Farhan Hossen · Sydney, NSW · {new Date().getFullYear()}
         </p>
@@ -120,7 +120,7 @@ function SectionHeader({
     >
       <div className="flex items-center gap-2 mb-2">
         <span style={{ color: 'hsl(199 93% 60%)' }}>{icon}</span>
-        <span className="font-mono text-xs" style={{ color: 'hsl(215 25% 27%)' }}>
+        <span className="font-mono text-xs" style={{ color: 'hsl(215 16% 50%)' }}>
           // {label}
         </span>
       </div>

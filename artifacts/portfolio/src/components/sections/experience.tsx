@@ -82,18 +82,18 @@ export function Experience() {
                   <p className="font-mono text-sm" style={{ color: 'hsl(199 93% 60%)' }}>
                     {job.company}
                   </p>
-                  <p className="font-mono text-xs mt-0.5" style={{ color: 'hsl(215 16% 47%)' }}>
+                  <p className="font-mono text-xs mt-0.5" style={{ color: 'hsl(215 16% 55%)' }}>
                     {job.location}
                   </p>
                 </div>
-                <span className="font-mono text-xs shrink-0" style={{ color: 'hsl(215 16% 47%)' }}>
+                <span className="font-mono text-xs shrink-0" style={{ color: 'hsl(215 16% 55%)' }}>
                   {job.period}
                 </span>
               </div>
 
               <ul className="space-y-1.5">
                 {job.points.map((pt) => (
-                  <li key={pt} className="flex gap-2 text-sm" style={{ color: 'hsl(215 16% 47%)' }}>
+                  <li key={pt} className="flex gap-2 text-sm" style={{ color: 'hsl(215 25% 72%)' }}>
                     <ChevronRight
                       size={14}
                       className="shrink-0 mt-0.5"
@@ -129,7 +129,7 @@ function SectionHeader({
     >
       <div className="flex items-center gap-2 mb-2">
         <span style={{ color: 'hsl(199 93% 60%)' }}>{icon}</span>
-        <span className="font-mono text-xs" style={{ color: 'hsl(215 25% 27%)' }}>
+        <span className="font-mono text-xs" style={{ color: 'hsl(215 16% 50%)' }}>
           // {label}
         </span>
       </div>

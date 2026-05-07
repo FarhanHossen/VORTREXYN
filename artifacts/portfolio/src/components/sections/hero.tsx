@@ -23,8 +23,8 @@ export function Hero() {
 
       <div className="max-w-6xl mx-auto px-6 w-full relative z-10 py-24">
         <motion.div initial="hidden" animate="visible" className="max-w-3xl">
-          <motion.p variants={fadeUp} custom={0} className="font-mono text-sm mb-4" style={{ color: 'hsl(215 16% 47%)' }}>
-            <span style={{ color: 'hsl(215 25% 27%)' }}># </span>
+          <motion.p variants={fadeUp} custom={0} className="font-mono text-sm mb-4" style={{ color: 'hsl(215 20% 65%)' }}>
+            <span style={{ color: 'hsl(215 16% 50%)' }}># </span>
             <span style={{ color: 'hsl(199 93% 60%)' }}>Hey, I'm</span>
           </motion.p>
 
@@ -41,7 +41,7 @@ export function Hero() {
             variants={fadeUp}
             custom={2}
             className="text-3xl md:text-4xl font-semibold mb-7"
-            style={{ color: 'hsl(215 16% 47%)' }}
+            style={{ color: 'hsl(215 20% 65%)' }}
           >
             Software Developer
           </motion.h2>
@@ -50,7 +50,7 @@ export function Hero() {
             variants={fadeUp}
             custom={3}
             className="text-base leading-relaxed mb-10"
-            style={{ color: 'hsl(215 19% 65%)', maxWidth: 560 }}
+            style={{ color: 'hsl(215 25% 78%)', maxWidth: 560 }}
           >
             MIT graduate (Enterprise Software Development + Cyber Security) from UTS, Sydney. I build
             clean, practical software — from full-stack web apps to backend systems. Currently based in
@@ -71,14 +71,14 @@ export function Hero() {
               data-testid="button-get-in-touch"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               className="font-mono text-sm px-5 py-2.5 rounded font-medium transition-all flex items-center gap-2"
-              style={{ border: '1px solid hsl(215 33% 17%)', color: 'hsl(215 19% 65%)' }}
+              style={{ border: '1px solid hsl(215 33% 28%)', color: 'hsl(215 20% 72%)' }}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.borderColor = 'hsl(199 93% 60%)';
                 (e.currentTarget as HTMLElement).style.color = 'hsl(199 93% 60%)';
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 17%)';
-                (e.currentTarget as HTMLElement).style.color = 'hsl(215 19% 65%)';
+                (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 28%)';
+                (e.currentTarget as HTMLElement).style.color = 'hsl(215 20% 72%)';
               }}
             >
               <Mail size={14} /> Get in Touch
@@ -95,14 +95,14 @@ export function Hero() {
                 key={label}
                 href={href}
                 className="flex items-center gap-1.5 font-mono text-xs transition-colors"
-                style={{ color: 'hsl(215 25% 27%)' }}
+                style={{ color: 'hsl(215 20% 68%)' }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(199 93% 60%)')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'hsl(215 25% 27%)')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'hsl(215 20% 68%)')}
               >
                 {icon} {label}
               </a>
             ))}
-            <span className="font-mono text-xs flex items-center gap-1" style={{ color: 'hsl(215 25% 27%)' }}>
+            <span className="font-mono text-xs flex items-center gap-1" style={{ color: 'hsl(215 20% 68%)' }}>
               <MapPin size={13} /> Sydney, NSW
             </span>
           </motion.div>

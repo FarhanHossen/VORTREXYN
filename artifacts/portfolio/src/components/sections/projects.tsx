@@ -96,7 +96,7 @@ export function Projects() {
                 </div>
               </div>
 
-              <p className="text-sm leading-relaxed mb-5" style={{ color: 'hsl(215 16% 47%)' }}>
+              <p className="text-sm leading-relaxed mb-5" style={{ color: 'hsl(215 25% 72%)' }}>
                 {p.description}
               </p>
 
@@ -126,13 +126,13 @@ export function Projects() {
             viewport={{ once: true }}
             custom={1}
             className="p-7 rounded-lg flex items-center justify-between"
-            style={{ border: '1px dashed hsl(215 33% 17%)', color: 'hsl(215 25% 27%)' }}
+            style={{ border: '1px dashed hsl(215 33% 17%)', color: 'hsl(215 16% 50%)' }}
           >
             <div>
-              <p className="font-mono text-sm" style={{ color: 'hsl(215 25% 27%)' }}>
+              <p className="font-mono text-sm" style={{ color: 'hsl(215 16% 50%)' }}>
                 More projects coming soon
               </p>
-              <p className="font-mono text-xs mt-1" style={{ color: 'hsl(215 33% 17%)' }}>
+              <p className="font-mono text-xs mt-1" style={{ color: 'hsl(215 16% 40%)' }}>
                 Currently working on new builds
               </p>
             </div>
@@ -162,7 +162,7 @@ function SectionHeader({
     >
       <div className="flex items-center gap-2 mb-2">
         <span style={{ color: 'hsl(199 93% 60%)' }}>{icon}</span>
-        <span className="font-mono text-xs" style={{ color: 'hsl(215 25% 27%)' }}>
+        <span className="font-mono text-xs" style={{ color: 'hsl(215 16% 50%)' }}>
           // {label}
         </span>
       </div>
