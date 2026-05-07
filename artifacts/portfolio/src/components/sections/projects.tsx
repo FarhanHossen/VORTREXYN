@@ -14,6 +14,13 @@ const PROJECTS = [
       'Integrated Firebase Auth and Firestore for live score tracking and player accounts across all devices.',
       'Configured custom domain with Cloudflare DNS, SSL, and App Store Connect domain verification.',
     ],
+    screenshots: [
+      { src: '/screenshots/bubble-pop-splash.png', alt: 'Splash screen' },
+      { src: '/screenshots/bubble-pop-lobby.png', alt: 'Game lobby & settings' },
+      { src: '/screenshots/bubble-pop-leaderboard.png', alt: 'Global leaderboard' },
+      { src: '/screenshots/bubble-pop-gameplay-easy.png', alt: 'Gameplay — Easy' },
+      { src: '/screenshots/bubble-pop-gameplay-hard.png', alt: 'Gameplay — Hard' },
+    ],
     tags: ['React Native', 'Expo', 'TypeScript', 'Firebase', 'Firestore', 'EAS', 'App Store Connect', 'Cloudflare', 'REST APIs', 'Git'],
     github: 'https://github.com/FarhanHossen/Bubble-Pop',
     demo: 'https://apps.apple.com/us/app/vortrexyn-bubble-pop/id6764064306',
@@ -149,6 +156,31 @@ export function Projects() {
                   </li>
                 ))}
               </ul>
+
+              {'screenshots' in p && p.screenshots && p.screenshots.length > 0 && (
+                <div className="mb-5 -mx-1">
+                  <div
+                    className="flex gap-2.5 overflow-x-auto pb-2"
+                    style={{ scrollbarWidth: 'thin', scrollbarColor: 'hsl(215 33% 22%) transparent' }}
+                  >
+                    {p.screenshots.map((shot) => (
+                      <div
+                        key={shot.src}
+                        className="shrink-0 rounded-lg overflow-hidden"
+                        style={{ width: 100, height: 178, border: '1px solid hsl(215 33% 22%)' }}
+                      >
+                        <img
+                          src={shot.src}
+                          alt={shot.alt}
+                          title={shot.alt}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className="flex flex-wrap gap-2">
                 {p.tags.map((tag) => (
