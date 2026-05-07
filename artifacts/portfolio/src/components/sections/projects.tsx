@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, ExternalLink, Terminal, Code2, Layers, Smartphone, Globe, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -61,82 +61,107 @@ const fadeUp = {
 
 function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: string }[] }) {
   const [active, setActive] = useState(0);
+  const [dragOffset, setDragOffset] = useState(0);
+  const dragging = useRef(false);
+  const startX = useRef(0);
   const total = screenshots.length;
 
   const prev = () => setActive((i) => (i - 1 + total) % total);
   const next = () => setActive((i) => (i + 1) % total);
 
+  const onPointerDown = (e: React.PointerEvent) => {
+    dragging.current = true;
+    startX.current = e.clientX;
+    setDragOffset(0);
+    (e.currentTarget as Element).setPointerCapture(e.pointerId);
+  };
+
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!dragging.current) return;
+    setDragOffset((e.clientX - startX.current) * 0.45);
+  };
+
+  const onPointerUp = (e: React.PointerEvent) => {
+    if (!dragging.current) return;
+    dragging.current = false;
+    const delta = e.clientX - startX.current;
+    if (Math.abs(delta) > 55) delta > 0 ? prev() : next();
+    setDragOffset(0);
+  };
+
   const leftIdx  = (active - 1 + total) % total;
   const rightIdx = (active + 1) % total;
-  const slots = [
-    { idx: leftIdx,  pos: 'left'   },
-    { idx: active,   pos: 'center' },
-    { idx: rightIdx, pos: 'right'  },
-  ] as const;
 
   return (
-    <div className="mb-6">
-      <div className="relative flex items-center justify-center" style={{ height: 320 }}>
-        {/* Left arrow — always active (loops) */}
+    <div className="mb-6 select-none">
+      <div
+        className="relative flex items-center justify-center"
+        style={{ height: 330, touchAction: 'pan-y', cursor: 'grab' }}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
+      >
+        {/* Left arrow */}
         <button
-          onClick={prev}
-          className="absolute left-0 z-10 flex items-center justify-center w-8 h-8 rounded-full transition-all"
-          style={{
-            background: 'hsl(221 39% 11%)',
-            border: '1px solid hsl(215 33% 22%)',
-            color: 'hsl(215 20% 68%)',
-          }}
+          onClick={(e) => { e.stopPropagation(); prev(); }}
+          className="absolute left-0 z-20 flex items-center justify-center w-8 h-8 rounded-full transition-all"
+          style={{ background: 'hsl(221 39% 14%)', border: '1px solid hsl(215 33% 22%)', color: 'hsl(215 20% 68%)' }}
           onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'hsl(199 93% 60%)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(56,189,248,0.4)'; }}
           onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'hsl(215 20% 68%)'; (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 22%)'; }}
         >
           <ChevronLeft size={16} />
         </button>
 
-        {/* Three-slot layout */}
-        <div className="flex items-center justify-center gap-4 w-full px-12">
-          {slots.map(({ idx, pos }) => {
-            const isCenter = pos === 'center';
+        {/* Three-slot strip — draggable */}
+        <div
+          className="flex items-center justify-center gap-4 w-full px-12"
+          style={{
+            transform: `translateX(${dragOffset}px)`,
+            transition: dragOffset === 0 ? 'transform 0.38s cubic-bezier(0.25,0.46,0.45,0.94)' : 'none',
+          }}
+        >
+          {([leftIdx, active, rightIdx] as const).map((idx, slot) => {
+            const isCenter = slot === 1;
             return (
               <motion.div
-                key={`${pos}-${idx}`}
+                key={`slot${slot}`}
                 animate={{
-                  opacity: isCenter ? 1 : 0.4,
+                  opacity: isCenter ? 1 : 0.38,
                   filter: isCenter ? 'blur(0px)' : 'blur(3.5px)',
                 }}
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
-                onClick={() => !isCenter && (pos === 'left' ? prev() : next())}
+                transition={{ duration: 0.32, ease: 'easeInOut' }}
+                onClick={(e) => { e.stopPropagation(); if (!isCenter) { slot === 0 ? prev() : next(); } }}
                 className="shrink-0 rounded-2xl overflow-hidden"
                 style={{
-                  width: isCenter ? 160 : 110,
-                  height: isCenter ? 285 : 196,
-                  border: isCenter
-                    ? '2px solid rgba(56,189,248,0.55)'
-                    : '1px solid hsl(215 33% 22%)',
-                  cursor: isCenter ? 'default' : 'pointer',
+                  width: isCenter ? 162 : 108,
+                  height: isCenter ? 290 : 193,
+                  border: isCenter ? '2px solid rgba(56,189,248,0.55)' : '1px solid hsl(215 33% 22%)',
+                  cursor: isCenter ? 'grab' : 'pointer',
                   boxShadow: isCenter ? '0 0 32px rgba(56,189,248,0.18)' : 'none',
-                  transition: 'width 0.3s ease, height 0.3s ease, box-shadow 0.3s ease, border 0.3s ease',
+                  background: 'hsl(222 48% 8%)',
+                  transition: 'width 0.32s ease, height 0.32s ease, border 0.32s ease, box-shadow 0.32s ease',
+                  flexShrink: 0,
                 }}
               >
                 <img
                   src={screenshots[idx].src}
                   alt={screenshots[idx].alt}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full"
+                  style={{ objectFit: 'contain', objectPosition: 'top' }}
                   loading="lazy"
+                  draggable={false}
                 />
               </motion.div>
             );
           })}
         </div>
 
-        {/* Right arrow — always active (loops) */}
+        {/* Right arrow */}
         <button
-          onClick={next}
-          className="absolute right-0 z-10 flex items-center justify-center w-8 h-8 rounded-full transition-all"
-          style={{
-            background: 'hsl(221 39% 11%)',
-            border: '1px solid hsl(215 33% 22%)',
-            color: 'hsl(215 20% 68%)',
-          }}
+          onClick={(e) => { e.stopPropagation(); next(); }}
+          className="absolute right-0 z-20 flex items-center justify-center w-8 h-8 rounded-full transition-all"
+          style={{ background: 'hsl(221 39% 14%)', border: '1px solid hsl(215 33% 22%)', color: 'hsl(215 20% 68%)' }}
           onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'hsl(199 93% 60%)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(56,189,248,0.4)'; }}
           onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'hsl(215 20% 68%)'; (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 22%)'; }}
         >
@@ -163,7 +188,7 @@ function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: 
       {/* Caption */}
       <p className="text-center font-mono text-xs mt-2" style={{ color: 'hsl(215 16% 50%)' }}>
         {screenshots[active].alt}
-        <span style={{ color: 'hsl(215 33% 25%)' }}> · {active + 1}/{total}</span>
+        <span style={{ color: 'hsl(215 33% 28%)' }}> · {active + 1}/{total}</span>
       </p>
     </div>
   );
