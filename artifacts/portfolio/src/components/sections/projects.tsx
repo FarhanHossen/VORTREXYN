@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, Terminal, Code2, Layers } from 'lucide-react';
+import { Github, ExternalLink, Terminal, Code2, Layers, Smartphone, Globe } from 'lucide-react';
 
 const PROJECTS = [
   {
@@ -7,6 +7,7 @@ const PROJECTS = [
     title: 'VORTREXYN Car Rental',
     subtitle: 'Full-Stack Car Rental Platform',
     year: '2024',
+    type: 'web' as const,
     bullets: [
       'Built a full-stack car rental platform with 625+ vehicles, user authentication, real-time Firestore database, and PayPal live payment integration.',
       'Developed an admin dashboard with booking management, fleet stock control, and AI-generated vehicle images using OpenAI DALL-E 3.',
@@ -15,7 +16,24 @@ const PROJECTS = [
     tags: ['JavaScript', 'HTML5', 'CSS3', 'Node.js', 'Express.js', 'Firebase', 'Firestore', 'OpenAI API', 'PayPal SDK', 'REST APIs', 'Git'],
     github: 'https://github.com/FarhanHossen/vortrexyn-car-rental',
     demo: 'https://vortrexyn-premium-car-rental-system.com/',
-    featured: true,
+    demoLabel: 'Live Site',
+  },
+  {
+    id: 2,
+    title: 'VORTREXYN Bubble Pop',
+    subtitle: 'Cross-Platform Arcade Mobile Game',
+    year: '2025',
+    type: 'mobile' as const,
+    bullets: [
+      'Built a cross-platform arcade mobile game published on the Apple App Store with real-time global leaderboard and user authentication.',
+      'Managed full iOS deployment pipeline including Apple Distribution Certificates, Provisioning Profiles, App Store Connect submission, and TestFlight testing.',
+      'Integrated Firebase Auth and Firestore for live score tracking and player accounts across all devices.',
+      'Configured custom domain with Cloudflare DNS, SSL, and App Store Connect domain verification.',
+    ],
+    tags: ['React Native', 'Expo', 'TypeScript', 'Firebase', 'Firestore', 'EAS', 'App Store Connect', 'Cloudflare', 'REST APIs', 'Git'],
+    github: 'https://github.com/FarhanHossen/Bubble-Pop',
+    demo: 'https://apps.apple.com/us/app/vortrexyn-bubble-pop/id6764064306',
+    demoLabel: 'App Store',
   },
 ];
 
@@ -60,6 +78,15 @@ export function Projects() {
                     <span className="font-mono text-xs" style={{ color: 'hsl(199 93% 60%)' }}>
                       featured project
                     </span>
+                    {p.type === 'mobile' ? (
+                      <span className="font-mono text-xs flex items-center gap-1 px-1.5 py-0.5 rounded" style={{ background: 'rgba(56,189,248,0.08)', color: 'hsl(199 93% 60%)', border: '1px solid rgba(56,189,248,0.18)' }}>
+                        <Smartphone size={10} /> mobile
+                      </span>
+                    ) : (
+                      <span className="font-mono text-xs flex items-center gap-1 px-1.5 py-0.5 rounded" style={{ background: 'rgba(56,189,248,0.08)', color: 'hsl(199 93% 60%)', border: '1px solid rgba(56,189,248,0.18)' }}>
+                        <Globe size={10} /> web
+                      </span>
+                    )}
                     {p.year && (
                       <span className="font-mono text-xs" style={{ color: 'hsl(215 16% 50%)' }}>
                         · {p.year}
@@ -95,13 +122,20 @@ export function Projects() {
                       target="_blank"
                       rel="noopener noreferrer"
                       data-testid={`link-demo-${p.id}`}
-                      title="View live site"
-                      className="transition-colors"
-                      style={{ color: 'hsl(215 16% 55%)' }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(199 93% 60%)')}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = 'hsl(215 16% 55%)')}
+                      title={p.demoLabel ?? 'View live site'}
+                      className="font-mono text-xs flex items-center gap-1.5 px-2.5 py-1.5 rounded transition-all"
+                      style={{ color: 'hsl(215 20% 68%)', border: '1px solid hsl(215 33% 22%)' }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.color = 'hsl(199 93% 60%)';
+                        (e.currentTarget as HTMLElement).style.borderColor = 'rgba(56,189,248,0.4)';
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.color = 'hsl(215 20% 68%)';
+                        (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 22%)';
+                      }}
                     >
-                      <ExternalLink size={18} />
+                      <ExternalLink size={12} />
+                      {p.demoLabel ?? 'Live Site'}
                     </a>
                   )}
                 </div>
