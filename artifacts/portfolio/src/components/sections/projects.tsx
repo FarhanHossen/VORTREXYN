@@ -56,7 +56,7 @@ const PROJECTS = [
   },
   {
     id: 2,
-    title: 'VORTREXYN Car Rental',
+    title: 'VORTREXYN Premium Car Rental System',
     subtitle: 'Full-Stack Car Rental Platform',
     year: '2024',
     type: 'web' as const,
