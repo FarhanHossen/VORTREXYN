@@ -1,74 +1,72 @@
 import { motion } from 'framer-motion';
-import { Badge } from '@/components/ui/badge';
-import { Database, Layout, Server, Settings } from 'lucide-react';
+import { Wrench } from 'lucide-react';
 
-const skillCategories = [
+const SKILL_GROUPS: { category: string; symbol: string; skills: string[] }[] = [
   {
-    title: 'Languages',
-    icon: <Settings className="text-primary w-5 h-5" />,
-    skills: ['TypeScript', 'JavaScript', 'Python', 'Go', 'Rust', 'SQL', 'HTML/CSS']
+    category: 'Languages',
+    symbol: '{ }',
+    skills: ['TypeScript', 'JavaScript', 'Python', 'HTML5', 'CSS3', 'SQL'],
   },
   {
-    title: 'Frontend',
-    icon: <Layout className="text-primary w-5 h-5" />,
-    skills: ['React', 'Next.js', 'Vue', 'Tailwind CSS', 'Framer Motion', 'Redux', 'Zustand']
+    category: 'Frameworks',
+    symbol: '[ ]',
+    skills: ['React', 'Node.js', 'Express', 'Tailwind CSS', 'Framer Motion'],
   },
   {
-    title: 'Backend',
-    icon: <Server className="text-primary w-5 h-5" />,
-    skills: ['Node.js', 'Express', 'NestJS', 'Django', 'FastAPI', 'GraphQL', 'REST APIs']
+    category: 'Tools & Platforms',
+    symbol: '⚙',
+    skills: ['Firebase', 'PostgreSQL', 'Docker', 'Git', 'REST APIs', 'OpenAI API', 'PayPal SDK'],
   },
-  {
-    title: 'Infrastructure & Data',
-    icon: <Database className="text-primary w-5 h-5" />,
-    skills: ['PostgreSQL', 'MongoDB', 'Redis', 'Docker', 'Kubernetes', 'AWS', 'CI/CD']
-  }
 ];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, delay: i * 0.08, ease: 'easeOut' },
+  }),
+};
 
 export function Skills() {
   return (
-    <section id="skills" className="py-32 relative">
-      <div className="container mx-auto px-6 md:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="mb-16"
-        >
-          <div className="flex items-center gap-4 mb-4">
-            <div className="h-[1px] w-12 bg-primary" />
-            <h2 className="text-3xl font-bold tracking-tight">Technical Arsenal</h2>
-          </div>
-          <p className="text-muted-foreground max-w-2xl">
-            A comprehensive overview of the tools, languages, and frameworks I use to build robust software.
-          </p>
-        </motion.div>
+    <section id="skills" className="py-24">
+      <div className="max-w-6xl mx-auto px-6">
+        <SectionHeader icon={<Wrench size={16} />} label="skills" title="Technical Toolkit" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-          {skillCategories.map((category, index) => (
+        <div className="mt-10 grid md:grid-cols-3 gap-6">
+          {SKILL_GROUPS.map((group, i) => (
             <motion.div
-              key={category.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="p-8 border border-border bg-card/20 rounded-none hover:border-primary/30 transition-colors"
+              key={group.category}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              custom={i}
+              className="p-6 rounded-lg"
+              style={{ background: 'hsl(221 39% 11%)', border: '1px solid hsl(215 33% 17%)' }}
             >
-              <div className="flex items-center gap-3 mb-6">
-                {category.icon}
-                <h3 className="text-lg font-bold">{category.title}</h3>
+              <div className="flex items-center gap-2 mb-5">
+                <span className="font-mono text-xs font-medium" style={{ color: 'hsl(199 93% 60%)' }}>
+                  {group.symbol}
+                </span>
+                <h3 className="font-mono text-sm font-semibold" style={{ color: 'hsl(215 19% 65%)' }}>
+                  {group.category}
+                </h3>
               </div>
-              
               <div className="flex flex-wrap gap-2">
-                {category.skills.map(skill => (
-                  <Badge 
-                    key={skill} 
-                    variant="outline" 
-                    className="font-mono text-sm py-1 px-3 border-border/60 hover:border-primary/60 transition-colors rounded-none"
+                {group.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="font-mono text-xs px-2.5 py-1.5 rounded transition-colors"
+                    style={{
+                      background: 'hsl(222 48% 11%)',
+                      color: 'hsl(210 40% 84%)',
+                      border: '1px solid hsl(215 33% 17%)',
+                    }}
                   >
                     {skill}
-                  </Badge>
+                  </span>
                 ))}
               </div>
             </motion.div>
@@ -76,5 +74,35 @@ export function Skills() {
         </div>
       </div>
     </section>
+  );
+}
+
+function SectionHeader({
+  icon,
+  label,
+  title,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  title: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.45 }}
+    >
+      <div className="flex items-center gap-2 mb-2">
+        <span style={{ color: 'hsl(199 93% 60%)' }}>{icon}</span>
+        <span className="font-mono text-xs" style={{ color: 'hsl(215 25% 27%)' }}>
+          // {label}
+        </span>
+      </div>
+      <h2 className="text-2xl md:text-3xl font-bold" style={{ color: 'hsl(210 40% 96%)' }}>
+        {title}
+      </h2>
+      <div className="mt-3 h-px w-12" style={{ background: 'hsl(199 93% 60%)' }} />
+    </motion.div>
   );
 }

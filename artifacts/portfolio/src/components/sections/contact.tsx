@@ -1,72 +1,133 @@
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, MapPin, Phone } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Mail, Phone, MapPin, ArrowUpRight, Github } from 'lucide-react';
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, delay: i * 0.08, ease: 'easeOut' },
+  }),
+};
 
 export function Contact() {
   return (
-    <section id="contact" className="py-32 relative border-t border-border overflow-hidden">
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 rounded-t-full blur-[100px] pointer-events-none" />
-      
-      <div className="container mx-auto px-6 md:px-12 relative z-10 text-center">
+    <section id="contact" className="py-24" style={{ borderTop: '1px solid hsl(215 33% 17%)' }}>
+      <div className="max-w-6xl mx-auto px-6">
+        <SectionHeader icon={<Mail size={16} />} label="contact" title="Get In Touch" />
+
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="max-w-2xl mx-auto"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="mt-10 max-w-xl"
         >
-          <div className="text-primary font-mono text-sm mb-6">05. What's Next?</div>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-8">Get In Touch</h2>
-          
-          <p className="text-muted-foreground mb-12 text-lg leading-relaxed">
-            I'm currently open to new opportunities in software development. 
-            Whether you have a role in mind, a project idea, or just want to connect, 
-            I'd love to hear from you.
+          <p className="text-sm leading-relaxed mb-8" style={{ color: 'hsl(215 16% 47%)' }}>
+            I'm currently open to new opportunities in software development. Whether you have a role
+            in mind, a project idea, or just want to connect — feel free to reach out. I'll get back
+            to you as soon as possible.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12 text-sm font-mono text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <MapPin size={15} className="text-primary" />
-              <span>Sydney, NSW, Australia</span>
-            </div>
-            <div className="hidden sm:block h-4 w-[1px] bg-border" />
-            <div className="flex items-center gap-2">
-              <Phone size={15} className="text-primary" />
-              <span>+61 416 279 264</span>
-            </div>
-            <div className="hidden sm:block h-4 w-[1px] bg-border" />
-            <div className="flex items-center gap-2">
-              <span>Work Rights: Full Time</span>
-            </div>
+          <div className="space-y-4 mb-10">
+            {[
+              {
+                icon: <Mail size={15} />,
+                label: 'farhan141549@gmail.com',
+                href: 'mailto:farhan141549@gmail.com',
+                testId: 'link-email',
+              },
+              {
+                icon: <Phone size={15} />,
+                label: '+61 416 279 264',
+                href: 'tel:+61416279264',
+                testId: 'link-phone',
+              },
+              {
+                icon: <MapPin size={15} />,
+                label: 'Sydney, NSW, Australia · Work Rights: Full Time',
+                href: null,
+                testId: null,
+              },
+              {
+                icon: <Github size={15} />,
+                label: 'github.com/FarhanHossen',
+                href: 'https://github.com/FarhanHossen',
+                testId: 'link-github',
+              },
+            ].map(({ icon, label, href, testId }) => (
+              <div key={label} className="flex items-center gap-3">
+                <span style={{ color: 'hsl(199 93% 60%)' }}>{icon}</span>
+                {href ? (
+                  <a
+                    href={href}
+                    data-testid={testId ?? undefined}
+                    target={href.startsWith('http') ? '_blank' : undefined}
+                    rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className="font-mono text-sm transition-colors"
+                    style={{ color: 'hsl(215 19% 65%)' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(199 93% 60%)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = 'hsl(215 19% 65%)')}
+                  >
+                    {label}
+                  </a>
+                ) : (
+                  <span className="font-mono text-sm" style={{ color: 'hsl(215 19% 65%)' }}>
+                    {label}
+                  </span>
+                )}
+              </div>
+            ))}
           </div>
-          
-          <Button 
-            size="lg" 
+
+          <button
             data-testid="button-email"
-            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none px-10 h-14 font-mono text-lg mb-20"
-            onClick={() => window.location.href = 'mailto:farhan141549@gmail.com'}
+            onClick={() => (window.location.href = 'mailto:farhan141549@gmail.com')}
+            className="font-mono text-sm px-6 py-3 rounded font-medium inline-flex items-center gap-2 transition-opacity hover:opacity-90"
+            style={{ background: 'hsl(199 93% 60%)', color: 'hsl(222 48% 11%)' }}
           >
-            Say Hello <Mail className="ml-3 h-5 w-5" />
-          </Button>
-          
-          <div className="flex justify-center items-center gap-8">
-            <a href="#" data-testid="link-github" className="text-muted-foreground hover:text-primary transition-colors">
-              <Github size={24} />
-              <span className="sr-only">GitHub</span>
-            </a>
-            <a href="#" data-testid="link-linkedin" className="text-muted-foreground hover:text-primary transition-colors">
-              <Linkedin size={24} />
-              <span className="sr-only">LinkedIn</span>
-            </a>
-          </div>
+            Say Hello <ArrowUpRight size={15} />
+          </button>
         </motion.div>
       </div>
-      
-      <div className="absolute bottom-8 left-0 right-0 text-center">
-        <p className="text-xs font-mono text-muted-foreground/60">
-          Designed &amp; Built by Farhan Hossen
+
+      {/* Footer */}
+      <div className="max-w-6xl mx-auto px-6 mt-20 pt-8" style={{ borderTop: '1px solid hsl(215 33% 17%)' }}>
+        <p className="font-mono text-xs text-center" style={{ color: 'hsl(215 25% 27%)' }}>
+          <span style={{ color: 'hsl(215 33% 17%)' }}>// </span>
+          Built by Farhan Hossen · Sydney, NSW · {new Date().getFullYear()}
         </p>
       </div>
     </section>
+  );
+}
+
+function SectionHeader({
+  icon,
+  label,
+  title,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  title: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.45 }}
+    >
+      <div className="flex items-center gap-2 mb-2">
+        <span style={{ color: 'hsl(199 93% 60%)' }}>{icon}</span>
+        <span className="font-mono text-xs" style={{ color: 'hsl(215 25% 27%)' }}>
+          // {label}
+        </span>
+      </div>
+      <h2 className="text-2xl md:text-3xl font-bold" style={{ color: 'hsl(210 40% 96%)' }}>
+        {title}
+      </h2>
+      <div className="mt-3 h-px w-12" style={{ background: 'hsl(199 93% 60%)' }} />
+    </motion.div>
   );
 }

@@ -1,145 +1,175 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Terminal } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import vortrexynImg from '@/assets/project-vortrexyn.png';
-import apiGatewayImg from '@/assets/project-api-gateway.png';
-import analyticsImg from '@/assets/project-analytics.png';
+import { Github, ExternalLink, Terminal, Code2, Layers } from 'lucide-react';
 
-const projects = [
+const PROJECTS = [
   {
     id: 1,
-    title: 'Vortrexyn — Premium Car Rental System',
-    description: 'A full-stack multi-page web application for a premium car rental service. Users can browse vehicles, make reservations, and pay online via PayPal. An admin dashboard allows staff to manage bookings, fleet stock, and custom vehicles with AI-generated images powered by OpenAI DALL-E 3. Integrates Firebase Firestore for real-time data, EmailJS for automated booking confirmations, and a Node.js/Express backend for image generation proxying.',
-    tags: ['HTML5', 'JavaScript', 'Tailwind CSS', 'Firebase', 'Node.js', 'Express', 'OpenAI DALL-E 3', 'PayPal SDK'],
+    title: 'Vortrexyn',
+    subtitle: 'Premium Car Rental System',
+    description:
+      'Full-stack web application for a premium car rental service. Users can browse vehicles, make reservations, and pay online via PayPal. An admin dashboard lets staff manage bookings, fleet inventory, and generate custom vehicle images with AI via OpenAI DALL-E 3. Integrates Firebase Firestore for real-time data and EmailJS for automated booking confirmations.',
+    tags: ['HTML5', 'JavaScript', 'Tailwind CSS', 'Firebase', 'Node.js', 'Express', 'DALL-E 3', 'PayPal SDK'],
     github: 'https://github.com/FarhanHossen/vortrexyn-car-rental',
     demo: null,
-    type: 'Full-stack Web App',
-    image: vortrexynImg,
-  },
-  {
-    id: 2,
-    title: 'Nexus API Gateway',
-    description: 'A high-performance, distributed API gateway built in Node.js. Handles rate limiting, authentication, and intelligent routing for microservices architecture.',
-    tags: ['TypeScript', 'Node.js', 'Redis', 'Docker'],
-    github: '#',
-    demo: null,
-    type: 'Backend Infrastructure',
-    image: apiGatewayImg,
-  },
-  {
-    id: 3,
-    title: 'Aether Analytics',
-    description: 'Real-time telemetry dashboard processing live event streams with an optimized React frontend and complex data visualizations.',
-    tags: ['React', 'PostgreSQL', 'Node.js', 'Chart.js'],
-    github: '#',
-    demo: null,
-    type: 'Full-stack App',
-    image: analyticsImg,
+    featured: true,
   },
 ];
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, delay: i * 0.08, ease: 'easeOut' },
+  }),
+};
+
 export function Projects() {
   return (
-    <section id="projects" className="py-32 relative">
-      <div className="container mx-auto px-6 md:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="mb-16"
-        >
-          <div className="flex items-center gap-4 mb-4">
-            <div className="h-[1px] w-12 bg-primary" />
-            <h2 className="text-3xl font-bold tracking-tight">Selected Work</h2>
-          </div>
-          <p className="text-muted-foreground max-w-2xl">
-            A showcase of applications and systems I've built, applying skills from my IT and Computer Science background.
-          </p>
-        </motion.div>
+    <section id="projects" className="py-24">
+      <div className="max-w-6xl mx-auto px-6">
+        <SectionHeader icon={<Layers size={16} />} label="projects" title="Things I've Built" />
 
-        <div className="grid grid-cols-1 gap-10">
-          {projects.map((project, index) => (
+        <div className="mt-10 space-y-6">
+          {PROJECTS.map((p, i) => (
             <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              key={p.id}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-60px' }}
+              custom={i}
+              data-testid={`project-card-${p.id}`}
+              className="p-7 rounded-lg transition-colors duration-300 group"
+              style={{ background: 'hsl(221 39% 11%)', border: '1px solid hsl(215 33% 17%)' }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(56,189,248,0.35)';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 17%)';
+              }}
             >
-              <Card className="bg-card/50 border-border overflow-hidden hover:border-primary/50 transition-all duration-300 group rounded-none">
-                <CardContent className="p-0">
-                  <div className="flex flex-col lg:flex-row">
-                    {/* Image */}
-                    <div className="lg:w-2/5 shrink-0 overflow-hidden bg-secondary/30">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        data-testid={`img-project-${project.id}`}
-                        className="w-full h-56 lg:h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
-                      />
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-8 md:p-10 flex-1 flex flex-col justify-center">
-                      <div className="flex items-center gap-2 text-primary font-mono text-xs mb-4">
-                        <Terminal size={14} />
-                        <span>{project.type}</span>
-                      </div>
-
-                      <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
-                        {project.title}
-                      </h3>
-
-                      <p className="text-muted-foreground mb-8 leading-relaxed">
-                        {project.description}
-                      </p>
-
-                      <div className="flex flex-wrap gap-2 mb-8">
-                        {project.tags.map(tag => (
-                          <Badge
-                            key={tag}
-                            variant="secondary"
-                            className="font-mono text-xs bg-secondary/50 rounded-none border border-border"
-                          >
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-
-                      <div className="flex items-center gap-6 mt-auto">
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          data-testid={`link-github-${project.id}`}
-                          className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-sm font-mono"
-                        >
-                          <Github size={18} />
-                          Source
-                        </a>
-                        {project.demo && (
-                          <a
-                            href={project.demo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            data-testid={`link-demo-${project.id}`}
-                            className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-sm font-mono"
-                          >
-                            <ExternalLink size={18} />
-                            Live Demo
-                          </a>
-                        )}
-                      </div>
-                    </div>
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <Terminal size={13} style={{ color: 'hsl(199 93% 60%)' }} />
+                    <span className="font-mono text-xs" style={{ color: 'hsl(199 93% 60%)' }}>
+                      featured project
+                    </span>
                   </div>
-                </CardContent>
-              </Card>
+                  <h3 className="text-xl font-bold" style={{ color: 'hsl(210 40% 96%)' }}>
+                    {p.title}
+                    <span className="text-base font-normal ml-2" style={{ color: 'hsl(215 16% 47%)' }}>
+                      — {p.subtitle}
+                    </span>
+                  </h3>
+                </div>
+                <div className="flex gap-3 ml-4 shrink-0 pt-1">
+                  {p.github && (
+                    <a
+                      href={p.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-testid={`link-github-${p.id}`}
+                      className="transition-colors"
+                      style={{ color: 'hsl(215 16% 47%)' }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(199 93% 60%)')}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = 'hsl(215 16% 47%)')}
+                    >
+                      <Github size={18} />
+                    </a>
+                  )}
+                  {p.demo && (
+                    <a
+                      href={p.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-testid={`link-demo-${p.id}`}
+                      className="transition-colors"
+                      style={{ color: 'hsl(215 16% 47%)' }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(199 93% 60%)')}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = 'hsl(215 16% 47%)')}
+                    >
+                      <ExternalLink size={18} />
+                    </a>
+                  )}
+                </div>
+              </div>
+
+              <p className="text-sm leading-relaxed mb-5" style={{ color: 'hsl(215 16% 47%)' }}>
+                {p.description}
+              </p>
+
+              <div className="flex flex-wrap gap-2">
+                {p.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="font-mono text-xs px-2 py-1 rounded"
+                    style={{
+                      background: 'hsl(222 48% 11%)',
+                      color: 'hsl(199 93% 60%)',
+                      border: '1px solid rgba(56,189,248,0.2)',
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </motion.div>
           ))}
+
+          {/* Placeholder card */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={1}
+            className="p-7 rounded-lg flex items-center justify-between"
+            style={{ border: '1px dashed hsl(215 33% 17%)', color: 'hsl(215 25% 27%)' }}
+          >
+            <div>
+              <p className="font-mono text-sm" style={{ color: 'hsl(215 25% 27%)' }}>
+                More projects coming soon
+              </p>
+              <p className="font-mono text-xs mt-1" style={{ color: 'hsl(215 33% 17%)' }}>
+                Currently working on new builds
+              </p>
+            </div>
+            <Code2 size={20} style={{ color: 'hsl(215 33% 17%)' }} />
+          </motion.div>
         </div>
       </div>
     </section>
+  );
+}
+
+function SectionHeader({
+  icon,
+  label,
+  title,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  title: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.45 }}
+    >
+      <div className="flex items-center gap-2 mb-2">
+        <span style={{ color: 'hsl(199 93% 60%)' }}>{icon}</span>
+        <span className="font-mono text-xs" style={{ color: 'hsl(215 25% 27%)' }}>
+          // {label}
+        </span>
+      </div>
+      <h2 className="text-2xl md:text-3xl font-bold" style={{ color: 'hsl(210 40% 96%)' }}>
+        {title}
+      </h2>
+      <div className="mt-3 h-px w-12" style={{ background: 'hsl(199 93% 60%)' }} />
+    </motion.div>
   );
 }

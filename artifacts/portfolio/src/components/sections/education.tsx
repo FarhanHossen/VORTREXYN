@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
 import { GraduationCap } from 'lucide-react';
 
-const education = [
+const EDUCATION = [
   {
     id: 1,
     degree: 'Master of Information Technology',
-    specialization: 'Enterprise Software Development',
+    major: 'Enterprise Software Development',
     subMajor: 'Sub-major: Cyber Security',
     institution: 'University of Technology Sydney',
     location: 'Sydney, NSW',
@@ -14,8 +14,9 @@ const education = [
   },
   {
     id: 2,
-    degree: 'Bachelor of Science',
-    specialization: 'Computer Science and Engineering',
+    degree: 'Bachelor of Science in Computer Science & Engineering',
+    major: '',
+    subMajor: '',
     institution: 'BRAC University',
     location: 'Bangladesh',
     period: 'Jan 2019 — Jan 2023',
@@ -23,58 +24,112 @@ const education = [
   },
 ];
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, delay: i * 0.1, ease: 'easeOut' },
+  }),
+};
+
 export function Education() {
   return (
-    <section id="education" className="py-32 relative">
-      <div className="container mx-auto px-6 md:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="mb-16"
-        >
-          <div className="flex items-center gap-4 mb-4">
-            <div className="h-[1px] w-12 bg-primary" />
-            <h2 className="text-3xl font-bold tracking-tight">Education</h2>
-          </div>
-        </motion.div>
+    <section id="education" className="py-24">
+      <div className="max-w-6xl mx-auto px-6">
+        <SectionHeader icon={<GraduationCap size={16} />} label="education" title="Education" />
 
-        <div className="max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8">
-          {education.map((edu, index) => (
+        <div className="mt-10 space-y-4">
+          {EDUCATION.map((edu, i) => (
             <motion.div
               key={edu.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="p-8 border border-border bg-card/20 rounded-none hover:border-primary/40 transition-colors group"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              custom={i}
+              className="p-6 rounded-lg transition-colors duration-300"
+              style={{ background: 'hsl(221 39% 11%)', border: '1px solid hsl(215 33% 17%)' }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(56,189,248,0.25)';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 17%)';
+              }}
             >
-              <div className="flex items-start gap-4 mb-6">
-                <div className="p-2 border border-border/60 group-hover:border-primary/40 transition-colors">
-                  <GraduationCap className="text-primary w-5 h-5" />
-                </div>
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                 <div>
-                  <div className="text-xs font-mono text-muted-foreground/60 mb-1">{edu.period}</div>
-                  <div className="text-xs font-mono text-primary">{edu.location}</div>
+                  <h3 className="text-base font-semibold mb-0.5" style={{ color: 'hsl(210 40% 96%)' }}>
+                    {edu.degree}
+                  </h3>
+                  {edu.major && (
+                    <p className="text-sm mb-0.5" style={{ color: 'hsl(215 19% 65%)' }}>
+                      {edu.major}
+                    </p>
+                  )}
+                  {edu.subMajor && (
+                    <p className="font-mono text-xs mt-1 mb-2" style={{ color: 'hsl(215 16% 47%)' }}>
+                      {edu.subMajor}
+                    </p>
+                  )}
+                  <p className="font-mono text-sm mt-2" style={{ color: 'hsl(199 93% 60%)' }}>
+                    {edu.institution}
+                  </p>
+                  <p className="font-mono text-xs mt-0.5" style={{ color: 'hsl(215 16% 47%)' }}>
+                    {edu.location}
+                  </p>
                 </div>
-              </div>
 
-              <h3 className="text-xl font-bold mb-1">{edu.degree}</h3>
-              <div className="text-muted-foreground text-sm mb-1">{edu.specialization}</div>
-              {'subMajor' in edu && edu.subMajor && (
-                <div className="text-muted-foreground/60 text-xs font-mono mb-4">{edu.subMajor}</div>
-              )}
-              {!('subMajor' in edu && edu.subMajor) && <div className="mb-4" />}
-              <div className="text-primary font-mono text-sm mb-4">{edu.institution}</div>
-
-              <div className="inline-block border border-primary/30 px-3 py-1 text-xs font-mono text-primary/80 bg-primary/5">
-                {edu.result}
+                <div className="flex flex-col items-start sm:items-end gap-2 shrink-0">
+                  <span className="font-mono text-xs" style={{ color: 'hsl(215 16% 47%)' }}>
+                    {edu.period}
+                  </span>
+                  <span
+                    className="font-mono text-xs px-2.5 py-1 rounded"
+                    style={{
+                      background: 'rgba(56,189,248,0.08)',
+                      color: 'hsl(199 93% 60%)',
+                      border: '1px solid rgba(56,189,248,0.2)',
+                    }}
+                  >
+                    {edu.result}
+                  </span>
+                </div>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function SectionHeader({
+  icon,
+  label,
+  title,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  title: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.45 }}
+    >
+      <div className="flex items-center gap-2 mb-2">
+        <span style={{ color: 'hsl(199 93% 60%)' }}>{icon}</span>
+        <span className="font-mono text-xs" style={{ color: 'hsl(215 25% 27%)' }}>
+          // {label}
+        </span>
+      </div>
+      <h2 className="text-2xl md:text-3xl font-bold" style={{ color: 'hsl(210 40% 96%)' }}>
+        {title}
+      </h2>
+      <div className="mt-3 h-px w-12" style={{ background: 'hsl(199 93% 60%)' }} />
+    </motion.div>
   );
 }
