@@ -63,81 +63,88 @@ function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: 
   const [active, setActive] = useState(0);
   const total = screenshots.length;
 
-  const prev = () => setActive((i) => Math.max(0, i - 1));
-  const next = () => setActive((i) => Math.min(total - 1, i + 1));
+  const prev = () => setActive((i) => (i - 1 + total) % total);
+  const next = () => setActive((i) => (i + 1) % total);
 
-  const indices = [active - 1, active, active + 1].filter((i) => i >= 0 && i < total);
+  const leftIdx  = (active - 1 + total) % total;
+  const rightIdx = (active + 1) % total;
+  const slots = [
+    { idx: leftIdx,  pos: 'left'   },
+    { idx: active,   pos: 'center' },
+    { idx: rightIdx, pos: 'right'  },
+  ] as const;
 
   return (
     <div className="mb-6">
-      <div className="relative flex items-center justify-center" style={{ height: 260 }}>
+      <div className="relative flex items-center justify-center" style={{ height: 320 }}>
+        {/* Left arrow — always active (loops) */}
         <button
           onClick={prev}
-          disabled={active === 0}
-          className="absolute left-0 z-10 flex items-center justify-center w-7 h-7 rounded-full transition-all"
+          className="absolute left-0 z-10 flex items-center justify-center w-8 h-8 rounded-full transition-all"
           style={{
             background: 'hsl(221 39% 11%)',
             border: '1px solid hsl(215 33% 22%)',
-            color: active === 0 ? 'hsl(215 33% 22%)' : 'hsl(215 20% 68%)',
-            cursor: active === 0 ? 'default' : 'pointer',
+            color: 'hsl(215 20% 68%)',
           }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'hsl(199 93% 60%)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(56,189,248,0.4)'; }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'hsl(215 20% 68%)'; (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 22%)'; }}
         >
-          <ChevronLeft size={14} />
+          <ChevronLeft size={16} />
         </button>
 
-        <div className="flex items-center justify-center gap-3 w-full px-10">
-          <AnimatePresence mode="popLayout">
-            {indices.map((i) => {
-              const isCenter = i === active;
-              return (
-                <motion.div
-                  key={screenshots[i].src}
-                  layout
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{
-                    opacity: isCenter ? 1 : 0.45,
-                    scale: isCenter ? 1 : 0.82,
-                    filter: isCenter ? 'blur(0px)' : 'blur(3px)',
-                  }}
-                  exit={{ opacity: 0, scale: 0.7 }}
-                  transition={{ duration: 0.35, ease: 'easeInOut' }}
-                  onClick={() => !isCenter && setActive(i)}
-                  className="shrink-0 rounded-xl overflow-hidden"
-                  style={{
-                    width: isCenter ? 128 : 90,
-                    height: isCenter ? 228 : 160,
-                    border: isCenter ? '2px solid rgba(56,189,248,0.5)' : '1px solid hsl(215 33% 22%)',
-                    cursor: isCenter ? 'default' : 'pointer',
-                    boxShadow: isCenter ? '0 0 24px rgba(56,189,248,0.15)' : 'none',
-                  }}
-                >
-                  <img
-                    src={screenshots[i].src}
-                    alt={screenshots[i].alt}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
+        {/* Three-slot layout */}
+        <div className="flex items-center justify-center gap-4 w-full px-12">
+          {slots.map(({ idx, pos }) => {
+            const isCenter = pos === 'center';
+            return (
+              <motion.div
+                key={`${pos}-${idx}`}
+                animate={{
+                  opacity: isCenter ? 1 : 0.4,
+                  filter: isCenter ? 'blur(0px)' : 'blur(3.5px)',
+                }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                onClick={() => !isCenter && (pos === 'left' ? prev() : next())}
+                className="shrink-0 rounded-2xl overflow-hidden"
+                style={{
+                  width: isCenter ? 160 : 110,
+                  height: isCenter ? 285 : 196,
+                  border: isCenter
+                    ? '2px solid rgba(56,189,248,0.55)'
+                    : '1px solid hsl(215 33% 22%)',
+                  cursor: isCenter ? 'default' : 'pointer',
+                  boxShadow: isCenter ? '0 0 32px rgba(56,189,248,0.18)' : 'none',
+                  transition: 'width 0.3s ease, height 0.3s ease, box-shadow 0.3s ease, border 0.3s ease',
+                }}
+              >
+                <img
+                  src={screenshots[idx].src}
+                  alt={screenshots[idx].alt}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </motion.div>
+            );
+          })}
         </div>
 
+        {/* Right arrow — always active (loops) */}
         <button
           onClick={next}
-          disabled={active === total - 1}
-          className="absolute right-0 z-10 flex items-center justify-center w-7 h-7 rounded-full transition-all"
+          className="absolute right-0 z-10 flex items-center justify-center w-8 h-8 rounded-full transition-all"
           style={{
             background: 'hsl(221 39% 11%)',
             border: '1px solid hsl(215 33% 22%)',
-            color: active === total - 1 ? 'hsl(215 33% 22%)' : 'hsl(215 20% 68%)',
-            cursor: active === total - 1 ? 'default' : 'pointer',
+            color: 'hsl(215 20% 68%)',
           }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'hsl(199 93% 60%)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(56,189,248,0.4)'; }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'hsl(215 20% 68%)'; (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 22%)'; }}
         >
-          <ChevronRight size={14} />
+          <ChevronRight size={16} />
         </button>
       </div>
 
+      {/* Dot indicators */}
       <div className="flex justify-center gap-1.5 mt-3">
         {screenshots.map((_, i) => (
           <button
@@ -145,7 +152,7 @@ function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: 
             onClick={() => setActive(i)}
             className="rounded-full transition-all"
             style={{
-              width: i === active ? 16 : 5,
+              width: i === active ? 18 : 5,
               height: 5,
               background: i === active ? 'hsl(199 93% 60%)' : 'hsl(215 33% 22%)',
             }}
@@ -153,8 +160,10 @@ function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: 
         ))}
       </div>
 
+      {/* Caption */}
       <p className="text-center font-mono text-xs mt-2" style={{ color: 'hsl(215 16% 50%)' }}>
         {screenshots[active].alt}
+        <span style={{ color: 'hsl(215 33% 25%)' }}> · {active + 1}/{total}</span>
       </p>
     </div>
   );
