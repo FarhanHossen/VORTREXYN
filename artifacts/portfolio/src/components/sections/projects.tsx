@@ -3,7 +3,7 @@ import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import type { MotionValue } from 'framer-motion';
 import { Github, ExternalLink, Terminal, Code2, Layers, Smartphone, Globe, ChevronLeft, ChevronRight } from 'lucide-react';
 
-const SLOT_SPACING = 158;
+const SLOT_SPACING = 130;
 
 const PROJECTS = [
   {
@@ -62,36 +62,46 @@ const fadeUp = {
   }),
 };
 
-// Each image sits at a fixed position on the track: virtualPos * SLOT_SPACING.
-// trackX is the motion value for the track offset (starts at 0, goes negative as you advance).
-// screenX of image at virtualPos = trackX + virtualPos * SLOT_SPACING.
-// By never jumping trackX (only animating it), there are zero position discontinuities.
 function SlotImage({
   trackX,
   virtualPos,
   screenshot,
+  offset,
   onSlotClick,
 }: {
   trackX: MotionValue<number>;
   virtualPos: number;
   screenshot: { src: string; alt: string };
+  offset: number;   // static: -2 | -1 | 0 | 1 | 2
   onSlotClick: () => void;
 }) {
-  const screenX     = useTransform(trackX, (tx) => tx + virtualPos * SLOT_SPACING);
-  const centeredness = useTransform(screenX, [-SLOT_SPACING, 0, SLOT_SPACING], [0, 1, 0], { clamp: true });
+  const screenX = useTransform(trackX, (tx) => tx + virtualPos * SLOT_SPACING);
 
-  const opacity   = useTransform(centeredness, [0, 1], [0.32, 1]);
-  const blurPx    = useTransform(centeredness, [0, 1], [4, 0]);
+  // 5-point centeredness: outer=0, inner=0.45, center=1
+  const centeredness = useTransform(
+    screenX,
+    [-2 * SLOT_SPACING, -SLOT_SPACING, 0, SLOT_SPACING, 2 * SLOT_SPACING],
+    [0, 0.45, 1, 0.45, 0],
+    { clamp: true },
+  );
+
+  // Three visual levels: outer → inner → center
+  const opacity   = useTransform(centeredness, [0, 0.45, 1], [0.10, 0.45, 1]);
+  const blurPx    = useTransform(centeredness, [0, 0.45, 1], [7,    2.8,  0]);
   const filter    = useTransform(blurPx, (b) => `blur(${b}px)`);
-  const imgWidth  = useTransform(centeredness, [0, 1], [106, 164]);
-  const imgHeight = useTransform(centeredness, [0, 1], [190, 292]);
-  const borderA   = useTransform(centeredness, [0, 1], [0.1, 0.55]);
+  const imgWidth  = useTransform(centeredness, [0, 0.45, 1], [68,   108,  162]);
+  const imgHeight = useTransform(centeredness, [0, 0.45, 1], [121,  192,  288]);
+  const borderA   = useTransform(centeredness, [0, 0.45, 1], [0.04, 0.15, 0.55]);
   const border    = useTransform(borderA, (a) => `2px solid rgba(56,189,248,${a})`);
-  const shadow    = useTransform(centeredness, [0, 1], ['0 0 0px rgba(56,189,248,0)', '0 0 30px rgba(56,189,248,0.2)']);
-  const halfW     = useTransform(imgWidth,  (w) => -w / 2);
-  const halfH     = useTransform(imgHeight, (h) => -h / 2);
+  const shadow    = useTransform(centeredness, [0, 0.45, 1], [
+    '0 0 0px rgba(56,189,248,0)',
+    '0 0 10px rgba(56,189,248,0.07)',
+    '0 0 30px rgba(56,189,248,0.20)',
+  ]);
+  const halfW = useTransform(imgWidth,  (w) => -w / 2);
+  const halfH = useTransform(imgHeight, (h) => -h / 2);
 
-  const isCenter = virtualPos === Math.round(-trackX.get() / SLOT_SPACING);
+  const isCenter = offset === 0;
 
   return (
     <div style={{ position: 'absolute', left: '50%', top: '50%' }}>
@@ -213,10 +223,17 @@ function ScreenshotCarousel({ screenshots }: { screenshots: { src: string; alt: 
       >
         {arrowBtn(prev, 'left')}
 
-        {/* Render left, center, and right virtual slots — positions are stable on the track */}
-        <SlotImage trackX={trackX} virtualPos={centerVirtual - 1} screenshot={screenshots[imgAt(centerVirtual - 1)]} onSlotClick={prev} />
-        <SlotImage trackX={trackX} virtualPos={centerVirtual}     screenshot={screenshots[imgAt(centerVirtual)]}     onSlotClick={() => {}} />
-        <SlotImage trackX={trackX} virtualPos={centerVirtual + 1} screenshot={screenshots[imgAt(centerVirtual + 1)]} onSlotClick={next} />
+        {/* 5 slots: outer-left, inner-left, center, inner-right, outer-right */}
+        {([-2, -1, 0, 1, 2] as const).map((off) => (
+          <SlotImage
+            key={off}
+            trackX={trackX}
+            virtualPos={centerVirtual + off}
+            screenshot={screenshots[imgAt(centerVirtual + off)]}
+            offset={off}
+            onSlotClick={off < 0 ? prev : off > 0 ? next : () => {}}
+          />
+        ))}
 
         {arrowBtn(next, 'right')}
       </div>
