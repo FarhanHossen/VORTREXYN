@@ -4,13 +4,17 @@ import { Github, ExternalLink, Terminal, Code2, Layers } from 'lucide-react';
 const PROJECTS = [
   {
     id: 1,
-    title: 'Vortrexyn',
-    subtitle: 'Premium Car Rental System',
-    description:
-      'Full-stack web application for a premium car rental service. Users can browse vehicles, make reservations, and pay online via PayPal. An admin dashboard lets staff manage bookings, fleet inventory, and generate custom vehicle images with AI via OpenAI DALL-E 3. Integrates Firebase Firestore for real-time data and EmailJS for automated booking confirmations.',
-    tags: ['HTML5', 'JavaScript', 'Tailwind CSS', 'Firebase', 'Node.js', 'Express', 'DALL-E 3', 'PayPal SDK'],
+    title: 'VORTREXYN Car Rental',
+    subtitle: 'Full-Stack Car Rental Platform',
+    year: '2024',
+    bullets: [
+      'Built a full-stack car rental platform with 625+ vehicles, user authentication, real-time Firestore database, and PayPal live payment integration.',
+      'Developed an admin dashboard with booking management, fleet stock control, and AI-generated vehicle images using OpenAI DALL-E 3.',
+      'Deployed to a custom domain with Node.js/Express backend serving a static HTML/CSS/JS frontend.',
+    ],
+    tags: ['JavaScript', 'HTML5', 'CSS3', 'Node.js', 'Express.js', 'Firebase', 'Firestore', 'OpenAI API', 'PayPal SDK', 'REST APIs', 'Git'],
     github: 'https://github.com/FarhanHossen/vortrexyn-car-rental',
-    demo: null,
+    demo: 'https://vortrexyn-premium-car-rental-system.com/',
     featured: true,
   },
 ];
@@ -49,20 +53,25 @@ export function Projects() {
                 (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 17%)';
               }}
             >
-              <div className="flex items-start justify-between mb-3">
+              <div className="flex items-start justify-between mb-4">
                 <div>
                   <div className="flex items-center gap-2 mb-1.5">
                     <Terminal size={13} style={{ color: 'hsl(199 93% 60%)' }} />
                     <span className="font-mono text-xs" style={{ color: 'hsl(199 93% 60%)' }}>
                       featured project
                     </span>
+                    {p.year && (
+                      <span className="font-mono text-xs" style={{ color: 'hsl(215 16% 50%)' }}>
+                        · {p.year}
+                      </span>
+                    )}
                   </div>
                   <h3 className="text-xl font-bold" style={{ color: 'hsl(210 40% 96%)' }}>
                     {p.title}
-                    <span className="text-base font-normal ml-2" style={{ color: 'hsl(215 16% 47%)' }}>
-                      — {p.subtitle}
-                    </span>
                   </h3>
+                  <p className="font-mono text-sm mt-0.5" style={{ color: 'hsl(215 16% 58%)' }}>
+                    {p.subtitle}
+                  </p>
                 </div>
                 <div className="flex gap-3 ml-4 shrink-0 pt-1">
                   {p.github && (
@@ -71,10 +80,11 @@ export function Projects() {
                       target="_blank"
                       rel="noopener noreferrer"
                       data-testid={`link-github-${p.id}`}
+                      title="View on GitHub"
                       className="transition-colors"
-                      style={{ color: 'hsl(215 16% 47%)' }}
+                      style={{ color: 'hsl(215 16% 55%)' }}
                       onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(199 93% 60%)')}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = 'hsl(215 16% 47%)')}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = 'hsl(215 16% 55%)')}
                     >
                       <Github size={18} />
                     </a>
@@ -85,10 +95,11 @@ export function Projects() {
                       target="_blank"
                       rel="noopener noreferrer"
                       data-testid={`link-demo-${p.id}`}
+                      title="View live site"
                       className="transition-colors"
-                      style={{ color: 'hsl(215 16% 47%)' }}
+                      style={{ color: 'hsl(215 16% 55%)' }}
                       onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(199 93% 60%)')}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = 'hsl(215 16% 47%)')}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = 'hsl(215 16% 55%)')}
                     >
                       <ExternalLink size={18} />
                     </a>
@@ -96,9 +107,14 @@ export function Projects() {
                 </div>
               </div>
 
-              <p className="text-sm leading-relaxed mb-5" style={{ color: 'hsl(215 25% 72%)' }}>
-                {p.description}
-              </p>
+              <ul className="space-y-2 mb-5">
+                {p.bullets.map((point) => (
+                  <li key={point} className="flex gap-2.5 text-sm leading-relaxed" style={{ color: 'hsl(215 25% 72%)' }}>
+                    <span className="shrink-0 mt-1.5 w-1 h-1 rounded-full" style={{ background: 'hsl(199 93% 60%)' }} />
+                    {point}
+                  </li>
+                ))}
+              </ul>
 
               <div className="flex flex-wrap gap-2">
                 {p.tags.map((tag) => (
