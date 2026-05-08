@@ -63,8 +63,8 @@ export function Navbar() {
 
   const isMoreActive = MORE_ITEMS.some((i) => i.id === activeSection);
 
-  const navBtnStyle = (id: string) => ({
-    color: activeSection === id ? 'hsl(199 93% 60%)' : 'hsl(215 16% 60%)',
+  const navBtnStyle = (id: string): React.CSSProperties => ({
+    color: activeSection === id ? '#00E5FF' : 'rgba(148,163,184,0.7)',
   });
 
   return (
@@ -75,9 +75,9 @@ export function Navbar() {
         transition={{ duration: 0.4, ease: 'easeOut' }}
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
         style={{
-          background: scrolled ? 'rgba(15,23,42,0.92)' : 'rgba(15,23,42,0.6)',
-          backdropFilter: 'blur(14px)',
-          borderBottom: scrolled ? '1px solid hsl(215 33% 17%)' : '1px solid transparent',
+          background: scrolled ? 'rgba(5,10,24,0.88)' : 'rgba(5,10,24,0.55)',
+          backdropFilter: 'blur(20px)',
+          borderBottom: scrolled ? '1px solid rgba(155,92,255,0.15)' : '1px solid transparent',
         }}
       >
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-14">
@@ -85,15 +85,13 @@ export function Navbar() {
           {/* Logo */}
           <button
             onClick={() => scrollTo('home')}
-            className="font-mono text-sm font-medium flex items-center select-none shrink-0"
-            style={{ color: 'hsl(199 93% 60%)' }}
+            className="font-mono text-sm font-medium flex items-center select-none shrink-0 tracking-widest"
           >
-            <span style={{ color: 'hsl(199 93% 60%)' }}>farhan</span>
-            <span style={{ color: 'hsl(215 16% 47%)' }}>@portfolio</span>
-            <span style={{ color: '#F472B6' }}>:~$</span>
+            <span style={{ color: '#ffffff', fontWeight: 300 }}>FARHAN</span>
+            <span style={{ color: '#9B5CFF', fontWeight: 700 }}>.</span>
             <span
-              className="inline-block w-1.5 h-4 ml-1 align-middle rounded-sm"
-              style={{ background: 'hsl(199 93% 60%)', animation: 'pulse 1.2s cubic-bezier(0.4,0,0.6,1) infinite' }}
+              className="inline-block w-1.5 h-4 ml-1.5 align-middle rounded-sm"
+              style={{ background: '#9B5CFF', animation: 'pulse 1.2s cubic-bezier(0.4,0,0.6,1) infinite', opacity: 0.8 }}
             />
           </button>
 
@@ -108,14 +106,14 @@ export function Navbar() {
                 style={navBtnStyle(item.id)}
                 onMouseEnter={(e) => {
                   if (activeSection !== item.id)
-                    (e.currentTarget as HTMLElement).style.color = 'hsl(210 40% 96%)';
+                    (e.currentTarget as HTMLElement).style.color = '#ffffff';
                 }}
                 onMouseLeave={(e) => {
                   if (activeSection !== item.id)
-                    (e.currentTarget as HTMLElement).style.color = 'hsl(215 16% 60%)';
+                    (e.currentTarget as HTMLElement).style.color = 'rgba(148,163,184,0.7)';
                 }}
               >
-                <span style={{ color: 'hsl(199 93% 60%)' }}>./</span>{item.label}
+                <span style={{ color: '#9B5CFF' }}>./</span>{item.label}
               </button>
             ))}
 
@@ -124,14 +122,14 @@ export function Navbar() {
               <button
                 onClick={() => setMoreOpen((v) => !v)}
                 className="font-mono text-xs px-3 py-1.5 rounded flex items-center gap-1 transition-colors duration-200"
-                style={{ color: isMoreActive ? 'hsl(199 93% 60%)' : 'hsl(215 16% 60%)' }}
+                style={{ color: isMoreActive ? '#00E5FF' : 'rgba(148,163,184,0.7)' }}
                 onMouseEnter={(e) => {
                   if (!isMoreActive)
-                    (e.currentTarget as HTMLElement).style.color = 'hsl(210 40% 96%)';
+                    (e.currentTarget as HTMLElement).style.color = '#ffffff';
                 }}
                 onMouseLeave={(e) => {
                   if (!isMoreActive)
-                    (e.currentTarget as HTMLElement).style.color = 'hsl(215 16% 60%)';
+                    (e.currentTarget as HTMLElement).style.color = 'rgba(148,163,184,0.7)';
                 }}
               >
                 More
@@ -148,11 +146,12 @@ export function Navbar() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 6, scale: 0.97 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute right-0 top-full mt-1.5 py-1 rounded-lg min-w-[140px]"
+                    className="absolute right-0 top-full mt-1.5 py-1 rounded-xl min-w-[150px]"
                     style={{
-                      background: 'hsl(221 39% 11%)',
-                      border: '1px solid hsl(215 33% 17%)',
-                      boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+                      background: 'rgba(5,10,24,0.95)',
+                      border: '1px solid rgba(155,92,255,0.2)',
+                      boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,229,255,0.05)',
+                      backdropFilter: 'blur(20px)',
                     }}
                   >
                     {MORE_ITEMS.map((item) => (
@@ -160,18 +159,18 @@ export function Navbar() {
                         key={item.id}
                         onClick={() => scrollTo(item.id)}
                         className="w-full text-left font-mono text-xs px-4 py-2 transition-colors duration-150"
-                        style={{ color: activeSection === item.id ? 'hsl(199 93% 60%)' : 'hsl(215 16% 60%)' }}
+                        style={{ color: activeSection === item.id ? '#00E5FF' : 'rgba(148,163,184,0.7)' }}
                         onMouseEnter={(e) => {
-                          (e.currentTarget as HTMLElement).style.color = 'hsl(210 40% 96%)';
-                          (e.currentTarget as HTMLElement).style.background = 'rgba(56,189,248,0.05)';
+                          (e.currentTarget as HTMLElement).style.color = '#ffffff';
+                          (e.currentTarget as HTMLElement).style.background = 'rgba(155,92,255,0.08)';
                         }}
                         onMouseLeave={(e) => {
                           (e.currentTarget as HTMLElement).style.color =
-                            activeSection === item.id ? 'hsl(199 93% 60%)' : 'hsl(215 16% 60%)';
+                            activeSection === item.id ? '#00E5FF' : 'rgba(148,163,184,0.7)';
                           (e.currentTarget as HTMLElement).style.background = 'transparent';
                         }}
                       >
-                        <span style={{ color: 'hsl(199 93% 60%)' }}>./</span>{item.label}
+                        <span style={{ color: '#9B5CFF' }}>./</span>{item.label}
                       </button>
                     ))}
                   </motion.div>
@@ -180,22 +179,22 @@ export function Navbar() {
             </div>
           </nav>
 
-          {/* Desktop GitHub + mobile hamburger */}
+          {/* GitHub + mobile hamburger */}
           <div className="flex items-center gap-3">
             <a
               href="https://github.com/FarhanHossen"
               target="_blank"
               rel="noopener noreferrer"
               data-testid="nav-github"
-              className="hidden md:flex font-mono text-xs px-3 py-1.5 rounded items-center gap-1.5 transition-all duration-200"
-              style={{ border: '1px solid hsl(215 33% 22%)', color: 'hsl(215 16% 60%)' }}
+              className="hidden md:flex font-mono text-xs px-3 py-1.5 rounded-lg items-center gap-1.5 transition-all duration-200"
+              style={{ border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(148,163,184,0.7)', background: 'rgba(255,255,255,0.03)' }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.color = 'hsl(199 93% 60%)';
-                (e.currentTarget as HTMLElement).style.borderColor = 'hsl(199 93% 60%)';
+                (e.currentTarget as HTMLElement).style.color = '#00E5FF';
+                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,229,255,0.35)';
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.color = 'hsl(215 16% 60%)';
-                (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 22%)';
+                (e.currentTarget as HTMLElement).style.color = 'rgba(148,163,184,0.7)';
+                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.1)';
               }}
             >
               <Github size={13} /> GitHub
@@ -204,7 +203,7 @@ export function Navbar() {
             <button
               onClick={() => setMobileOpen((v) => !v)}
               className="md:hidden p-2 rounded transition-colors duration-200"
-              style={{ color: 'hsl(215 16% 60%)' }}
+              style={{ color: 'rgba(148,163,184,0.7)' }}
             >
               {mobileOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
@@ -222,9 +221,9 @@ export function Navbar() {
             transition={{ duration: 0.2 }}
             className="fixed top-14 left-0 right-0 z-40 py-4"
             style={{
-              background: 'rgba(15,23,42,0.97)',
-              backdropFilter: 'blur(14px)',
-              borderBottom: '1px solid hsl(215 33% 17%)',
+              background: 'rgba(5,10,24,0.97)',
+              backdropFilter: 'blur(20px)',
+              borderBottom: '1px solid rgba(155,92,255,0.15)',
             }}
           >
             <div className="max-w-6xl mx-auto px-6 flex flex-col gap-1">
@@ -233,18 +232,18 @@ export function Navbar() {
                   key={item.id}
                   onClick={() => scrollTo(item.id)}
                   className="font-mono text-sm text-left py-2.5 px-3 rounded transition-colors duration-150"
-                  style={{ color: activeSection === item.id ? 'hsl(199 93% 60%)' : 'hsl(215 16% 60%)' }}
+                  style={{ color: activeSection === item.id ? '#00E5FF' : 'rgba(148,163,184,0.7)' }}
                 >
-                  <span style={{ color: 'hsl(199 93% 60%)' }}>./</span>{item.label}
+                  <span style={{ color: '#9B5CFF' }}>./</span>{item.label}
                 </button>
               ))}
-              <div className="mt-2 pt-2" style={{ borderTop: '1px solid hsl(215 33% 17%)' }}>
+              <div className="mt-2 pt-2" style={{ borderTop: '1px solid rgba(155,92,255,0.12)' }}>
                 <a
                   href="https://github.com/FarhanHossen"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-mono text-sm flex items-center gap-2 py-2.5 px-3 rounded"
-                  style={{ color: 'hsl(215 16% 60%)' }}
+                  style={{ color: 'rgba(148,163,184,0.7)' }}
                 >
                   <Github size={14} /> GitHub
                 </a>

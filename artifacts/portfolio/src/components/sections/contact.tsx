@@ -21,7 +21,7 @@ const fadeUp = {
 
 export function Contact() {
   return (
-    <section id="contact" className="py-24" style={{ borderTop: '1px solid hsl(215 33% 17%)' }}>
+    <section id="contact" className="py-24" style={{ borderTop: '1px solid rgba(155,92,255,0.15)' }}>
       <div className="max-w-6xl mx-auto px-6">
         <SectionHeader icon={<Mail size={16} />} label="contact" title="Get In Touch" />
 
@@ -92,8 +92,8 @@ export function Contact() {
           <button
             data-testid="button-email"
             onClick={() => (window.location.href = 'mailto:farhan141549@gmail.com')}
-            className="font-mono text-sm px-6 py-3 rounded font-medium inline-flex items-center gap-2 transition-opacity hover:opacity-90"
-            style={{ background: 'hsl(199 93% 60%)', color: 'hsl(222 48% 11%)' }}
+            className="font-mono text-sm px-6 py-3 rounded-lg font-medium inline-flex items-center gap-2 transition-opacity hover:opacity-90"
+            style={{ background: 'linear-gradient(135deg, #9B5CFF, #00E5FF)', color: '#050A18' }}
           >
             Say Hello <ArrowUpRight size={15} />
           </button>
@@ -101,9 +101,9 @@ export function Contact() {
       </div>
 
       {/* Footer */}
-      <div className="max-w-6xl mx-auto px-6 mt-20 pt-8" style={{ borderTop: '1px solid hsl(215 33% 17%)' }}>
+      <div className="max-w-6xl mx-auto px-6 mt-20 pt-8" style={{ borderTop: '1px solid rgba(155,92,255,0.12)' }}>
         <p className="font-mono text-xs text-center" style={{ color: 'hsl(215 16% 45%)' }}>
-          <span style={{ color: 'hsl(215 33% 17%)' }}>// </span>
+          <span style={{ color: 'rgba(155,92,255,0.4)' }}>// </span>
           Built by Farhan Hossen · Sydney, NSW · {new Date().getFullYear()}
         </p>
       </div>

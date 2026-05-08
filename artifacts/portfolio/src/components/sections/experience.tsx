@@ -136,13 +136,15 @@ export function Experience() {
               whileInView="visible"
               viewport={{ once: true, margin: '-40px' }}
               custom={i}
-              className="p-6 rounded-lg transition-colors duration-300"
-              style={{ background: 'hsl(221 39% 11%)', border: '1px solid hsl(215 33% 17%)' }}
+              className="p-6 rounded-2xl backdrop-blur-xl transition-all duration-300"
+              style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(56,189,248,0.25)';
+                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,229,255,0.2)';
+                (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.05)';
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 17%)';
+                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.07)';
+                (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.03)';
               }}
             >
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-4">
@@ -188,7 +190,7 @@ export function Experience() {
               </ul>
 
               {'courses' in job && job.courses && (
-                <div className="mt-4 pt-4" style={{ borderTop: '1px solid hsl(215 33% 17%)' }}>
+                <div className="mt-4 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
                   <p className="font-mono text-xs mb-2" style={{ color: 'hsl(215 16% 50%)' }}>
                     // courses tutored
                   </p>
@@ -197,7 +199,7 @@ export function Experience() {
                       <div key={c.code} className="flex flex-col sm:flex-row sm:items-baseline gap-x-3 gap-y-0.5">
                         <span
                           className="font-mono text-xs shrink-0 px-1.5 py-0.5 rounded"
-                          style={{ background: 'hsl(221 39% 15%)', color: 'hsl(199 93% 60%)', border: '1px solid hsl(215 33% 22%)' }}
+                          style={{ background: 'rgba(155,92,255,0.1)', color: '#9B5CFF', border: '1px solid rgba(155,92,255,0.2)' }}
                         >
                           {c.code}
                         </span>

@@ -50,48 +50,51 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* DARK MODE — the default theme, navy/sky-blue developer palette */
+/* DARK MODE — Deep Space Glass palette */
 .dark, :root {
-  /* Navy background */
-  --background: 222 48% 11%;
+  /* Deep space background ~#050A18 */
+  --background: 225 65% 6%;
   --foreground: 210 40% 96%;
 
-  /* Subtle borders */
-  --border: 215 33% 17%;
-  --input: 215 33% 17%;
+  /* Subtle glass borders */
+  --border: 225 35% 15%;
+  --input: 225 35% 15%;
   --ring: 199 93% 60%;
 
-  /* Cards sit slightly lighter than bg */
-  --card: 221 39% 11%;
+  /* Cards: glass morphism */
+  --card: 225 50% 8%;
   --card-foreground: 210 40% 96%;
-  --card-border: 215 33% 17%;
+  --card-border: 225 35% 15%;
 
-  --popover: 221 39% 11%;
+  --popover: 225 50% 8%;
   --popover-foreground: 210 40% 96%;
-  --popover-border: 215 33% 17%;
+  --popover-border: 225 35% 15%;
 
-  /* Sky-blue accent */
+  /* Sky-blue/cyan primary */
   --primary: 199 93% 60%;
-  --primary-foreground: 222 48% 11%;
+  --primary-foreground: 225 65% 6%;
 
-  --secondary: 215 33% 17%;
+  /* Purple secondary accent */
+  --purple: 270 95% 67%;
+
+  --secondary: 225 35% 13%;
   --secondary-foreground: 210 40% 96%;
 
-  --muted: 215 33% 17%;
+  --muted: 225 35% 13%;
   --muted-foreground: 215 16% 47%;
 
-  --accent: 215 33% 17%;
+  --accent: 225 35% 13%;
   --accent-foreground: 210 40% 96%;
 
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 210 40% 96%;
 
-  --sidebar: 221 39% 11%;
+  --sidebar: 225 50% 8%;
   --sidebar-foreground: 215 16% 47%;
-  --sidebar-border: 215 33% 17%;
+  --sidebar-border: 225 35% 15%;
   --sidebar-primary: 199 93% 60%;
-  --sidebar-primary-foreground: 222 48% 11%;
-  --sidebar-accent: 215 33% 17%;
+  --sidebar-primary-foreground: 225 65% 6%;
+  --sidebar-accent: 225 35% 13%;
   --sidebar-accent-foreground: 210 40% 96%;
   --sidebar-ring: 199 93% 60%;
 
@@ -117,11 +120,14 @@
     width: 4px;
   }
   ::-webkit-scrollbar-track {
-    background: hsl(222 48% 11%);
+    background: hsl(225 65% 6%);
   }
   ::-webkit-scrollbar-thumb {
-    background: hsl(215 33% 17%);
+    background: rgba(155, 92, 255, 0.25);
     border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(155, 92, 255, 0.45);
   }
 }
 

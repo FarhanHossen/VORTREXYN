@@ -332,13 +332,15 @@ export function Projects() {
               viewport={{ once: true, margin: '-60px' }}
               custom={i}
               data-testid={`project-card-${p.id}`}
-              className="p-7 rounded-lg transition-colors duration-300 group"
-              style={{ background: 'hsl(221 39% 11%)', border: '1px solid hsl(215 33% 17%)' }}
+              className="p-7 rounded-2xl backdrop-blur-xl transition-all duration-300 group"
+              style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(56,189,248,0.35)';
+                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(155,92,255,0.3)';
+                (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.05)';
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 17%)';
+                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.07)';
+                (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.03)';
               }}
             >
               <div className="flex items-start justify-between mb-4">
@@ -449,7 +451,7 @@ export function Projects() {
             whileInView="visible"
             viewport={{ once: true }}
             custom={1}
-            className="p-7 rounded-lg flex items-center justify-between"
+            className="p-7 rounded-2xl flex items-center justify-between"
             style={{ border: '1px dashed hsl(215 33% 17%)', color: 'hsl(215 16% 50%)' }}
           >
             <div>
