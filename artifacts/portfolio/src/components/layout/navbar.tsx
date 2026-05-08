@@ -12,6 +12,7 @@ const PRIMARY_ITEMS = [
 
 const MORE_ITEMS = [
   { id: 'personal-info', label: 'Personal Info' },
+  { id: 'social-profiles', label: 'Social Profiles' },
   { id: 'education', label: 'Education' },
   { id: 'licenses', label: 'Licences' },
   { id: 'achievements', label: 'Achievements' },
