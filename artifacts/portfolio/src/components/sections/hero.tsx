@@ -52,9 +52,12 @@ export function Hero() {
             className="text-base leading-relaxed mb-10"
             style={{ color: 'hsl(215 25% 78%)', maxWidth: 560 }}
           >
-            MIT graduate (Enterprise Software Development + Cyber Security) from UTS, Sydney. I build
-            clean, practical software — from full-stack web apps to backend systems. Currently based in
-            Sydney, NSW.
+            Master of Information Technology graduate (Enterprise Software Development & Cyber Security)
+            from University of Technology Sydney. Software Developer with hands-on experience in
+            full-stack web development, cross-platform mobile applications (iOS & Android), and
+            cloud-based backend systems. Proficient in Java, Dart, TypeScript, Flutter, React.js,
+            Node.js, Firebase, AWS, and Azure. Based in Sydney, NSW — available for full-time
+            opportunities.
           </motion.p>
 
           {/* CTAs */}
@@ -88,7 +91,7 @@ export function Hero() {
           {/* Social / meta row */}
           <motion.div variants={fadeUp} custom={5} className="flex flex-wrap items-center gap-5">
             {[
-              { icon: <Github size={16} />, label: 'GitHub', href: 'https://github.com/FarhanHossen' },
+              { icon: <Github size={16} />, label: 'github.com/FarhanHossen', href: 'https://github.com/FarhanHossen' },
               { icon: <Mail size={16} />, label: 'Email', href: 'mailto:farhan141549@gmail.com' },
             ].map(({ icon, label, href }) => (
               <a
