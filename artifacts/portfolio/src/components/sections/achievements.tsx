@@ -16,7 +16,7 @@ const ACHIEVEMENTS = [
   },
   {
     id: 3,
-    title: '3rd Place — Physics Olympiad',
+    title: '3rd Place (Physics Olympiad)',
     body: '5th Laboratorians National Science Festival',
     period: '2017',
   },
