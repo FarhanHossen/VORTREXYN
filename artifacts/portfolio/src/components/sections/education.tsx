@@ -8,6 +8,7 @@ const EDUCATION = [
     major: 'Enterprise Software Development',
     subMajor: 'Sub-major: Cyber Security',
     institution: 'University of Technology Sydney',
+    institutionUrl: 'https://www.uts.edu.au',
     location: 'Sydney, NSW',
     period: 'Aug 2023 — Jul 2025',
     result: 'Graduated with Distinction · GPA 6.17 / 7.00',
@@ -18,6 +19,7 @@ const EDUCATION = [
     major: 'Computer Science & Engineering',
     subMajor: '',
     institution: 'BRAC University',
+    institutionUrl: 'https://www.bracu.ac.bd',
     location: 'Bangladesh',
     period: 'Jan 2019 — Jan 2023',
     result: 'Graduated with High Distinction · GPA 3.71 / 4.00',
@@ -72,9 +74,21 @@ export function Education() {
                       {edu.subMajor}
                     </p>
                   )}
-                  <p className="font-mono text-sm mt-2" style={{ color: 'hsl(199 93% 60%)' }}>
-                    {edu.institution}
-                  </p>
+                  {'institutionUrl' in edu && edu.institutionUrl ? (
+                    <a
+                      href={edu.institutionUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-sm mt-2 block transition-opacity hover:opacity-75"
+                      style={{ color: 'hsl(199 93% 60%)' }}
+                    >
+                      {edu.institution}
+                    </a>
+                  ) : (
+                    <p className="font-mono text-sm mt-2" style={{ color: 'hsl(199 93% 60%)' }}>
+                      {edu.institution}
+                    </p>
+                  )}
                   <p className="font-mono text-xs mt-0.5" style={{ color: 'hsl(215 16% 55%)' }}>
                     {edu.location}
                   </p>
