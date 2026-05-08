@@ -54,7 +54,7 @@ export function Contact() {
               },
               {
                 icon: <WhatsAppIcon size={15} />,
-                label: 'WhatsApp · +61 416 279 264',
+                label: '+61 416 279 264',
                 href: 'https://wa.me/61416279264',
                 testId: 'link-whatsapp',
               },
