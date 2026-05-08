@@ -20,7 +20,7 @@ const EDUCATION = [
     institution: 'BRAC University',
     location: 'Bangladesh',
     period: 'Jan 2019 — Jan 2023',
-    result: 'Graduated with High Distinction',
+    result: 'Graduated with High Distinction · GPA 3.71 / 4.00',
   },
 ];
 
