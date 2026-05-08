@@ -26,7 +26,7 @@ const EDUCATION = [
   },
   {
     id: 3,
-    degree: 'Higher Secondary School Certificate',
+    degree: 'Higher Secondary Certificate',
     major: 'Science',
     subMajor: '',
     institution: 'Birshreshtha Noor Mohammad Public College',
