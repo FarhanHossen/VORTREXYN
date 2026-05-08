@@ -11,7 +11,7 @@ const EDUCATION = [
     institutionUrl: 'https://www.uts.edu.au',
     location: 'Sydney, NSW',
     period: 'Aug 2023 — Jul 2025',
-    result: 'Graduated with Distinction · GPA 6.17 / 7.00',
+    result: 'Graduated with Distinction · GPA 6.17 / 7.00 · WAM 80.56',
   },
   {
     id: 2,
