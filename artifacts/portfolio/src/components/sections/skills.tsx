@@ -3,19 +3,47 @@ import { Wrench } from 'lucide-react';
 
 const SKILL_GROUPS: { category: string; symbol: string; skills: string[] }[] = [
   {
-    category: 'Languages',
+    category: 'Programming Languages',
     symbol: '{ }',
-    skills: ['TypeScript', 'JavaScript', 'Python', 'HTML5', 'CSS3', 'SQL'],
+    skills: ['Java', 'Dart', 'C', 'C++', 'C#', 'Swift', 'TypeScript', 'SQL'],
   },
   {
-    category: 'Frameworks',
+    category: 'Scripting & Markup',
+    symbol: '</>',
+    skills: ['JavaScript', 'Python', 'HTML5', 'CSS3'],
+  },
+  {
+    category: 'Frameworks & Platforms',
     symbol: '[ ]',
-    skills: ['React', 'Node.js', 'Express', 'Tailwind CSS', 'Framer Motion'],
+    skills: ['Flutter', '.NET', 'React.js', 'Node.js', 'Express', 'Tailwind CSS'],
   },
   {
-    category: 'Tools & Platforms',
+    category: 'Core Concepts',
+    symbol: '∑',
+    skills: [
+      'Data Structures & Algorithms',
+      'Object-Oriented Programming',
+      'Game Logic Development',
+      'Real-Time Systems',
+      'Debugging & Performance Optimization',
+    ],
+  },
+  {
+    category: 'Development Tools',
     symbol: '⚙',
-    skills: ['Firebase', 'PostgreSQL', 'Docker', 'Git', 'REST APIs', 'OpenAI API', 'PayPal SDK'],
+    skills: [
+      'Git',
+      'Visual Studio',
+      'Android Studio',
+      'Firebase Console',
+      'PostgreSQL',
+      'Docker',
+      'REST APIs',
+      'Unit Testing',
+      'Agile SDLC',
+      'OpenAI API',
+      'PayPal SDK',
+    ],
   },
 ];
 
@@ -34,7 +62,7 @@ export function Skills() {
       <div className="max-w-6xl mx-auto px-6">
         <SectionHeader icon={<Wrench size={16} />} label="skills" title="Technical Toolkit" />
 
-        <div className="mt-10 grid md:grid-cols-3 gap-6">
+        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {SKILL_GROUPS.map((group, i) => (
             <motion.div
               key={group.category}
