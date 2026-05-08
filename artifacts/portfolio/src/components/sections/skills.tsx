@@ -30,7 +30,7 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[] }[] = [
   {
     category: 'Cloud & DevOps',
     symbol: '☁',
-    skills: ['Firebase', 'GCP App Engine', 'Cloud Functions', 'AWS', 'Azure', 'Docker', 'Cloudflare', 'Git'],
+    skills: ['Firebase', 'AWS', 'Azure', 'Cloudflare', 'Netlify', 'Git'],
   },
   {
     category: 'Systems & Networking',
