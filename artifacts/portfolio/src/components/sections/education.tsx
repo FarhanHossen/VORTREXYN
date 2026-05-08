@@ -14,8 +14,8 @@ const EDUCATION = [
   },
   {
     id: 2,
-    degree: 'Bachelor of Science in Computer Science & Engineering',
-    major: '',
+    degree: 'Bachelor of Science',
+    major: 'Computer Science & Engineering',
     subMajor: '',
     institution: 'BRAC University',
     location: 'Bangladesh',
