@@ -94,6 +94,17 @@ const EXPERIENCE = [
       'Maintained front counter operations by coordinating with kitchen staff, managing order flow, and ensuring cleanliness, food safety, and compliance with company standards during peak hours.',
     ],
   },
+  {
+    id: 9,
+    role: 'Student Tutor',
+    company: 'BRAC University',
+    companyUrl: 'https://www.bracu.ac.bd',
+    location: 'Dhaka, Bangladesh',
+    period: 'Jun 2022 — Dec 2022',
+    points: [
+      'Provided academic support to 300+ undergraduate students using problem-solving simulations and maintained structured grading data sheets, and supported faculty with exam invigilation, course administration, research assistance, and technical guidance for analytical and computational problem-solving.',
+    ],
+  },
 ];
 
 const fadeUp = {
