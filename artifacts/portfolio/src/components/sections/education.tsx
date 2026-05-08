@@ -15,6 +15,17 @@ const EDUCATION = [
   },
   {
     id: 2,
+    degree: 'Higher Secondary School Certificate',
+    major: 'Science',
+    subMajor: '',
+    institution: 'Birshreshtha Noor Mohammad Public College',
+    institutionUrl: '',
+    location: 'Bangladesh',
+    period: 'Jun 2016 — Jul 2018',
+    result: 'GPA 5.00 / 5.00',
+  },
+  {
+    id: 3,
     degree: 'Bachelor of Science',
     major: 'Computer Science & Engineering',
     subMajor: '',
