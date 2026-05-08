@@ -35,6 +35,17 @@ const EDUCATION = [
     period: 'Jun 2016 — Jul 2018',
     result: 'GPA 5.00 / 5.00',
   },
+  {
+    id: 4,
+    degree: 'Secondary School Certificate',
+    major: 'Science',
+    subMajor: '',
+    institution: 'Birshreshtha Noor Mohammad Public College',
+    institutionUrl: 'https://www.google.com/maps/search/?api=1&query=Birshreshtha+Noor+Mohammad+Public+College+Dhaka+Bangladesh',
+    location: 'Bangladesh',
+    period: 'Jan 2014 — May 2016',
+    result: 'GPA 5.00 / 5.00',
+  },
 ];
 
 const fadeUp = {
