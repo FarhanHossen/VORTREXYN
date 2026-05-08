@@ -46,6 +46,17 @@ const EDUCATION = [
     period: 'Jan 2014 — May 2016',
     result: 'GPA 5.00 / 5.00',
   },
+  {
+    id: 5,
+    degree: 'Junior School Certificate',
+    major: 'Science',
+    subMajor: '',
+    institution: 'Birshreshtha Munshi Abdur Rouf Public College',
+    institutionUrl: 'https://www.google.com/maps/search/?api=1&query=Birshreshtha+Munshi+Abdur+Rouf+Public+College+Bangladesh',
+    location: 'Bangladesh',
+    period: 'Jan 2013 — Dec 2013',
+    result: 'GPA 5.00 / 5.00',
+  },
 ];
 
 const fadeUp = {
