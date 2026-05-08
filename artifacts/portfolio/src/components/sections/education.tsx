@@ -30,7 +30,7 @@ const EDUCATION = [
     major: 'Science',
     subMajor: '',
     institution: 'Birshreshtha Noor Mohammad Public College',
-    institutionUrl: '',
+    institutionUrl: 'https://bnmpc.edu.bd',
     location: 'Bangladesh',
     period: 'Jun 2016 — Jul 2018',
     result: 'GPA 5.00 / 5.00',
