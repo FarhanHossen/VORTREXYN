@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, ArrowUpRight, Github } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -45,15 +45,9 @@ export function Contact() {
               },
               {
                 icon: <MapPin size={15} />,
-                label: 'Sydney, NSW, Australia · Work Rights: Full Time',
+                label: 'Sydney, NSW, Australia',
                 href: null,
                 testId: null,
-              },
-              {
-                icon: <Github size={15} />,
-                label: 'github.com/FarhanHossen',
-                href: 'https://github.com/FarhanHossen',
-                testId: 'link-github',
               },
             ].map(({ icon, label, href, testId }) => (
               <div key={label} className="flex items-center gap-3">
