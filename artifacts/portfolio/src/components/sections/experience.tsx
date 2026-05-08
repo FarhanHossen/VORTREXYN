@@ -29,14 +29,12 @@ const EXPERIENCE = [
   },
   {
     id: 3,
-    role: 'Houseperson / Room Attendant',
+    role: 'Room Attendant',
     company: 'Crown Towers Sydney',
     location: 'Barangaroo, NSW',
-    period: 'Sep 2023 — Jun 2024',
+    period: 'Sep 2023 — Jan 2024',
     points: [
-      'Supported luxury hotel housekeeping operations across floors for timely room readiness',
-      'Maintained high standards of cleanliness and presentation in line with Crown Towers luxury standards',
-      'Consistently met turnaround time metrics in a high-volume, guest-facing environment',
+      'Maintained high standards of cleanliness and presentation by servicing guest rooms, including bed-making, bathroom sanitation, and replenishment of amenities in line with luxury hotel standards.',
     ],
   },
   {
