@@ -62,6 +62,17 @@ const EXPERIENCE = [
   },
   {
     id: 6,
+    role: 'Front Team Member',
+    company: 'Villaggio',
+    companyUrl: 'https://maps.google.com/?q=Villaggio+Restaurant+Blacktown+NSW',
+    location: 'Blacktown & Merrylands, NSW',
+    period: 'Jan 2024 — Oct 2025',
+    points: [
+      'Delivered high-quality customer service by taking orders, handling POS transactions, managing telephone orders, processing bookings and advance deposit payments, coordinating with kitchen staff, managing order flow, and maintaining cleanliness of dining areas, ensuring a welcoming dining experience while consistently meeting service speed, efficiency, and customer satisfaction metrics.',
+    ],
+  },
+  {
+    id: 7,
     role: 'Room Attendant',
     company: 'Crown Towers Sydney',
     companyUrl: 'https://maps.google.com/?q=Crown+Towers+Sydney,+Barangaroo+NSW',
@@ -72,7 +83,7 @@ const EXPERIENCE = [
     ],
   },
   {
-    id: 7,
+    id: 8,
     role: 'Front Team Member',
     company: "McDonald's",
     companyUrl: "https://maps.google.com/?q=McDonald's+Punchbowl+NSW",
