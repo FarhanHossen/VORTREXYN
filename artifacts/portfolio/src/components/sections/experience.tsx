@@ -29,6 +29,17 @@ const EXPERIENCE = [
   },
   {
     id: 3,
+    role: 'Team Member',
+    company: 'Woolworths Warehouse',
+    location: 'Lidcombe, NSW',
+    period: 'Apr 2024 — Sep 2024',
+    points: [
+      'Prepared and organized 200+ totes and trolleys per shift, improving workflow efficiency, reducing delays, and supporting smooth day-to-day warehouse operations.',
+      'Coordinated manual warehouse operations by receiving inbound trucks, checking delivery lists, unloading goods, and loading outbound shipments as per dispatch requirements, ensuring accurate and efficient stock movement.',
+    ],
+  },
+  {
+    id: 4,
     role: 'Houseperson',
     company: 'Crown Towers Sydney',
     companyUrl: 'https://maps.google.com/?q=Crown+Towers+Sydney,+Barangaroo+NSW',
@@ -39,7 +50,7 @@ const EXPERIENCE = [
     ],
   },
   {
-    id: 4,
+    id: 5,
     role: 'Room Attendant',
     company: 'Crown Towers Sydney',
     companyUrl: 'https://maps.google.com/?q=Crown+Towers+Sydney,+Barangaroo+NSW',
@@ -50,7 +61,7 @@ const EXPERIENCE = [
     ],
   },
   {
-    id: 5,
+    id: 6,
     role: 'Front Team Member',
     company: "McDonald's",
     companyUrl: "https://maps.google.com/?q=McDonald's+Punchbowl+NSW",
