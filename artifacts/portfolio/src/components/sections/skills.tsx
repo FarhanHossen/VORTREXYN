@@ -63,7 +63,7 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[]; accent
   {
     category: 'AI',
     symbol: '✦',
-    skills: ['GPT', 'Claude', 'Replit'],
+    skills: ['GPT', 'Claude', 'Gemini', 'Replit'],
     accent: '#9B5CFF',
   },
 ];
