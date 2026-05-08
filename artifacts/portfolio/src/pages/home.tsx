@@ -5,6 +5,7 @@ import { Skills } from "@/components/sections/skills";
 import { Experience } from "@/components/sections/experience";
 import { Education } from "@/components/sections/education";
 import { Contact } from "@/components/sections/contact";
+import { Licenses } from "@/components/sections/licenses";
 
 export default function Home() {
   return (
@@ -20,6 +21,8 @@ export default function Home() {
         <Experience />
         <div style={{ height: 1, background: 'linear-gradient(to right, transparent, hsl(215 33% 17%), transparent)', margin: '0 1.5rem' }} />
         <Education />
+        <div style={{ height: 1, background: 'linear-gradient(to right, transparent, hsl(215 33% 17%), transparent)', margin: '0 1.5rem' }} />
+        <Licenses />
         <Contact />
       </main>
     </div>
