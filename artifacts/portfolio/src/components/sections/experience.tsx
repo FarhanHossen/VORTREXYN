@@ -6,7 +6,7 @@ const EXPERIENCE = [
     id: 1,
     role: 'Team Member',
     company: 'Primary Connect (Woolworths RDC)',
-    companyUrl: 'https://maps.google.com/?q=Woolworths+NDC+Moorebank+NSW',
+    companyUrl: 'https://maps.app.goo.gl/wnFMezAT1z5WRPe29',
     location: 'Moorebank, NSW',
     period: 'Nov 2025 — Present',
     points: [
