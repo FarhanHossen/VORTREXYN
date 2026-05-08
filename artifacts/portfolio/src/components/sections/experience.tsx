@@ -65,7 +65,7 @@ const EXPERIENCE = [
     role: 'Front Team Member',
     company: 'Villaggio',
     companyUrl: 'https://maps.google.com/?q=Villaggio+Restaurant+NSW',
-    location: 'Blacktown & Merrylands, NSW',
+    location: 'Blacktown, Merrylands & Ashfield, NSW',
     period: 'Jan 2024 — Oct 2025',
     points: [
       'Delivered high-quality customer service by taking orders, handling POS transactions, managing telephone orders, processing bookings and advance deposit payments, coordinating with kitchen staff, managing order flow, and maintaining cleanliness of dining areas, ensuring a welcoming dining experience while consistently meeting service speed, efficiency, and customer satisfaction metrics.',
