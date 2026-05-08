@@ -104,6 +104,11 @@ const EXPERIENCE = [
     points: [
       'Provided academic support to 300+ undergraduate students using problem-solving simulations and maintained structured grading data sheets, and supported faculty with exam invigilation, course administration, research assistance, and technical guidance for analytical and computational problem-solving.',
     ],
+    courses: [
+      { code: 'MAT092', name: 'Remedial Course in Mathematics',            faculty: 'Mr. Md. Maruf Ahmed' },
+      { code: 'MAT215', name: 'Complex Variables and Laplace Transformations', faculty: 'Anika Ferdous' },
+      { code: 'MAT216', name: 'Linear Algebra and Fourier Analysis',       faculty: 'Shuchi Chaki · Sujon Chandra Sutradhar' },
+    ],
   },
 ];
 
@@ -181,6 +186,28 @@ export function Experience() {
                   </li>
                 ))}
               </ul>
+
+              {'courses' in job && job.courses && (
+                <div className="mt-4 pt-4" style={{ borderTop: '1px solid hsl(215 33% 17%)' }}>
+                  <p className="font-mono text-xs mb-2" style={{ color: 'hsl(215 16% 50%)' }}>
+                    // courses tutored
+                  </p>
+                  <div className="space-y-2">
+                    {job.courses.map((c) => (
+                      <div key={c.code} className="flex flex-col sm:flex-row sm:items-baseline gap-x-3 gap-y-0.5">
+                        <span
+                          className="font-mono text-xs shrink-0 px-1.5 py-0.5 rounded"
+                          style={{ background: 'hsl(221 39% 15%)', color: 'hsl(199 93% 60%)', border: '1px solid hsl(215 33% 22%)' }}
+                        >
+                          {c.code}
+                        </span>
+                        <span className="text-sm" style={{ color: 'hsl(215 25% 72%)' }}>{c.name}</span>
+                        <span className="font-mono text-xs" style={{ color: 'hsl(215 16% 45%)' }}>— {c.faculty}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </motion.div>
           ))}
         </div>
