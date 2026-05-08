@@ -22,8 +22,8 @@ const ACHIEVEMENTS = [
   },
   {
     id: 4,
-    title: 'Co-Founder',
-    body: 'BNMPC Science Club',
+    title: 'Co-founded BNMPC Science Club',
+    body: 'As a junior member',
     period: '2015',
   },
 ];
