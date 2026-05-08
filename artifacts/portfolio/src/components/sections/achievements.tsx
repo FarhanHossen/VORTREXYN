@@ -22,7 +22,7 @@ const ACHIEVEMENTS = [
   },
   {
     id: 4,
-    title: 'Founding Member',
+    title: 'Co-Founder',
     body: 'BNMPC Science Club',
     period: '2015',
   },
