@@ -31,6 +31,7 @@ const EXPERIENCE = [
     id: 3,
     role: 'Room Attendant',
     company: 'Crown Towers Sydney',
+    companyUrl: 'https://maps.google.com/?q=Crown+Towers+Sydney,+Barangaroo+NSW',
     location: 'Barangaroo, NSW',
     period: 'Sep 2023 — Jan 2024',
     points: [
@@ -41,6 +42,7 @@ const EXPERIENCE = [
     id: 4,
     role: 'Front Team Member',
     company: "McDonald's",
+    companyUrl: "https://maps.google.com/?q=McDonald's+Punchbowl+NSW",
     location: 'Punchbowl, NSW',
     period: 'Aug 2023 — Dec 2023',
     points: [
@@ -88,9 +90,21 @@ export function Experience() {
                   <h3 className="text-base font-semibold" style={{ color: 'hsl(210 40% 96%)' }}>
                     {job.role}
                   </h3>
-                  <p className="font-mono text-sm" style={{ color: 'hsl(199 93% 60%)' }}>
-                    {job.company}
-                  </p>
+                  {'companyUrl' in job && job.companyUrl ? (
+                    <a
+                      href={job.companyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-sm transition-opacity hover:opacity-75"
+                      style={{ color: 'hsl(199 93% 60%)' }}
+                    >
+                      {job.company}
+                    </a>
+                  ) : (
+                    <p className="font-mono text-sm" style={{ color: 'hsl(199 93% 60%)' }}>
+                      {job.company}
+                    </p>
+                  )}
                   <p className="font-mono text-xs mt-0.5" style={{ color: 'hsl(215 16% 55%)' }}>
                     {job.location}
                   </p>
