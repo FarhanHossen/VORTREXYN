@@ -15,7 +15,7 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[] }[] = [
   {
     category: 'Frameworks & Platforms',
     symbol: '[ ]',
-    skills: ['Flutter', '.NET', 'React.js', 'React Native', 'Expo', 'Node.js', 'Express', 'NestJS', 'Angular.js', 'Django', 'Tailwind CSS'],
+    skills: ['Flutter', '.NET', 'React.js', 'React Native', 'Expo', 'Node.js', 'Express', 'Tailwind CSS'],
   },
   {
     category: 'Web & Mobile',
