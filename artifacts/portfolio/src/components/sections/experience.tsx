@@ -64,7 +64,7 @@ const EXPERIENCE = [
     id: 6,
     role: 'Front Team Member',
     company: 'Villaggio',
-    companyUrl: 'https://maps.google.com/?q=Villaggio+Restaurant+Blacktown+NSW',
+    companyUrl: 'https://maps.google.com/?q=Villaggio+Restaurant+NSW',
     location: 'Blacktown & Merrylands, NSW',
     period: 'Jan 2024 — Oct 2025',
     points: [
