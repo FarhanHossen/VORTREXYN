@@ -10,7 +10,7 @@ const EDUCATION = [
     institution: 'University of Technology Sydney',
     location: 'Sydney, NSW',
     period: 'Aug 2023 — Jul 2025',
-    result: 'Graduated with Distinction',
+    result: 'Graduated with Distinction · GPA 6.17 / 7.00',
   },
   {
     id: 2,
