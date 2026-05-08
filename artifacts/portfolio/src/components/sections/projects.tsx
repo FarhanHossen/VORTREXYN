@@ -50,7 +50,6 @@ const PROJECTS = [
       { src: '/screenshots/bubble-pop-gameplay-extreme.png', alt: 'Gameplay — Extreme' },
     ],
     tags: ['React Native', 'Expo', 'TypeScript', 'Firebase', 'Firestore', 'EAS', 'App Store Connect', 'Cloudflare', 'REST APIs', 'Git'],
-    website: 'https://vortrexynbubblepop.app',
     github: 'https://github.com/FarhanHossen/Bubble-Pop',
     demo: 'https://apps.apple.com/us/app/vortrexyn-bubble-pop/id6764064306',
     demoLabel: 'App Store',
@@ -368,19 +367,6 @@ export function Projects() {
                   </div>
                   <h3 className="text-xl font-bold" style={{ color: 'hsl(210 40% 96%)' }}>
                     {p.title}
-                    {'website' in p && p.website && (
-                      <a
-                        href={p.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-mono text-xs ml-3 align-middle transition-colors"
-                        style={{ color: '#00E5FF' }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = '#9B5CFF')}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = '#00E5FF')}
-                      >
-                        ↗ {(p.website as string).replace('https://', '')}
-                      </a>
-                    )}
                   </h3>
                   <p className="font-mono text-sm mt-0.5" style={{ color: 'hsl(215 16% 58%)' }}>
                     {p.subtitle}
