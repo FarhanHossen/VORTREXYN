@@ -20,7 +20,7 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[] }[] = [
   {
     category: 'Web & Mobile',
     symbol: '◈',
-    skills: ['Responsive UI/UX', 'RESTful APIs', 'Cross-platform Development', 'iOS Mobile Development', 'Third-party Integrations'],
+    skills: ['Website Development', 'Android Application Development', 'Responsive UI/UX', 'RESTful APIs', 'Cross-platform Development', 'iOS Mobile Development', 'Third-party Integrations'],
   },
   {
     category: 'Databases & Data',
