@@ -19,6 +19,7 @@ const EXPERIENCE = [
     id: 2,
     role: 'Junior Chef',
     company: 'Matinee Coffee',
+    companyUrl: 'https://maps.google.com/?q=Matinee+Coffee+Marrickville+NSW',
     location: 'Marrickville, NSW',
     period: 'Apr 2025 — Oct 2025',
     points: [
@@ -29,6 +30,7 @@ const EXPERIENCE = [
     id: 3,
     role: 'Kitchen Hand',
     company: 'Matinee Coffee',
+    companyUrl: 'https://maps.google.com/?q=Matinee+Coffee+Marrickville+NSW',
     location: 'Marrickville, NSW',
     period: 'Jul 2024 — Mar 2025',
     points: [
