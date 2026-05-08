@@ -10,7 +10,7 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[] }[] = [
   {
     category: 'Scripting & Markup',
     symbol: '</>',
-    skills: ['JavaScript', 'Python', 'HTML5', 'CSS3'],
+    skills: ['JavaScript', 'Python', 'HTML5', 'CSS3', 'LaTeX'],
   },
   {
     category: 'Frameworks & Platforms',
@@ -52,7 +52,7 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[] }[] = [
     symbol: '⚙',
     skills: [
       'Visual Studio', 'Android Studio', 'EAS', 'App Store Connect',
-      'LaTeX/Overleaf', 'Microsoft Office', 'VMware', 'VirtualBox',
+      'Overleaf', 'Microsoft Office', 'VMware', 'VirtualBox',
       'Cisco Packet Tracer', 'Agile SDLC', 'OpenAI API', 'PayPal SDK',
     ],
   },
