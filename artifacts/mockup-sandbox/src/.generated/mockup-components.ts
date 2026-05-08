@@ -7,11 +7,11 @@ export const modules: ModuleMap = {
   "./components/mockups/portfolio-code-themes2/VariantNpm.tsx": () => import("../components/mockups/portfolio-code-themes2/VariantNpm.tsx"),
   "./components/mockups/portfolio-code-themes2/VariantSwagger.tsx": () => import("../components/mockups/portfolio-code-themes2/VariantSwagger.tsx"),
   "./components/mockups/portfolio-code-themes2/VariantWinXP.tsx": () => import("../components/mockups/portfolio-code-themes2/VariantWinXP.tsx"),
-  "./components/mockups/portfolio-cyber-themes/VariantCyberpunk.tsx": () => import("../components/mockups/portfolio-cyber-themes/VariantCyberpunk.tsx"),
-  "./components/mockups/portfolio-cyber-themes/VariantMatrix.tsx": () => import("../components/mockups/portfolio-cyber-themes/VariantMatrix.tsx"),
-  "./components/mockups/portfolio-cyber-themes/VariantOps.tsx": () => import("../components/mockups/portfolio-cyber-themes/VariantOps.tsx"),
   "./components/mockups/portfolio-variants/VariantA.tsx": () => import("../components/mockups/portfolio-variants/VariantA.tsx"),
   "./components/mockups/portfolio-variants/VariantB.tsx": () => import("../components/mockups/portfolio-variants/VariantB.tsx"),
   "./components/mockups/portfolio-variants/VariantC.tsx": () => import("../components/mockups/portfolio-variants/VariantC.tsx"),
-  "./components/mockups/portfolio-variants/VariantDev.tsx": () => import("../components/mockups/portfolio-variants/VariantDev.tsx")
+  "./components/mockups/portfolio-variants/VariantDev.tsx": () => import("../components/mockups/portfolio-variants/VariantDev.tsx"),
+  "./components/mockups/portfolio-cyber-themes/VariantCyberpunk.tsx": () => import("../components/mockups/portfolio-cyber-themes/VariantCyberpunk.tsx"),
+  "./components/mockups/portfolio-cyber-themes/VariantMatrix.tsx": () => import("../components/mockups/portfolio-cyber-themes/VariantMatrix.tsx"),
+  "./components/mockups/portfolio-cyber-themes/VariantOps.tsx": () => import("../components/mockups/portfolio-cyber-themes/VariantOps.tsx")
 };

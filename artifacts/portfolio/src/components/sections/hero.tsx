@@ -51,14 +51,6 @@ export function Hero() {
           </motion.h1>
 
           {/* Role */}
-          <motion.h2
-            variants={fadeUp}
-            custom={2}
-            className="text-2xl md:text-3xl font-light tracking-wide mb-7"
-            style={{ color: 'rgba(255,255,255,0.55)' }}
-          >
-            Architecting Digital Futures
-          </motion.h2>
 
           <motion.p
             variants={fadeUp}
