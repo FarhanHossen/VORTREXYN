@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/layout/navbar";
 import { Hero } from "@/components/sections/hero";
+import { PersonalInfo } from "@/components/sections/personal-info";
 import { Projects } from "@/components/sections/projects";
 import { Skills } from "@/components/sections/skills";
 import { Experience } from "@/components/sections/experience";
@@ -15,6 +16,8 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <div style={{ height: 1, background: 'linear-gradient(to right, transparent, hsl(215 33% 17%), transparent)', margin: '0 1.5rem' }} />
+        <PersonalInfo />
         <div style={{ height: 1, background: 'linear-gradient(to right, transparent, hsl(215 33% 17%), transparent)', margin: '0 1.5rem' }} />
         <Projects />
         <div style={{ height: 1, background: 'linear-gradient(to right, transparent, hsl(215 33% 17%), transparent)', margin: '0 1.5rem' }} />
