@@ -29,6 +29,17 @@ const EXPERIENCE = [
   },
   {
     id: 3,
+    role: 'Houseperson',
+    company: 'Crown Towers Sydney',
+    companyUrl: 'https://maps.google.com/?q=Crown+Towers+Sydney,+Barangaroo+NSW',
+    location: 'Barangaroo, NSW',
+    period: 'Feb 2024 — Jun 2024',
+    points: [
+      'Supported housekeeping operations by transporting linens, amenities, and equipment across floors, ensuring timely room readiness while meeting productivity and turnaround time metrics in line with Crown Towers Sydney standards.',
+    ],
+  },
+  {
+    id: 4,
     role: 'Room Attendant',
     company: 'Crown Towers Sydney',
     companyUrl: 'https://maps.google.com/?q=Crown+Towers+Sydney,+Barangaroo+NSW',
@@ -39,7 +50,7 @@ const EXPERIENCE = [
     ],
   },
   {
-    id: 4,
+    id: 5,
     role: 'Front Team Member',
     company: "McDonald's",
     companyUrl: "https://maps.google.com/?q=McDonald's+Punchbowl+NSW",
