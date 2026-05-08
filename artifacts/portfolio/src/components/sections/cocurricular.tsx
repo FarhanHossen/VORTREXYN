@@ -34,7 +34,7 @@ const ACTIVITIES = [
   },
   {
     id: 6,
-    title: 'Senior Member — Rover Scout',
+    title: 'Senior Member (Rover Scout)',
     body: 'Birshreshtha Noor Mohammad Public College',
     period: '2018',
   },
