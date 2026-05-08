@@ -4,6 +4,7 @@ import { BadgeCheck } from 'lucide-react';
 const LICENSES = [
   { title: 'White Card', body: 'Construction Induction Training (Australia)' },
   { title: 'Forklift Operator Licence (LF)', body: 'WorkSafe NSW' },
+  { title: 'Australian Driving Licence', body: 'NSW' },
   { title: 'Full Time Work Rights', body: 'Australia' },
 ];
 
