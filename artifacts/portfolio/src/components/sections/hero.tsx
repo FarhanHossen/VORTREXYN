@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ChevronRight, Mail, MapPin, Github } from 'lucide-react';
+import { ChevronRight, Mail } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -88,29 +88,6 @@ export function Hero() {
             </button>
           </motion.div>
 
-          {/* Social / meta row */}
-          <motion.div variants={fadeUp} custom={5} className="flex flex-wrap items-center gap-5">
-            {[
-              { icon: <Github size={16} />, label: 'GitHub', href: 'https://github.com/FarhanHossen' },
-              { icon: <Mail size={16} />, label: 'Email', href: 'mailto:farhan141549@gmail.com' },
-            ].map(({ icon, label, href }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 font-mono text-xs transition-colors"
-                style={{ color: 'hsl(215 20% 68%)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(199 93% 60%)')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'hsl(215 20% 68%)')}
-              >
-                {icon} {label}
-              </a>
-            ))}
-            <span className="font-mono text-xs flex items-center gap-1" style={{ color: 'hsl(215 20% 68%)' }}>
-              <MapPin size={13} /> Sydney, NSW
-            </span>
-          </motion.div>
         </motion.div>
 
         {/* Decorative code snippet — desktop only */}

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Linkedin, Facebook, Instagram, ExternalLink } from 'lucide-react';
+import { Github, Linkedin, Facebook, Instagram, ExternalLink } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -11,6 +11,14 @@ const fadeUp = {
 };
 
 const profiles = [
+  {
+    icon: <Github size={22} />,
+    label: 'GitHub',
+    handle: '@FarhanHossen',
+    href: 'https://github.com/FarhanHossen',
+    color: 'hsl(210 40% 92%)',
+    bg: 'rgba(255,255,255,0.04)',
+  },
   {
     icon: <Linkedin size={22} />,
     label: 'LinkedIn',
