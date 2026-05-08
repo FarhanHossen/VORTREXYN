@@ -5,7 +5,7 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[] }[] = [
   {
     category: 'Programming Languages',
     symbol: '{ }',
-    skills: ['Java', 'Dart', 'C', 'C++', 'C#', 'Swift', 'TypeScript', 'SQL'],
+    skills: ['Java', 'Dart', 'C#', 'Swift', 'C', 'C++', 'TypeScript', 'SQL'],
   },
   {
     category: 'Scripting & Markup',
@@ -15,38 +15,45 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[] }[] = [
   {
     category: 'Frameworks & Platforms',
     symbol: '[ ]',
-    skills: ['Flutter', '.NET', 'React.js', 'React Native', 'Expo', 'Node.js', 'Express', 'Tailwind CSS'],
+    skills: ['Flutter', '.NET', 'React.js', 'React Native', 'Expo', 'Node.js', 'Express', 'NestJS', 'Angular.js', 'Django', 'Tailwind CSS'],
+  },
+  {
+    category: 'Web & Mobile',
+    symbol: '◈',
+    skills: ['Responsive UI/UX', 'RESTful APIs', 'Cross-platform Development', 'iOS Mobile Development', 'Third-party Integrations'],
+  },
+  {
+    category: 'Databases & Data',
+    symbol: '⊞',
+    skills: ['MySQL', 'MongoDB', 'PostgreSQL', 'Firestore', 'Data Modelling', 'Performance Optimisation'],
+  },
+  {
+    category: 'Cloud & DevOps',
+    symbol: '☁',
+    skills: ['Firebase', 'GCP App Engine', 'Cloud Functions', 'AWS', 'Azure', 'Docker', 'Cloudflare', 'Git'],
+  },
+  {
+    category: 'Systems & Networking',
+    symbol: '⊟',
+    skills: ['Windows', 'Linux (Ubuntu/Kali/Unix)', 'IP Addressing', 'Subnetting', 'Routing & Switching'],
+  },
+  {
+    category: 'Testing & Quality',
+    symbol: '✓',
+    skills: ['Debugging', 'Unit Testing', 'Integration Testing', 'Automated Testing', 'PyTest', 'Code Reviews', 'Documentation'],
   },
   {
     category: 'Core Concepts',
     symbol: '∑',
-    skills: [
-      'Data Structures & Algorithms',
-      'Object-Oriented Programming',
-      'Game Logic Development',
-      'Real-Time Systems',
-      'Debugging & Performance Optimization',
-    ],
+    skills: ['Data Structures & Algorithms', 'Object-Oriented Programming', 'Game Logic Development', 'Real-Time Systems'],
   },
   {
-    category: 'Development Tools',
+    category: 'Tools & Software',
     symbol: '⚙',
     skills: [
-      'Git',
-      'Visual Studio',
-      'Android Studio',
-      'Firebase Console',
-      'Firestore',
-      'EAS',
-      'App Store Connect',
-      'Cloudflare',
-      'PostgreSQL',
-      'Docker',
-      'REST APIs',
-      'Unit Testing',
-      'Agile SDLC',
-      'OpenAI API',
-      'PayPal SDK',
+      'Visual Studio', 'Android Studio', 'EAS', 'App Store Connect',
+      'LaTeX/Overleaf', 'Microsoft Office', 'VMware', 'VirtualBox',
+      'Cisco Packet Tracer', 'Agile SDLC', 'OpenAI API', 'PayPal SDK',
     ],
   },
 ];
