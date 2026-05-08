@@ -31,6 +31,7 @@ const EXPERIENCE = [
     id: 3,
     role: 'Team Member',
     company: 'Woolworths Warehouse',
+    companyUrl: 'https://maps.google.com/?q=Woolworths+Warehouse+Lidcombe+NSW',
     location: 'Lidcombe, NSW',
     period: 'Apr 2024 — Sep 2024',
     points: [
