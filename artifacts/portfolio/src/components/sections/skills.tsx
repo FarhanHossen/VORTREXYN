@@ -38,11 +38,6 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[] }[] = [
     skills: ['Windows', 'Linux (Ubuntu/Kali/Unix)', 'IP Addressing', 'Subnetting', 'Routing & Switching'],
   },
   {
-    category: 'Testing & Quality',
-    symbol: '✓',
-    skills: ['Debugging', 'Unit Testing', 'Integration Testing', 'Automated Testing', 'PyTest', 'Code Reviews', 'Documentation'],
-  },
-  {
     category: 'Core Concepts',
     symbol: '∑',
     skills: ['Data Structures & Algorithms', 'Object-Oriented Programming', 'Game Logic Development', 'Real-Time Systems'],
