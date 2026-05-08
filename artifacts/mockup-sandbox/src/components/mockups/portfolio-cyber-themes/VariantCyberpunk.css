@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+.font-cyber {
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.font-mono-cyber {
+  font-family: 'Space Mono', monospace;
+}
+
+.bg-cyber-dark {
+  background-color: #0a0010;
+  background-image: 
+    linear-gradient(rgba(255, 0, 127, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 0, 127, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.cyber-glitch-text {
+  position: relative;
+  text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.025em -0.05em 0 rgba(0,255,0,0.75), 0.025em 0.05em 0 rgba(0,0,255,0.75);
+  animation: cyber-glitch 2s infinite;
+}
+
+.cyber-glitch-text::before,
+.cyber-glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0a0010;
+}
+
+.cyber-glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 #FF007F;
+  clip: rect(24px, 550px, 90px, 0);
+  animation: cyber-glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+.cyber-glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 #BF00FF;
+  clip: rect(85px, 550px, 140px, 0);
+  animation: cyber-glitch-anim 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes cyber-glitch-anim {
+  0% { clip: rect(4px, 9999px, 80px, 0); }
+  20% { clip: rect(62px, 9999px, 92px, 0); }
+  40% { clip: rect(10px, 9999px, 3px, 0); }
+  60% { clip: rect(96px, 9999px, 19px, 0); }
+  80% { clip: rect(24px, 9999px, 57px, 0); }
+  100% { clip: rect(81px, 9999px, 63px, 0); }
+}
+
+@keyframes cyber-glitch-anim-2 {
+  0% { clip: rect(65px, 9999px, 100px, 0); }
+  20% { clip: rect(3px, 9999px, 86px, 0); }
+  40% { clip: rect(14px, 9999px, 60px, 0); }
+  60% { clip: rect(41px, 9999px, 7px, 0); }
+  80% { clip: rect(80px, 9999px, 45px, 0); }
+  100% { clip: rect(11px, 9999px, 5px, 0); }
+}
+
+.cyber-btn {
+  position: relative;
+  background: transparent;
+  color: #fff;
+  border: 2px solid #FF007F;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  box-shadow: 0 0 10px rgba(255, 0, 127, 0.5), inset 0 0 10px rgba(255, 0, 127, 0.5);
+  transition: all 0.2s ease-in-out;
+  clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+}
+
+.cyber-btn:hover {
+  background: #FF007F;
+  color: #0a0010;
+  box-shadow: 0 0 20px rgba(255, 0, 127, 0.8), inset 0 0 20px rgba(255, 0, 127, 0.8);
+}
+
+.cyber-btn-alt {
+  border-color: #BF00FF;
+  box-shadow: 0 0 10px rgba(191, 0, 255, 0.5), inset 0 0 10px rgba(191, 0, 255, 0.5);
+}
+
+.cyber-btn-alt:hover {
+  background: #BF00FF;
+  box-shadow: 0 0 20px rgba(191, 0, 255, 0.8), inset 0 0 20px rgba(191, 0, 255, 0.8);
+}
+
+.cyber-border {
+  border: 1px solid rgba(255, 0, 127, 0.3);
+  box-shadow: 0 0 15px rgba(255, 0, 127, 0.1);
+  position: relative;
+}
+
+.cyber-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 20px;
+  height: 20px;
+  border-top: 2px solid #FF007F;
+  border-left: 2px solid #FF007F;
+}
+
+.cyber-border::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 20px;
+  height: 20px;
+  border-bottom: 2px solid #BF00FF;
+  border-right: 2px solid #BF00FF;
+}
+
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.3;
+}

@@ -64,8 +64,8 @@ export function Contact() {
                 href: null,
                 testId: null,
               },
-            ].map(({ icon, label, href, testId }) => (
-              <div key={label} className="flex items-center gap-3">
+            ].map(({ icon, label, href, testId }, i) => (
+              <div key={testId ?? i} className="flex items-center gap-3">
                 <span style={{ color: 'hsl(199 93% 60%)' }}>{icon}</span>
                 {href ? (
                   <a
