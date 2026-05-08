@@ -17,14 +17,12 @@ const EXPERIENCE = [
   },
   {
     id: 2,
-    role: 'Junior Chef / Kitchen Hand',
+    role: 'Kitchen Hand',
     company: 'Matinee Coffee',
     location: 'Marrickville, NSW',
-    period: 'Jul 2024 — Oct 2025',
+    period: 'Jul 2024 — Mar 2025',
     points: [
-      'Prepared and presented high-quality dishes while supporting kitchen operations',
-      'Monitored ingredient stock and collaborated with senior chefs to maintain service quality',
-      'Maintained efficient back-of-house workflow contributing to consistent quality metrics',
+      'Maintained efficient back-of-house workflow by handling dishwashing, stock replenishment, and waste management, contributing to smooth service operations and consistent quality metrics.',
     ],
   },
   {
