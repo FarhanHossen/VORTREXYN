@@ -7,6 +7,7 @@ import { Education } from "@/components/sections/education";
 import { Contact } from "@/components/sections/contact";
 import { Licenses } from "@/components/sections/licenses";
 import { Achievements } from "@/components/sections/achievements";
+import { Cocurricular } from "@/components/sections/cocurricular";
 
 export default function Home() {
   return (
@@ -26,6 +27,8 @@ export default function Home() {
         <Licenses />
         <div style={{ height: 1, background: 'linear-gradient(to right, transparent, hsl(215 33% 17%), transparent)', margin: '0 1.5rem' }} />
         <Achievements />
+        <div style={{ height: 1, background: 'linear-gradient(to right, transparent, hsl(215 33% 17%), transparent)', margin: '0 1.5rem' }} />
+        <Cocurricular />
         <Contact />
       </main>
     </div>

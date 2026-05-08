@@ -1,26 +1,43 @@
 import { motion } from 'framer-motion';
-import { Trophy } from 'lucide-react';
+import { Star } from 'lucide-react';
 
-const ACHIEVEMENTS = [
+const ACTIVITIES = [
   {
     id: 1,
-    title: 'Director of Finance',
-    body: 'BRAC University Chess Club',
-    period: 'Jan 2022 — Dec 2022',
+    title: 'Semi-finalist — Table Tennis & Badminton',
+    body: 'BRACU Intra Club Table Tennis Tournament · BRACU Intra RS Badminton Tournament',
+    period: 'Fall 2019',
   },
   {
     id: 2,
-    title: 'Assistant Secretary',
-    body: 'BRAC University Cultural Club',
-    period: 'Sep 2020 — Jan 2022',
+    title: '"Crafting" Activity',
+    body: 'Three-month residential programme at BRAC University',
+    period: '2019',
   },
   {
     id: 3,
-    title: '3rd Place (Physics Olympiad)',
-    body: '5th Laboratorians National Science Festival',
-    period: '2017',
+    title: 'Intra Programming Contest & Chess Championship',
+    body: 'BRACU Intra Programming Contest · BRAC Intra University Chess Championship',
+    period: 'Fall 2019',
   },
-
+  {
+    id: 4,
+    title: 'Senior Member — Rover Scout',
+    body: 'Birshreshtha Noor Mohammad Public College',
+    period: '2018',
+  },
+  {
+    id: 5,
+    title: 'Junior Co-founding Member',
+    body: 'BNMPC Science Club',
+    period: '2015',
+  },
+  {
+    id: 6,
+    title: 'Exhibitor',
+    body: 'BCSIR Science and Industrial Technology Fair',
+    period: '2014',
+  },
 ];
 
 const fadeUp = {
@@ -28,13 +45,13 @@ const fadeUp = {
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, delay: i * 0.08, ease: 'easeOut' },
+    transition: { duration: 0.5, delay: i * 0.07, ease: 'easeOut' },
   }),
 };
 
-export function Achievements() {
+export function Cocurricular() {
   return (
-    <section id="achievements" className="py-24">
+    <section id="cocurricular" className="py-24">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -43,19 +60,19 @@ export function Achievements() {
           transition={{ duration: 0.45 }}
         >
           <div className="flex items-center gap-2 mb-2">
-            <span style={{ color: 'hsl(199 93% 60%)' }}><Trophy size={16} /></span>
+            <span style={{ color: 'hsl(199 93% 60%)' }}><Star size={16} /></span>
             <span className="font-mono text-xs" style={{ color: 'hsl(215 16% 50%)' }}>
-              // achievements
+              // co-curricular
             </span>
           </div>
           <h2 className="text-2xl md:text-3xl font-bold" style={{ color: 'hsl(210 40% 96%)' }}>
-            Achievements
+            Co-curricular Activities
           </h2>
           <div className="mt-3 h-px w-12" style={{ background: 'hsl(199 93% 60%)' }} />
         </motion.div>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
-          {ACHIEVEMENTS.map((item, i) => (
+          {ACTIVITIES.map((item, i) => (
             <motion.div
               key={item.id}
               variants={fadeUp}
@@ -72,8 +89,8 @@ export function Achievements() {
                 (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 17%)';
               }}
             >
-              <Trophy
-                size={15}
+              <Star
+                size={14}
                 className="shrink-0 mt-0.5"
                 style={{ color: 'hsl(199 93% 60%)' }}
               />
