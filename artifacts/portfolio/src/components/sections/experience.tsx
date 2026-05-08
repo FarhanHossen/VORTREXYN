@@ -5,14 +5,13 @@ const EXPERIENCE = [
   {
     id: 1,
     role: 'Team Member',
-    company: 'Woolworths Regional Distribution Centre (Primary Connect)',
+    company: 'Primary Connect (Woolworths RDC)',
     location: 'Moorebank, NSW',
     period: 'Nov 2025 — Present',
     points: [
-      'Operating in a fully automated warehouse environment using WMS and barcode scanning systems',
-      'Monitoring inventory flow of up to 1.5 million products daily and troubleshooting sensor and system issues',
-      'Performed product verification at 900 units/hour while identifying software-related discrepancies',
-      'Contributed to efficiency improvement from 40% to 70% through optimized automation and issue resolution',
+      'Operating in a fully automated warehouse environment using WMS and barcode scanning systems, monitoring inventory flow of up to 1.5 million products daily.',
+      'Performing product verification with system data (900 units/hour) while identifying and reporting automation or software-related discrepancies.',
+      'Contributing to efficiency improvement from 40% to 70% through optimized automation and issue resolution.',
     ],
   },
   {
