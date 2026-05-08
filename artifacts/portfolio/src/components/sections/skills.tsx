@@ -15,7 +15,7 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[] }[] = [
   {
     category: 'Frameworks & Platforms',
     symbol: '[ ]',
-    skills: ['Flutter', '.NET', 'React.js', 'Node.js', 'Express', 'Tailwind CSS'],
+    skills: ['Flutter', '.NET', 'React.js', 'React Native', 'Expo', 'Node.js', 'Express', 'Tailwind CSS'],
   },
   {
     category: 'Core Concepts',
@@ -36,6 +36,10 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[] }[] = [
       'Visual Studio',
       'Android Studio',
       'Firebase Console',
+      'Firestore',
+      'EAS',
+      'App Store Connect',
+      'Cloudflare',
       'PostgreSQL',
       'Docker',
       'REST APIs',
