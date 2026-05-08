@@ -27,7 +27,7 @@ export function Hero() {
                 backdropFilter: 'blur(8px)',
               }}
             >
-              SYSTEM ONLINE // SOFTWARE DEVELOPER
+              SOFTWARE DEVELOPER
             </span>
           </motion.div>
 
