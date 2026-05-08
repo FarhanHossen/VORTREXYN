@@ -60,6 +60,12 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[]; accent
     ],
     accent: '#00E5FF',
   },
+  {
+    category: 'AI',
+    symbol: '✦',
+    skills: ['GPT', 'Claude', 'Replit'],
+    accent: '#9B5CFF',
+  },
 ];
 
 const fadeUp = {
