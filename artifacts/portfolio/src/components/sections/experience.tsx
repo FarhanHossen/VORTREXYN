@@ -39,6 +39,17 @@ const EXPERIENCE = [
       'Consistently met turnaround time metrics in a high-volume, guest-facing environment',
     ],
   },
+  {
+    id: 4,
+    role: 'Front Team Member',
+    company: "McDonald's",
+    location: 'Punchbowl, NSW',
+    period: 'Aug 2023 — Dec 2023',
+    points: [
+      'Delivered fast and friendly customer service in a high-volume environment, accurately taking orders, handling cash and POS transactions, and resolving customer inquiries to ensure a positive dining experience.',
+      'Maintained front counter operations by coordinating with kitchen staff, managing order flow, and ensuring cleanliness, food safety, and compliance with company standards during peak hours.',
+    ],
+  },
 ];
 
 const fadeUp = {
