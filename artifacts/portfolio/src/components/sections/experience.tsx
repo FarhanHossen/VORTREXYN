@@ -17,6 +17,16 @@ const EXPERIENCE = [
   },
   {
     id: 2,
+    role: 'Junior Chef',
+    company: 'Matinee Coffee',
+    location: 'Marrickville, NSW',
+    period: 'Apr 2025 — Oct 2025',
+    points: [
+      'Prepared and presented high-quality dishes while assisting in kitchen operations, including ingredient preparation, stock monitoring, and collaboration with senior chefs to maintain efficient service flow, ensure consistency and portion control, and meet food safety, hygiene, and performance metrics.',
+    ],
+  },
+  {
+    id: 3,
     role: 'Kitchen Hand',
     company: 'Matinee Coffee',
     location: 'Marrickville, NSW',
@@ -26,7 +36,7 @@ const EXPERIENCE = [
     ],
   },
   {
-    id: 3,
+    id: 4,
     role: 'Team Member',
     company: 'Woolworths Warehouse',
     companyUrl: 'https://maps.google.com/?q=Woolworths+Warehouse+Lidcombe+NSW',
@@ -38,7 +48,7 @@ const EXPERIENCE = [
     ],
   },
   {
-    id: 4,
+    id: 5,
     role: 'Houseperson',
     company: 'Crown Towers Sydney',
     companyUrl: 'https://maps.google.com/?q=Crown+Towers+Sydney,+Barangaroo+NSW',
@@ -49,7 +59,7 @@ const EXPERIENCE = [
     ],
   },
   {
-    id: 5,
+    id: 6,
     role: 'Room Attendant',
     company: 'Crown Towers Sydney',
     companyUrl: 'https://maps.google.com/?q=Crown+Towers+Sydney,+Barangaroo+NSW',
@@ -60,7 +70,7 @@ const EXPERIENCE = [
     ],
   },
   {
-    id: 6,
+    id: 7,
     role: 'Front Team Member',
     company: "McDonald's",
     companyUrl: "https://maps.google.com/?q=McDonald's+Punchbowl+NSW",
