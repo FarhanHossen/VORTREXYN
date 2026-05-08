@@ -91,12 +91,14 @@ export function Hero() {
           {/* Social / meta row */}
           <motion.div variants={fadeUp} custom={5} className="flex flex-wrap items-center gap-5">
             {[
-              { icon: <Github size={16} />, label: 'github.com/FarhanHossen', href: 'https://github.com/FarhanHossen' },
+              { icon: <Github size={16} />, label: 'GitHub', href: 'https://github.com/FarhanHossen' },
               { icon: <Mail size={16} />, label: 'Email', href: 'mailto:farhan141549@gmail.com' },
             ].map(({ icon, label, href }) => (
               <a
                 key={label}
                 href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-1.5 font-mono text-xs transition-colors"
                 style={{ color: 'hsl(215 20% 68%)' }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = 'hsl(199 93% 60%)')}
