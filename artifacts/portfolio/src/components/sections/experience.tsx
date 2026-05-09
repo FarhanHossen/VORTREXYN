@@ -1,6 +1,42 @@
+/**
+ * experience.tsx — "Work Experience" section.
+ *
+ * Renders a vertically-stacked list of job cards, each containing:
+ *   - Role title + company name (linkable) + location + period
+ *   - Bullet points describing responsibilities and achievements
+ *   - Optional "courses tutored" sub-table (for the BRAC tutoring role only)
+ *
+ * Jobs are stored in the EXPERIENCE array sorted newest → oldest.
+ * To add a new role: push a new object to the top of the array and give
+ * it the next `id`. The `courses` field is optional — only include it
+ * for tutoring/teaching roles.
+ *
+ * Card hover effect: border turns cyan, background lightens slightly.
+ * This is done with inline onMouseEnter/Leave handlers (not Tailwind hover)
+ * because the glassmorphism values can't be expressed as Tailwind classes.
+ *
+ * The `companyUrl` field is optional. When present the company name renders
+ * as a clickable link that opens the location in Google Maps (or the
+ * company website). When absent it renders as plain text.
+ */
+
 import { motion } from 'framer-motion';
 import { Briefcase, ChevronRight } from 'lucide-react';
 
+/**
+ * EXPERIENCE — All work experience entries, newest first.
+ *
+ * Fields:
+ *   id          — unique numeric identifier (used as React key)
+ *   role        — job title
+ *   company     — employer name
+ *   companyUrl  — (optional) URL for the company/location link
+ *   location    — suburb/city, state
+ *   period      — date range string (e.g. "Nov 2025 — Present")
+ *   points      — array of bullet-point achievement strings
+ *   courses     — (optional) array of tutored course objects, only for
+ *                 teaching roles. Each course has: code, name, faculty.
+ */
 const EXPERIENCE = [
   {
     id: 1,
@@ -104,14 +140,21 @@ const EXPERIENCE = [
     points: [
       'Provided academic support to 300+ undergraduate students using problem-solving simulations and maintained structured grading data sheets, and supported faculty with exam invigilation, course administration, research assistance, and technical guidance for analytical and computational problem-solving.',
     ],
+    // Courses tutored — rendered as a sub-table inside this card only.
+    // Each entry: code = course code, name = full name, faculty = lecturer(s).
     courses: [
-      { code: 'MAT092', name: 'Remedial Course in Mathematics',            faculty: 'Mr. Md. Maruf Ahmed' },
+      { code: 'MAT092', name: 'Remedial Course in Mathematics',               faculty: 'Mr. Md. Maruf Ahmed' },
       { code: 'MAT215', name: 'Complex Variables and Laplace Transformations', faculty: 'Anika Ferdous' },
-      { code: 'MAT216', name: 'Linear Algebra and Fourier Analysis',       faculty: 'Shuchi Chaki · Sujon Chandra Sutradhar' },
+      { code: 'MAT216', name: 'Linear Algebra and Fourier Analysis',           faculty: 'Shuchi Chaki · Sujon Chandra Sutradhar' },
     ],
   },
 ];
 
+/**
+ * fadeUp — Staggered scroll-trigger animation for job cards.
+ * Each card delays by (index × 0.08s) via the `custom` prop so they
+ * reveal sequentially as they enter the viewport.
+ */
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: (i = 0) => ({
@@ -125,8 +168,16 @@ export function Experience() {
   return (
     <section id="experience" className="py-24">
       <div className="max-w-6xl mx-auto px-6">
+
+        {/* Section heading with Briefcase icon */}
         <SectionHeader icon={<Briefcase size={16} />} label="experience" title="Work Experience" />
 
+        {/* ── Job cards list ────────────────────────────────────────────
+            Each job renders as a glass-morphism card with:
+              - Hover: cyan border + slightly brighter background
+              - `margin: '-40px'` in viewport config so the animation
+                triggers slightly before the card fully enters view,
+                preventing a visible "pop in" at the bottom of the screen. */}
         <div className="mt-10 space-y-4">
           {EXPERIENCE.map((job, i) => (
             <motion.div
@@ -147,11 +198,16 @@ export function Experience() {
                 (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.03)';
               }}
             >
+              {/* Card header: role/company/location on left, period on right.
+                  Stacks to column on mobile, row on sm+.                   */}
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-4">
                 <div>
+                  {/* Role title */}
                   <h3 className="text-base font-semibold" style={{ color: 'hsl(210 40% 96%)' }}>
                     {job.role}
                   </h3>
+
+                  {/* Company name — link if companyUrl exists, plain text if not */}
                   {'companyUrl' in job && job.companyUrl ? (
                     <a
                       href={job.companyUrl}
@@ -167,15 +223,20 @@ export function Experience() {
                       {job.company}
                     </p>
                   )}
+
+                  {/* Location in muted monospace */}
                   <p className="font-mono text-xs mt-0.5" style={{ color: 'hsl(215 16% 55%)' }}>
                     {job.location}
                   </p>
                 </div>
+
+                {/* Date range — right-aligned on desktop, left-aligned on mobile */}
                 <span className="font-mono text-xs shrink-0" style={{ color: 'hsl(215 16% 55%)' }}>
                   {job.period}
                 </span>
               </div>
 
+              {/* Bullet points — each prefixed with a cyan ChevronRight icon */}
               <ul className="space-y-1.5">
                 {job.points.map((pt) => (
                   <li key={pt} className="flex gap-2 text-sm" style={{ color: 'hsl(215 25% 72%)' }}>
@@ -189,6 +250,10 @@ export function Experience() {
                 ))}
               </ul>
 
+              {/* Courses tutored sub-section — only rendered when `courses`
+                  exists on the job object (BRAC University tutoring role).
+                  Uses TypeScript's `'courses' in job` narrowing check.
+                  Separated from the bullets by a faint horizontal rule.   */}
               {'courses' in job && job.courses && (
                 <div className="mt-4 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
                   <p className="font-mono text-xs mb-2" style={{ color: 'hsl(215 16% 50%)' }}>
@@ -197,13 +262,16 @@ export function Experience() {
                   <div className="space-y-2">
                     {job.courses.map((c) => (
                       <div key={c.code} className="flex flex-col sm:flex-row sm:items-baseline gap-x-3 gap-y-0.5">
+                        {/* Course code badge — purple pill */}
                         <span
                           className="font-mono text-xs shrink-0 px-1.5 py-0.5 rounded"
                           style={{ background: 'rgba(155,92,255,0.1)', color: '#9B5CFF', border: '1px solid rgba(155,92,255,0.2)' }}
                         >
                           {c.code}
                         </span>
+                        {/* Course full name */}
                         <span className="text-sm" style={{ color: 'hsl(215 25% 72%)' }}>{c.name}</span>
+                        {/* Faculty member(s) in muted monospace */}
                         <span className="font-mono text-xs" style={{ color: 'hsl(215 16% 45%)' }}>— {c.faculty}</span>
                       </div>
                     ))}
@@ -218,6 +286,15 @@ export function Experience() {
   );
 }
 
+/**
+ * SectionHeader — Local reusable heading block (not shared across files).
+ * Renders: [icon] // label  →  Title  →  cyan underline bar.
+ *
+ * Props:
+ *   icon  — Lucide icon element
+ *   label — short monospace comment label (e.g. "experience")
+ *   title — large bold section title (e.g. "Work Experience")
+ */
 function SectionHeader({
   icon,
   label,
@@ -243,6 +320,7 @@ function SectionHeader({
       <h2 className="text-2xl md:text-3xl font-bold" style={{ color: 'hsl(210 40% 96%)' }}>
         {title}
       </h2>
+      {/* Solid cyan underline — 48px wide, 1px tall */}
       <div className="mt-3 h-px w-12" style={{ background: 'hsl(199 93% 60%)' }} />
     </motion.div>
   );
