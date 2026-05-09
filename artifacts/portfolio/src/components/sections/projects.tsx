@@ -56,41 +56,6 @@ const PROJECTS = [
   },
   {
     id: 2,
-    title: 'VORTREXYN Hangman',
-    subtitle: 'Cross-Platform Kids Word-Guessing Mobile Game',
-    year: '2023 — 2026',
-    type: 'mobile' as const,
-    bullets: [
-      "Built a kids' cross-platform word-guessing mobile game published on the Apple App Store with animated hangman figure, emoji hints, and 4 themed word categories.",
-      'Managed full iOS deployment pipeline including Apple Distribution Certificates, Provisioning Profiles, App Store Connect submission, and EAS Build configuration.',
-      'Implemented animated game UI with letter-reveal effects, confetti win modals, colorful on-screen keyboard, and session win streak tracking.',
-      'Integrated Firebase for app services and configured custom domain with App Store Connect domain verification and SSL.',
-    ],
-    screenshots: [
-      { src: '/screenshots/hangman-splash.png', alt: 'Splash screen' },
-      { src: '/screenshots/hangman-signin.png', alt: 'Sign in' },
-      { src: '/screenshots/hangman-signup.png', alt: 'Create account' },
-      { src: '/screenshots/hangman-forgot-password.png', alt: 'Forgot password' },
-      { src: '/screenshots/hangman-home.png', alt: 'Home — select difficulty' },
-      { src: '/screenshots/hangman-leaderboard.png', alt: 'Leaderboard' },
-      { src: '/screenshots/hangman-profile.png', alt: 'Profile & stats' },
-      { src: '/screenshots/hangman-gameplay-easy.png', alt: 'Gameplay — Easy' },
-      { src: '/screenshots/hangman-gameplay-medium.png', alt: 'Gameplay — Medium' },
-      { src: '/screenshots/hangman-gameplay-hard.png', alt: 'Gameplay — Hard' },
-      { src: '/screenshots/hangman-gameplay-extreme.png', alt: 'Gameplay — Extreme' },
-      { src: '/screenshots/hangman-emoji-hint.png', alt: 'Emoji hint card' },
-      { src: '/screenshots/hangman-win-modal.png', alt: 'Win modal' },
-      { src: '/screenshots/hangman-category-health.png', alt: 'Category — Health' },
-      { src: '/screenshots/hangman-category-colors.png', alt: 'Category — Colors' },
-      { src: '/screenshots/hangman-category-music.jpg', alt: 'Category — Music' },
-    ],
-    tags: ['React Native', 'Expo', 'Expo Router', 'Firebase', 'TypeScript', 'EAS', 'App Store Connect', 'React Native Reanimated', 'Git'],
-    github: 'https://github.com/FarhanHossen/HANGMAN',
-    demo: 'https://vortrexynhangman.app',
-    demoLabel: 'App Store',
-  },
-  {
-    id: 3,
     title: 'VORTREXYN Premium Car Rental System',
     subtitle: 'Full-Stack Car Rental Platform',
     year: '2024',
@@ -120,6 +85,41 @@ const PROJECTS = [
     github: 'https://github.com/FarhanHossen/vortrexyn-car-rental',
     demo: 'https://vortrexyn-premium-car-rental-system.com/',
     demoLabel: 'Live Site',
+  },
+  {
+    id: 3,
+    title: 'VORTREXYN Hangman',
+    subtitle: 'Cross-Platform Kids Word-Guessing Mobile Game',
+    year: '2023',
+    type: 'mobile' as const,
+    bullets: [
+      "Built a kids' cross-platform word-guessing mobile game published on the Apple App Store with animated hangman figure, emoji hints, and 4 themed word categories.",
+      'Managed full iOS deployment pipeline including Apple Distribution Certificates, Provisioning Profiles, App Store Connect submission, and EAS Build configuration.',
+      'Implemented animated game UI with letter-reveal effects, confetti win modals, colorful on-screen keyboard, and session win streak tracking.',
+      'Integrated Firebase for app services and configured custom domain with App Store Connect domain verification and SSL.',
+    ],
+    screenshots: [
+      { src: '/screenshots/hangman-splash.png', alt: 'Splash screen' },
+      { src: '/screenshots/hangman-signin.png', alt: 'Sign in' },
+      { src: '/screenshots/hangman-signup.png', alt: 'Create account' },
+      { src: '/screenshots/hangman-forgot-password.png', alt: 'Forgot password' },
+      { src: '/screenshots/hangman-home.png', alt: 'Home — select difficulty' },
+      { src: '/screenshots/hangman-leaderboard.png', alt: 'Leaderboard' },
+      { src: '/screenshots/hangman-profile.png', alt: 'Profile & stats' },
+      { src: '/screenshots/hangman-gameplay-easy.png', alt: 'Gameplay — Easy' },
+      { src: '/screenshots/hangman-gameplay-medium.png', alt: 'Gameplay — Medium' },
+      { src: '/screenshots/hangman-gameplay-hard.png', alt: 'Gameplay — Hard' },
+      { src: '/screenshots/hangman-gameplay-extreme.png', alt: 'Gameplay — Extreme' },
+      { src: '/screenshots/hangman-emoji-hint.png', alt: 'Emoji hint card' },
+      { src: '/screenshots/hangman-win-modal.png', alt: 'Win modal' },
+      { src: '/screenshots/hangman-category-health.png', alt: 'Category — Health' },
+      { src: '/screenshots/hangman-category-colors.png', alt: 'Category — Colors' },
+      { src: '/screenshots/hangman-category-music.jpg', alt: 'Category — Music' },
+    ],
+    tags: ['React Native', 'Expo', 'Expo Router', 'Firebase', 'TypeScript', 'EAS', 'App Store Connect', 'React Native Reanimated', 'Git'],
+    github: 'https://github.com/FarhanHossen/HANGMAN',
+    demo: 'https://vortrexynhangman.app',
+    demoLabel: 'App Store',
   },
 ];
 
@@ -458,7 +458,7 @@ export function Projects() {
               </ul>
 
               {'screenshots' in p && p.screenshots && p.screenshots.length > 0 && (
-                <ScreenshotCarousel screenshots={p.screenshots} landscape={p.id === 3} />
+                <ScreenshotCarousel screenshots={p.screenshots} landscape={p.id === 2} />
               )}
 
               <div className="flex flex-wrap gap-2">
