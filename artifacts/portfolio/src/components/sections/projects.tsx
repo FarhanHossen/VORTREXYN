@@ -56,6 +56,24 @@ const PROJECTS = [
   },
   {
     id: 2,
+    title: 'VORTREXYN Hangman',
+    subtitle: 'Cross-Platform Kids Word-Guessing Mobile Game',
+    year: '2025–2026',
+    type: 'mobile' as const,
+    bullets: [
+      'Built a kids\' cross-platform word-guessing mobile game with animated splash screen, emoji hints, cartoon hangman SVG figure, and colorful on-screen keyboard; published on the Apple App Store.',
+      'Managed full iOS deployment pipeline including Apple Distribution Certificates, Provisioning Profiles, App Store Connect submission, and EAS Build configuration with Xcode 26 compatibility.',
+      'Engineered animated game UI with letter-reveal bounce effects, win/lose modals with floating star confetti, win streak tracking, and 4 themed word categories using React Native Animated and Reanimated.',
+      'Integrated Firebase for app services and configured custom domain with App Store Connect domain verification and SSL.',
+      'Resolved cross-platform build compatibility issues including OpenSSL 3.x P12 legacy encryption for macOS keychain, pnpm workspace catalog resolution in EAS yarn environments, and Expo prebuild Xcode target naming.',
+    ],
+    screenshots: [],
+    tags: ['React Native', 'Expo', 'Expo Router', 'Firebase', 'TypeScript', 'EAS', 'App Store Connect', 'React Native SVG', 'React Native Reanimated', 'Git'],
+    demo: 'https://apps.apple.com/app/vortrexyn-hangman',
+    demoLabel: 'App Store',
+  },
+  {
+    id: 3,
     title: 'VORTREXYN Premium Car Rental System',
     subtitle: 'Full-Stack Car Rental Platform',
     year: '2024',
@@ -423,7 +441,7 @@ export function Projects() {
               </ul>
 
               {'screenshots' in p && p.screenshots && p.screenshots.length > 0 && (
-                <ScreenshotCarousel screenshots={p.screenshots} landscape={p.id === 2} />
+                <ScreenshotCarousel screenshots={p.screenshots} landscape={p.id === 3} />
               )}
 
               <div className="flex flex-wrap gap-2">
