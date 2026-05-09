@@ -58,7 +58,7 @@ const PROJECTS = [
     id: 2,
     title: 'VORTREXYN Hangman',
     subtitle: 'Cross-Platform Kids Word-Guessing Mobile Game',
-    year: '2023',
+    year: '2023 — 2026',
     type: 'mobile' as const,
     bullets: [
       "Built a kids' cross-platform word-guessing mobile game published on the Apple App Store with animated hangman figure, emoji hints, and 4 themed word categories.",
