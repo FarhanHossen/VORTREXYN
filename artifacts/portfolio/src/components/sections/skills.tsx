@@ -17,7 +17,7 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[]; accent
   {
     category: 'Frameworks & Platforms',
     symbol: '[ ]',
-    skills: ['Flutter', '.NET', 'React.js', 'React Native', 'Expo', 'Node.js', 'Express', 'Tailwind CSS'],
+    skills: ['Flutter', '.NET', 'React.js', 'React Native', 'Expo', 'Expo Router', 'Node.js', 'Express', 'Tailwind CSS', 'React Native SVG', 'React Native Reanimated'],
     accent: '#00E5FF',
   },
   {
