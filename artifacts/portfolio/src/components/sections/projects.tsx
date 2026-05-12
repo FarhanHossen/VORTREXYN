@@ -198,7 +198,7 @@ const PROJECTS = [
     ],
     tags: ['React Native', 'Expo', 'Expo Router', 'Firebase', 'TypeScript', 'EAS', 'App Store Connect', 'React Native Reanimated', 'Git'],
     github: 'https://github.com/FarhanHossen/HANGMAN',
-    demo: 'https://vortrexynhangman.app',
+    demo: 'https://apps.apple.com/au/app/vortrexyn-hangman/id6767557504',
     demoLabel: 'App Store',
   },
 ];
