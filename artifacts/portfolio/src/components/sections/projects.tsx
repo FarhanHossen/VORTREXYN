@@ -136,10 +136,24 @@ const PROJECTS = [
   },
   {
     id: 2,
+    title: 'VORTREXYN Portfolio',
+    subtitle: 'Personal Developer Portfolio Website',
+    year: '2025',
+    type: 'web' as const,
+    bullets: [
+      'Designed and built a personal portfolio website with a Deep Space Glass aesthetic — animated background orbs, glass-morphism cards, and a custom scroll-tracking navbar.',
+      'Built a custom infinite screenshot carousel using Framer Motion — supporting drag, snap-to-slot physics, arrow navigation, and dot indicators for both portrait and landscape screenshots.',
+      'Deployed as a fully responsive single-page application covering projects, skills, experience, education, achievements, licences, and contact sections.',
+    ],
+    tags: ['React', 'Vite', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Git'],
+    github: 'https://github.com/FarhanHossen',
+  },
+  {
+    id: 3,
     title: 'VORTREXYN Premium Car Rental System',
     subtitle: 'Full-Stack Car Rental Platform',
     year: '2024',
-    type: 'web' as const,   // id:2 → landscape carousel mode
+    type: 'web' as const,
     bullets: [
       'Built a full-stack car rental platform with 625+ vehicles, user authentication, real-time Firestore database, and PayPal live payment integration.',
       'Developed an admin dashboard with booking management, fleet stock control, and AI-generated vehicle images using OpenAI DALL-E 3.',
@@ -167,7 +181,7 @@ const PROJECTS = [
     demoLabel: 'Live Site',
   },
   {
-    id: 3,
+    id: 4,
     title: 'VORTREXYN Hangman',
     subtitle: 'Cross-Platform Kids Word-Guessing Mobile Game',
     year: '2022',
@@ -732,10 +746,10 @@ export function Projects() {
 
               {/* ── Screenshot carousel ──────────────────────────────────
                   Only rendered when the project has screenshots defined.
-                  `landscape` is true only for the Car Rental project (id:2),
-                  which has wide web screenshots. All others are portrait.  */}
+                  `landscape` is true for all web-type projects (wide screenshots).
+                  Mobile projects use portrait mode.                          */}
               {'screenshots' in p && p.screenshots && p.screenshots.length > 0 && (
-                <ScreenshotCarousel screenshots={p.screenshots} landscape={p.id === 2} />
+                <ScreenshotCarousel screenshots={p.screenshots} landscape={p.type === 'web'} />
               )}
 
               {/* ── Tech stack tags ──────────────────────────────────────
