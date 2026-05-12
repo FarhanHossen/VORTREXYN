@@ -107,7 +107,7 @@ const divider = (
  */
 export default function Home() {
   return (
-    <div className="min-h-[100dvh] bg-background text-foreground font-sans selection:bg-primary/20 selection:text-primary relative overflow-x-hidden">
+    <div className="min-h-[100dvh] bg-background text-foreground font-sans selection:bg-primary/20 selection:text-primary relative overflow-x-clip">
 
       {/* ── Deep space ambient background ─────────────────────────────────
           Fixed behind all content. Contains:
