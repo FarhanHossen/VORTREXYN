@@ -223,7 +223,7 @@ const PROJECTS = [
       { src: '/screenshots/hangman-category-music.jpg', alt: 'Category — Music' },
     ],
     tags: ['React Native', 'Expo', 'Expo Router', 'Firebase', 'TypeScript', 'EAS', 'App Store Connect', 'React Native Reanimated', 'Git'],
-    github: 'https://github.com/FarhanHossen/HANGMAN',
+    github: 'https://github.com/FarhanHossen/VORTREXYN-Hangman',
     demo: 'https://apps.apple.com/au/app/vortrexyn-hangman/id6767557504',
     demoLabel: 'App Store',
   },
