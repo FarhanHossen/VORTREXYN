@@ -139,10 +139,13 @@ const PROJECTS = [
     year: '2025',
     type: 'mobile' as const,
     bullets: [
-      'Built a cross-platform arcade mobile game published on the Apple App Store with real-time global leaderboard and user authentication.',
-      'Managed full iOS deployment pipeline including Apple Distribution Certificates, Provisioning Profiles, App Store Connect submission, and TestFlight testing.',
-      'Integrated Firebase Auth and Firestore for live score tracking and player accounts across all devices.',
-      'Configured custom domain with Cloudflare DNS, SSL, and App Store Connect domain verification.',
+      'Developed and published a cross-platform arcade mobile game on the Apple App Store with real-time global leaderboard and Firebase-authenticated user accounts.',
+      'Engineered full iOS deployment pipeline including Apple Distribution Certificates, Provisioning Profiles, App Store Connect submission, and TestFlight beta testing via EAS (Expo Application Services).',
+      'Integrated Firebase Authentication and Cloud Firestore for persistent player accounts and live score synchronization across all devices.',
+      'Built and deployed a responsive marketing website using React, Vite, and Tailwind CSS, hosted on Netlify with CI/CD auto-deploy from GitHub.',
+      'Configured custom domain with Cloudflare DNS, SSL/TLS termination, and App Store Connect domain verification.',
+      'Architected a pnpm monorepo managing mobile app, API server, and website as isolated workspace packages with shared TypeScript configuration.',
+      'Automated GitHub synchronization pipeline to maintain clean version history across a full-stack TypeScript codebase.',
     ],
     screenshots: [
       { src: '/screenshots/bubble-pop-splash.png', alt: 'Splash screen' },
