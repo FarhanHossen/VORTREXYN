@@ -159,7 +159,7 @@ const PROJECTS = [
       { src: '/screenshots/bubble-pop-gameplay-hard.png', alt: 'Gameplay — Hard' },
       { src: '/screenshots/bubble-pop-gameplay-extreme.png', alt: 'Gameplay — Extreme' },
     ],
-    tags: ['React Native', 'Expo', 'TypeScript', 'Firebase', 'Firestore', 'EAS', 'App Store Connect', 'Cloudflare', 'REST APIs', 'Git'],
+    tags: ['React Native', 'Expo', 'Firebase Auth', 'Cloud Firestore', 'React', 'Vite', 'Tailwind CSS', 'TypeScript', 'Node.js', 'pnpm', 'EAS', 'Netlify', 'Cloudflare', 'App Store Connect', 'Git', 'REST APIs'],
     github: 'https://github.com/FarhanHossen/VORTREXYN-Bubble-Pop',
     demo: 'https://apps.apple.com/us/app/vortrexyn-bubble-pop/id6764064306',
     demoLabel: 'App Store',
