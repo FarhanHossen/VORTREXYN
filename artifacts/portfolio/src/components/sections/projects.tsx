@@ -727,28 +727,6 @@ export function Projects() {
                       <Github size={18} />
                     </a>
                   )}
-                  {p.demo && (
-                    <a
-                      href={p.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      data-testid={`link-demo-${p.id}`}
-                      title={p.demoLabel ?? 'View live site'}
-                      className="font-mono text-xs flex items-center gap-1.5 px-2.5 py-1.5 rounded transition-all"
-                      style={{ color: 'hsl(215 20% 68%)', border: '1px solid hsl(215 33% 22%)' }}
-                      onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLElement).style.color = 'hsl(199 93% 60%)';
-                        (e.currentTarget as HTMLElement).style.borderColor = 'rgba(56,189,248,0.4)';
-                      }}
-                      onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLElement).style.color = 'hsl(215 20% 68%)';
-                        (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 22%)';
-                      }}
-                    >
-                      <ExternalLink size={12} />
-                      {p.demoLabel ?? 'Live Site'}
-                    </a>
-                  )}
                   {'website' in p && p.website && (
                     <a
                       href={p.website as string}
@@ -769,6 +747,28 @@ export function Projects() {
                     >
                       <ExternalLink size={12} />
                       Website
+                    </a>
+                  )}
+                  {p.demo && (
+                    <a
+                      href={p.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-testid={`link-demo-${p.id}`}
+                      title={p.demoLabel ?? 'View live site'}
+                      className="font-mono text-xs flex items-center gap-1.5 px-2.5 py-1.5 rounded transition-all"
+                      style={{ color: 'hsl(215 20% 68%)', border: '1px solid hsl(215 33% 22%)' }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.color = 'hsl(199 93% 60%)';
+                        (e.currentTarget as HTMLElement).style.borderColor = 'rgba(56,189,248,0.4)';
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.color = 'hsl(215 20% 68%)';
+                        (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 22%)';
+                      }}
+                    >
+                      <ExternalLink size={12} />
+                      {p.demoLabel ?? 'Live Site'}
                     </a>
                   )}
                 </div>
