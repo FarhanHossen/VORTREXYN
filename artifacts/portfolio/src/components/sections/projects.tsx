@@ -160,6 +160,7 @@ const PROJECTS = [
     github: 'https://github.com/FarhanHossen/VORTREXYN-Bubble-Pop',
     demo: 'https://apps.apple.com/us/app/vortrexyn-bubble-pop/id6764064306',
     demoLabel: 'App Store',
+    website: 'https://vortrexynbubblepop.app/',
   },
   {
     id: 3,
