@@ -195,7 +195,7 @@ const PROJECTS = [
     tags: ['JavaScript', 'HTML5', 'CSS3', 'Node.js', 'Express.js', 'Firebase', 'Firestore', 'OpenAI API', 'PayPal SDK', 'REST APIs', 'Git'],
     github: 'https://github.com/FarhanHossen/vortrexyn-car-rental',
     demo: 'https://vortrexyn-premium-car-rental-system.com/',
-    demoLabel: 'Live Site',
+    demoLabel: 'Website',
   },
   {
     id: 4,
