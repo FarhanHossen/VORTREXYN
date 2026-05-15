@@ -172,9 +172,10 @@ const PROJECTS = [
     year: '2024',
     type: 'web' as const,
     bullets: [
-      'Built a full-stack car rental platform with 625+ vehicles, user authentication, real-time Firestore database, and PayPal live payment integration.',
-      'Developed an admin dashboard with booking management, fleet stock control, and AI-generated vehicle images using OpenAI DALL-E 3.',
-      'Deployed to a custom domain with Node.js/Express backend serving a static HTML/CSS/JS frontend.',
+      'Built a full-stack car rental platform with 625+ vehicles, Firebase Authentication, real-time Firestore database, and PayPal live payment integration.',
+      'Developed an admin dashboard with role-based access control, booking approval workflow, fleet stock management, and AI-generated vehicle images and descriptions using OpenAI DALL-E 3 and GPT-4o-mini.',
+      'Implemented automated transactional email notifications for booking confirmations and cancellations via EmailJS.',
+      'Deployed to a custom domain with Netlify serverless functions proxying OpenAI API calls and a Node.js/Express backend serving a static HTML/CSS/JS frontend.',
     ],
     screenshots: [
       { src: '/screenshots/car-rental-signin.png',          alt: 'Sign in' },
