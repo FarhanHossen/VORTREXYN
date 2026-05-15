@@ -193,7 +193,7 @@ const PROJECTS = [
       { src: '/screenshots/car-rental-admin-add-vehicle.png', alt: 'Admin — add vehicle' },
     ],
     tags: ['JavaScript', 'HTML5', 'CSS3', 'Node.js', 'Express.js', 'Firebase', 'Firestore', 'OpenAI API', 'PayPal SDK', 'REST APIs', 'Git'],
-    github: 'https://github.com/FarhanHossen/vortrexyn-car-rental',
+    github: 'https://github.com/FarhanHossen/VORTREXYN-Premium-Car-Rental',
     demo: 'https://vortrexyn-premium-car-rental-system.com/',
     demoLabel: 'Website',
   },
