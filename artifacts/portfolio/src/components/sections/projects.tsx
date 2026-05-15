@@ -193,7 +193,7 @@ const PROJECTS = [
       { src: '/screenshots/car-rental-admin-revenue.png',   alt: 'Admin — revenue stats' },
       { src: '/screenshots/car-rental-admin-add-vehicle.png', alt: 'Admin — add vehicle' },
     ],
-    tags: ['JavaScript', 'HTML5', 'CSS3', 'Node.js', 'Express.js', 'Firebase', 'Firestore', 'OpenAI API', 'PayPal SDK', 'REST APIs', 'Git'],
+    tags: ['JavaScript', 'Firebase Auth', 'Firestore', 'Node.js', 'Express.js', 'OpenAI API', 'PayPal SDK', 'EmailJS', 'Netlify Functions', 'HTML5', 'CSS3', 'Git'],
     github: 'https://github.com/FarhanHossen/VORTREXYN-Premium-Car-Rental',
     demo: 'https://vortrexyn-premium-car-rental-system.com/',
     demoLabel: 'Website',
