@@ -46,7 +46,7 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[]; accent
   {
     category: 'Frameworks & Platforms',
     symbol: '[ ]',
-    skills: ['Flutter', '.NET', 'React.js', 'React Native', 'Expo', 'Expo Router', 'Node.js', 'Express', 'Tailwind CSS', 'React Native SVG', 'React Native Reanimated'],
+    skills: ['Flutter', '.NET', 'React.js', 'React Native', 'Expo', 'Expo Router', 'Node.js', 'Express', 'Tailwind CSS', 'Vite', 'Framer Motion', 'React Native SVG', 'React Native Reanimated'],
     accent: '#00E5FF',
   },
   {
@@ -64,7 +64,7 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[]; accent
   {
     category: 'Cloud & DevOps',
     symbol: '☁',
-    skills: ['Firebase', 'AWS', 'Azure', 'Cloudflare', 'Netlify', 'Git'],
+    skills: ['Firebase', 'Firebase Auth', 'AWS', 'Azure', 'Cloudflare', 'Netlify', 'Git'],
     accent: '#9B5CFF',
   },
   {
@@ -85,7 +85,7 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[]; accent
     skills: [
       'Visual Studio', 'Android Studio', 'EAS', 'App Store Connect',
       'Overleaf', 'Microsoft Office', 'VMware', 'VirtualBox',
-      'Cisco Packet Tracer', 'Agile SDLC', 'OpenAI API', 'PayPal SDK',
+      'Cisco Packet Tracer', 'Agile SDLC', 'OpenAI API', 'PayPal SDK', 'pnpm', 'EmailJS',
     ],
     accent: '#00E5FF',
   },
