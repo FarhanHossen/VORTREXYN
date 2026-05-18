@@ -178,6 +178,7 @@ const PROJECTS = [
       'Deployed to a custom domain with Netlify serverless functions proxying OpenAI API calls and a Node.js/Express backend serving a static HTML/CSS/JS frontend.',
     ],
     screenshots: [
+      { src: '/screenshots/car-rental-splash.png',          alt: 'Splash screen' },
       { src: '/screenshots/car-rental-signin.png',          alt: 'Sign in' },
       { src: '/screenshots/car-rental-signup.png',          alt: 'Create account' },
       { src: '/screenshots/car-rental-reset.png',           alt: 'Reset password' },
