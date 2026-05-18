@@ -201,6 +201,19 @@ const PROJECTS = [
   },
   {
     id: 4,
+    title: 'VORTREXYN Online Grocery Store',
+    subtitle: 'Full-Stack Online Grocery Platform',
+    year: '2024',
+    type: 'web' as const,
+    bullets: [
+      'Details coming soon.',
+    ],
+    screenshots: [],
+    tags: [],
+    github: 'https://github.com/FarhanHossen/VORTREXYN-Online-Grocery-Store',
+  },
+  {
+    id: 5,
     title: 'VORTREXYN Hangman',
     subtitle: 'Cross-Platform Kids Word-Guessing Mobile Game',
     year: '2022',
