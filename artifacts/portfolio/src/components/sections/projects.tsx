@@ -227,6 +227,8 @@ const PROJECTS = [
     ],
     tags: [],
     github: 'https://github.com/FarhanHossen/VORTREXYN-Online-Grocery-Store',
+    demo: 'https://vortrexyn-online-grocery-store.com/',
+    demoLabel: 'Website',
   },
   {
     id: 5,
