@@ -221,6 +221,7 @@ const PROJECTS = [
       { src: '/screenshots/grocery-delivery.png',       alt: 'Delivery details' },
       { src: '/screenshots/grocery-payment.png',        alt: 'Payment & reward points' },
       { src: '/screenshots/grocery-order-confirmed.png', alt: 'Order confirmed' },
+      { src: '/screenshots/grocery-admin-signin.png',    alt: 'Admin sign in' },
     ],
     tags: [],
     github: 'https://github.com/FarhanHossen/VORTREXYN-Online-Grocery-Store',
