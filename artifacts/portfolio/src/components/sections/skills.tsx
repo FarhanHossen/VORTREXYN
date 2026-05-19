@@ -64,7 +64,7 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[]; accent
   {
     category: 'Cloud & DevOps',
     symbol: '☁',
-    skills: ['Firebase', 'Firebase Auth', 'AWS', 'Azure', 'Cloudflare', 'Netlify', 'Git'],
+    skills: ['Firebase', 'Firebase Auth', 'Firebase Storage', 'AWS', 'Azure', 'Cloudflare', 'Netlify', 'Git'],
     accent: '#9B5CFF',
   },
   {
@@ -85,7 +85,7 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[]; accent
     skills: [
       'Visual Studio', 'Android Studio', 'EAS', 'App Store Connect',
       'Overleaf', 'Microsoft Office', 'VMware', 'VirtualBox',
-      'Cisco Packet Tracer', 'Agile SDLC', 'OpenAI API', 'PayPal SDK', 'pnpm', 'EmailJS',
+      'Cisco Packet Tracer', 'Agile SDLC', 'OpenAI API', 'PayPal SDK', 'pnpm', 'EmailJS', 'Nodemailer',
     ],
     accent: '#00E5FF',
   },
