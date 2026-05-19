@@ -46,7 +46,7 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[]; accent
   {
     category: 'Frameworks & Platforms',
     symbol: '[ ]',
-    skills: ['Flutter', '.NET', 'React.js', 'React Native', 'Expo', 'Expo Router', 'Node.js', 'Express', 'Tailwind CSS', 'Vite', 'Framer Motion', 'React Native SVG', 'React Native Reanimated'],
+    skills: ['Flutter', '.NET', 'React.js', 'React Native', 'Expo', 'Expo Router', 'Node.js', 'Express', 'Tailwind CSS', 'Vite', 'Framer Motion', 'EJS', 'React Native SVG', 'React Native Reanimated'],
     accent: '#00E5FF',
   },
   {
@@ -64,7 +64,7 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[]; accent
   {
     category: 'Cloud & DevOps',
     symbol: '☁',
-    skills: ['Firebase', 'Firebase Auth', 'Firebase Storage', 'AWS', 'Azure', 'Cloudflare', 'Netlify', 'Git'],
+    skills: ['Firebase', 'Firebase Auth', 'Firebase Storage', 'AWS', 'Azure', 'Cloudflare', 'Netlify', 'Netlify Functions', 'Serverless-HTTP', 'Git', 'GitHub'],
     accent: '#9B5CFF',
   },
   {

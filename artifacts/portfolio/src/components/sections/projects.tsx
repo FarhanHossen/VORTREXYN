@@ -232,7 +232,7 @@ const PROJECTS = [
       { src: '/screenshots/grocery-admin-dashboard.png',  alt: 'Admin dashboard' },
       { src: '/screenshots/grocery-admin-dashboard2.png', alt: 'Admin — product list & user management' },
     ],
-    tags: ['JavaScript', 'Node.js', 'Express.js', 'PostgreSQL', 'Firebase Auth', 'Cloud Firestore', 'Firebase Storage', 'OpenAI API', 'Nodemailer', 'Netlify', 'Cloudflare', 'HTML5', 'CSS3', 'Git'],
+    tags: ['Node.js', 'Express', 'EJS', 'PostgreSQL', 'Firebase Auth', 'Cloud Firestore', 'Firebase Storage', 'OpenAI API', 'Nodemailer', 'Netlify Functions', 'Serverless-HTTP', 'Git', 'GitHub', 'Netlify', 'Cloudflare'],
     github: 'https://github.com/FarhanHossen/VORTREXYN-Online-Grocery-Store',
     demo: 'https://vortrexyn-online-grocery-store.com/',
     demoLabel: 'Website',
