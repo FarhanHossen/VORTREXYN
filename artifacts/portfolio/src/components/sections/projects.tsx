@@ -239,6 +239,21 @@ const PROJECTS = [
   },
   {
     id: 5,
+    title: 'Explainable Breast Cancer Detection from Histopathology Images',
+    subtitle: 'BRAC University Thesis',
+    year: '2023',
+    type: 'web' as const,
+    bullets: [
+      'Built a deep learning-based computer-aided diagnosis (CAD) system for binary breast cancer classification (benign vs. malignant) achieving 97.535% accuracy on the BreakHis dataset of 9,109 histopathology images from 82 patients across four magnification levels (40X–400X).',
+      'Applied transfer learning on three CNN architectures — VGG19 (95.65%), ResNet50V2 (94.38%), and MobileNetV2 (94.86%) — pre-trained on ImageNet, with custom layers including Global Average Pooling, Batch Normalization, and Dropout to reduce overfitting.',
+      'Engineered a feature fusion pipeline by concatenating last-layer feature vectors from all three CNN models into a unified representation, then benchmarked seven linear classifiers (KNN, Random Forest, XGBoost, AdaBoost, SGD, Decision Tree, Logistic Regression); KNN and Random Forest achieved best performance at 97.535% and 97.455% respectively — surpassing prior state-of-the-art fusion models (91.1%).',
+      'Implemented GradCAM (Gradient-weighted Class Activation Mapping) as an Explainable AI (XAI) technique to generate class-specific heatmaps over whole slide images, visually highlighting tumour regions of interest (ROI) and making model predictions interpretable for clinical use.',
+    ],
+    screenshots: [],
+    tags: ['Python', 'TensorFlow', 'Keras', 'VGG19', 'ResNet50V2', 'MobileNetV2', 'KNN', 'Random Forest', 'XGBoost', 'AdaBoost', 'GradCAM', 'XAI', 'NumPy', 'scikit-learn', 'ImageNet Transfer Learning'],
+  },
+  {
+    id: 6,
     title: 'VORTREXYN Hangman',
     subtitle: 'Cross-Platform Kids Word-Guessing Mobile Game',
     year: '2022',

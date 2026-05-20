@@ -46,7 +46,7 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[]; accent
   {
     category: 'Frameworks & Platforms',
     symbol: '[ ]',
-    skills: ['Flutter', '.NET', 'React.js', 'React Native', 'Expo', 'Expo Router', 'Node.js', 'Express', 'Tailwind CSS', 'Vite', 'Framer Motion', 'EJS', 'React Native SVG', 'React Native Reanimated'],
+    skills: ['Flutter', '.NET', 'React.js', 'React Native', 'Expo', 'Expo Router', 'Node.js', 'Express', 'Tailwind CSS', 'Vite', 'Framer Motion', 'EJS', 'TensorFlow', 'Keras', 'React Native SVG', 'React Native Reanimated'],
     accent: '#00E5FF',
   },
   {
@@ -85,14 +85,14 @@ const SKILL_GROUPS: { category: string; symbol: string; skills: string[]; accent
     skills: [
       'Visual Studio', 'Android Studio', 'EAS', 'App Store Connect',
       'Overleaf', 'Microsoft Office', 'VMware', 'VirtualBox',
-      'Cisco Packet Tracer', 'Agile SDLC', 'OpenAI API', 'PayPal SDK', 'pnpm', 'EmailJS', 'Nodemailer',
+      'Cisco Packet Tracer', 'Agile SDLC', 'OpenAI API', 'PayPal SDK', 'pnpm', 'EmailJS', 'Nodemailer', 'NumPy', 'scikit-learn', 'XGBoost',
     ],
     accent: '#00E5FF',
   },
   {
     category: 'AI',
     symbol: '✦',
-    skills: ['GPT', 'Claude', 'GitHub Copilot'],
+    skills: ['GPT', 'Claude', 'GitHub Copilot', 'GradCAM', 'XAI', 'Transfer Learning'],
     accent: '#9B5CFF',
   },
 ];
