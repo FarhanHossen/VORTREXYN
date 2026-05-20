@@ -1,6 +1,45 @@
+/**
+ * education.tsx — "Education" section.
+ *
+ * Displays all academic qualifications as a vertically-stacked list of
+ * cards, sorted newest → oldest. Each card shows:
+ *   - Degree title (bold)
+ *   - Major field of study
+ *   - Optional sub-major (e.g. Cyber Security specialisation)
+ *   - Institution name — rendered as a clickable link if `institutionUrl` is set
+ *   - Location
+ *   - Period and academic result (right-aligned on desktop)
+ *
+ * Data is stored in the EDUCATION array. To add a new qualification,
+ * push a new object to the top of the array and assign the next `id`.
+ * Leave `major`, `subMajor`, or `institutionUrl` as empty string / undefined
+ * if not applicable — the JSX conditionally hides those fields.
+ *
+ * Card hover: border shifts to a soft cyan glow.
+ * This is an inline onMouseEnter/Leave handler (not Tailwind) because the
+ * rgba border value can't be expressed as a static Tailwind class.
+ *
+ * Layout: full-width stack. Result badge is right-aligned on sm+ screens,
+ * stacks below the institution on mobile.
+ */
+
 import { motion } from 'framer-motion';
 import { GraduationCap } from 'lucide-react';
 
+/**
+ * EDUCATION — Academic history, newest first.
+ *
+ * Fields:
+ *   id             — unique numeric key
+ *   degree         — qualification title (e.g. "Master of Information Technology")
+ *   major          — primary field of study (empty string → hidden)
+ *   subMajor       — secondary specialisation (empty string → hidden)
+ *   institution    — university or college name
+ *   institutionUrl — URL for the institution link (empty string → plain text)
+ *   location       — city/country
+ *   period         — date range string
+ *   result         — grade, GPA, or graduation distinction string
+ */
 const EDUCATION = [
   {
     id: 1,
@@ -70,12 +109,17 @@ const EDUCATION = [
   },
 ];
 
+/**
+ * fadeUp — Staggered scroll-entrance animation.
+ * Each card delays by (index × 0.1s) so they reveal sequentially from
+ * top to bottom as the section scrolls into view.
+ */
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, delay: i * 0.1, ease: 'easeOut' },
+    transition: { duration: 0.5, delay: i * 0.1, ease: 'easeOut' as const },
   }),
 };
 
@@ -83,8 +127,13 @@ export function Education() {
   return (
     <section id="education" className="py-24">
       <div className="max-w-6xl mx-auto px-6">
+
+        {/* Section heading with GraduationCap icon */}
         <SectionHeader icon={<GraduationCap size={16} />} label="education" title="Education" />
 
+        {/* ── Qualification cards ───────────────────────────────────────
+            Stacked vertically with space-y-4 gap between cards.
+            Each card fades up on scroll with a staggered delay.     */}
         <div className="mt-10 space-y-4">
           {EDUCATION.map((edu, i) => (
             <motion.div
@@ -96,6 +145,7 @@ export function Education() {
               custom={i}
               className="p-6 rounded-lg transition-colors duration-300"
               style={{ background: 'hsl(221 39% 11%)', border: '1px solid hsl(215 33% 17%)' }}
+              // Hover: border softly glows cyan
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.borderColor = 'rgba(56,189,248,0.25)';
               }}
@@ -103,21 +153,32 @@ export function Education() {
                 (e.currentTarget as HTMLElement).style.borderColor = 'hsl(215 33% 17%)';
               }}
             >
+              {/* ── Card layout: info on left, period + result on right ──
+                  Stacks to column on mobile, row on sm+.               */}
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+
+                {/* Left column: degree, major, sub-major, institution, location */}
                 <div>
+                  {/* Degree title */}
                   <h3 className="text-base font-semibold mb-0.5" style={{ color: 'hsl(210 40% 96%)' }}>
                     {edu.degree}
                   </h3>
+
+                  {/* Major — only rendered if non-empty */}
                   {edu.major && (
                     <p className="text-sm mb-0.5" style={{ color: 'hsl(215 25% 75%)' }}>
                       {edu.major}
                     </p>
                   )}
+
+                  {/* Sub-major — only rendered if non-empty */}
                   {edu.subMajor && (
                     <p className="font-mono text-xs mt-1 mb-2" style={{ color: 'hsl(215 16% 58%)' }}>
                       {edu.subMajor}
                     </p>
                   )}
+
+                  {/* Institution — link if institutionUrl present, plain text otherwise */}
                   {'institutionUrl' in edu && edu.institutionUrl ? (
                     <a
                       href={edu.institutionUrl}
@@ -133,15 +194,22 @@ export function Education() {
                       {edu.institution}
                     </p>
                   )}
+
+                  {/* Location in muted monospace */}
                   <p className="font-mono text-xs mt-0.5" style={{ color: 'hsl(215 16% 55%)' }}>
                     {edu.location}
                   </p>
                 </div>
 
+                {/* Right column: period + result badge
+                    Right-aligned on sm+, left-aligned (start) on mobile.  */}
                 <div className="flex flex-col items-start sm:items-end gap-2 shrink-0">
+                  {/* Date range */}
                   <span className="font-mono text-xs" style={{ color: 'hsl(215 16% 55%)' }}>
                     {edu.period}
                   </span>
+
+                  {/* Result badge — cyan glass pill */}
                   <span
                     className="font-mono text-xs px-2.5 py-1 rounded"
                     style={{
@@ -162,6 +230,15 @@ export function Education() {
   );
 }
 
+/**
+ * SectionHeader — Local reusable heading block (not shared across files).
+ * Renders: [icon]  // label  →  Title  →  solid cyan underline bar.
+ *
+ * Props:
+ *   icon  — Lucide icon element displayed in cyan
+ *   label — monospace comment text (e.g. "education")
+ *   title — large bold heading (e.g. "Education")
+ */
 function SectionHeader({
   icon,
   label,
@@ -187,6 +264,7 @@ function SectionHeader({
       <h2 className="text-2xl md:text-3xl font-bold" style={{ color: 'hsl(210 40% 96%)' }}>
         {title}
       </h2>
+      {/* Solid cyan underline — 48px wide, 1px tall */}
       <div className="mt-3 h-px w-12" style={{ background: 'hsl(199 93% 60%)' }} />
     </motion.div>
   );
