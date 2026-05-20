@@ -744,7 +744,7 @@ export function Projects() {
                       </span>
                     ) : p.type === 'research' ? (
                       <span className="font-mono text-xs flex items-center gap-1 px-1.5 py-0.5 rounded" style={{ background: 'rgba(155,92,255,0.08)', color: '#9B5CFF', border: '1px solid rgba(155,92,255,0.22)' }}>
-                        <FlaskConical size={10} /> research
+                        <FlaskConical size={10} /> Research
                       </span>
                     ) : (
                       <span className="font-mono text-xs flex items-center gap-1 px-1.5 py-0.5 rounded" style={{ background: 'rgba(56,189,248,0.08)', color: 'hsl(199 93% 60%)', border: '1px solid rgba(56,189,248,0.18)' }}>
