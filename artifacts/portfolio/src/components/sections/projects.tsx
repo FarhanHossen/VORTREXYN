@@ -41,7 +41,7 @@
 import { useState, useRef } from 'react';
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import type { MotionValue } from 'framer-motion';
-import { Github, ExternalLink, Terminal, Code2, Layers, Smartphone, Globe, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Github, ExternalLink, Terminal, Code2, Layers, Smartphone, Globe, FlaskConical, ChevronLeft, ChevronRight } from 'lucide-react';
 
 // ── Carousel configuration types ──────────────────────────────────────────
 
@@ -242,7 +242,7 @@ const PROJECTS = [
     title: 'Explainable Breast Cancer Detection from Histopathology Images',
     subtitle: 'BRAC University Thesis',
     year: '2023',
-    type: 'web' as const,
+    type: 'research' as const,
     bullets: [
       'Built a deep learning-based computer-aided diagnosis (CAD) system for binary breast cancer classification (benign vs. malignant) achieving 97.535% accuracy on the BreakHis dataset of 9,109 histopathology images from 82 patients across four magnification levels (40X–400X).',
       'Applied transfer learning on three CNN architectures — VGG19 (95.65%), ResNet50V2 (94.38%), and MobileNetV2 (94.86%) — pre-trained on ImageNet, with custom layers including Global Average Pooling, Batch Normalization, and Dropout to reduce overfitting.',
@@ -737,10 +737,14 @@ export function Projects() {
                       featured project
                     </span>
 
-                    {/* Type badge: Smartphone icon for mobile, Globe for web */}
+                    {/* Type badge: Smartphone for mobile, FlaskConical for research, Globe for web */}
                     {p.type === 'mobile' ? (
                       <span className="font-mono text-xs flex items-center gap-1 px-1.5 py-0.5 rounded" style={{ background: 'rgba(56,189,248,0.08)', color: 'hsl(199 93% 60%)', border: '1px solid rgba(56,189,248,0.18)' }}>
                         <Smartphone size={10} /> mobile
+                      </span>
+                    ) : p.type === 'research' ? (
+                      <span className="font-mono text-xs flex items-center gap-1 px-1.5 py-0.5 rounded" style={{ background: 'rgba(155,92,255,0.08)', color: '#9B5CFF', border: '1px solid rgba(155,92,255,0.22)' }}>
+                        <FlaskConical size={10} /> research
                       </span>
                     ) : (
                       <span className="font-mono text-xs flex items-center gap-1 px-1.5 py-0.5 rounded" style={{ background: 'rgba(56,189,248,0.08)', color: 'hsl(199 93% 60%)', border: '1px solid rgba(56,189,248,0.18)' }}>
