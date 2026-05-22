@@ -132,7 +132,7 @@ export function SplashScreen({ onDone }: SplashScreenProps) {
               <motion.div
                 animate={{ scale: [1, 1.03, 1] }}
                 transition={{ delay: 1.2, duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                style={{ width: '100%', height: '100%', opacity: 0.22 }}
+                style={{ width: '100%', height: '100%', opacity: 0.35 }}
               >
                 <LogoEmblem />
               </motion.div>
@@ -293,56 +293,31 @@ function Stars() {
 /** ── LogoEmblem ───────────────────────────────────────────────────────────
  * SVG logo mark for VORTREXYN — gamer / developer / hacker aesthetic.
  *
- * Built on the clean V lettermark but layered with:
- *   - 24 binary tick marks around the outer ring (HUD bezel / gamer dial)
- *   - A glitch-offset duplicate of the V in magenta/green at low opacity
- *   - PCB circuit traces branching from the outer edges of each V arm
- *   - Cardinal-point HUD brackets (North / South / East / West)
- *   - A faint horizontal scan-line across the circle centre
- *   - Square corner nodes on the circuit branch ends (IC pad style)
+ * Shape: a rotated-45° square (diamond) used as a tactical targeting
+ * reticle — like an FPS scope overlay combined with a PCB schematic.
+ * No V, no circle.
  *
  * Layers (back → front):
- *   1. Outer circle (ring-g gradient)
- *   2. 24 tick marks (binary bezel)
- *   3. Cardinal HUD brackets
- *   4. Glitch-offset V duplicate (magenta + green, opacity 0.12)
- *   5. Main V arms (left cyan→purple, right purple→cyan)
- *   6. Circuit traces along V outer edges
- *   7. Top rail + corner dots + inner highlight lines
- *   8. Horizontal scan line
- *   9. Bottom point accent
+ *   1. Four corner bracket chevrons at each diamond vertex
+ *   2. Four edge segments (broken lines between brackets)
+ *   3. Edge midpoint slash ticks (perpendicular to each edge)
+ *   4. Circuit branch traces at midpoints (IC pads)
+ *   5. Full crosshairs (horizontal + vertical, gapped at centre)
+ *   6. Crosshair tick marks (range-finder style)
+ *   7. Inner rotated-square ring (45° smaller)
+ *   8. Centre targeting rings + core dot
+ *   9. Vertex accent dots
  */
 function LogoEmblem() {
-  /** Interpolate a point along the left outer edge (63,48)→(150,238). */
-  const leftEdge = (t: number) => ({
-    x: 63  + t * (150 - 63),
-    y: 48  + t * (238 - 48),
-  });
-  /** Interpolate a point along the right outer edge (237,48)→(150,238). */
-  const rightEdge = (t: number) => ({
-    x: 237 + t * (150 - 237),
-    y: 48  + t * (238 - 48),
-  });
+  /** Diamond vertices (rotated square, side length ~190px). */
+  const V = { top: [150, 12], right: [288, 150], bottom: [150, 288], left: [12, 150] };
 
-  /** 24 tick angles (one per 15°, starting from top). */
-  const ticks = Array.from({ length: 24 }, (_, i) => {
-    const angle  = (i * 15 - 90) * (Math.PI / 180);
-    const major  = i % 6 === 0;   // quarter-marks
-    const medium = i % 3 === 0;   // third-marks
-    const r1     = major ? 120 : medium ? 124 : 128;  // inner radius
-    return {
-      x1: 150 + Math.cos(angle) * r1,
-      y1: 150 + Math.sin(angle) * r1,
-      x2: 150 + Math.cos(angle) * 134,
-      y2: 150 + Math.sin(angle) * 134,
-      color: major ? "#00E5FF" : "rgba(0,229,255,0.35)",
-      width: major ? 2 : 0.8,
-    };
-  });
-
-  /** Circuit branch node positions along each V arm outer edge. */
-  const leftNodes  = [0.18, 0.38, 0.58, 0.76].map(leftEdge);
-  const rightNodes = [0.18, 0.38, 0.58, 0.76].map(rightEdge);
+  /**
+   * Crosshair tick positions along each arm.
+   * Each number is the distance from the centre (150,150).
+   */
+  const hTicks = [38, 60, 82, 104];   // horizontal axis ticks
+  const vTicks = [38, 60, 82, 104];   // vertical axis ticks
 
   return (
     <svg
@@ -352,94 +327,134 @@ function LogoEmblem() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        <linearGradient id="v-left" x1="0" y1="48" x2="0" y2="240" gradientUnits="userSpaceOnUse">
+        {/* Primary diagonal gradient: cyan top-left → purple bottom-right */}
+        <linearGradient id="dg" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%"   stopColor="#00E5FF" />
           <stop offset="100%" stopColor="#9B5CFF" />
         </linearGradient>
-        <linearGradient id="v-right" x1="0" y1="48" x2="0" y2="240" gradientUnits="userSpaceOnUse">
+        {/* Reversed for bottom-left → top-right elements */}
+        <linearGradient id="dg-r" x1="100%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%"   stopColor="#9B5CFF" />
           <stop offset="100%" stopColor="#00E5FF" />
         </linearGradient>
-        <linearGradient id="ring-g" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%"   stopColor="#00E5FF" />
-          <stop offset="100%" stopColor="#9B5CFF" />
-        </linearGradient>
       </defs>
 
-      {/* ── 1. Outer ring ──────────────────────────────────────────────── */}
-      <circle cx="150" cy="150" r="136" fill="none" stroke="url(#ring-g)" strokeWidth="2" />
+      {/* ── 1. Corner bracket chevrons ─────────────────────────────────── */}
+      {/* Top vertex — opens downward */}
+      <path d="M 128 34 L 150 12 L 172 34"
+        fill="none" stroke="#00E5FF" strokeWidth="2.5" strokeLinecap="square" />
+      {/* Right vertex — opens leftward */}
+      <path d="M 266 128 L 288 150 L 266 172"
+        fill="none" stroke="#9B5CFF" strokeWidth="2.5" strokeLinecap="square" />
+      {/* Bottom vertex — opens upward */}
+      <path d="M 172 266 L 150 288 L 128 266"
+        fill="none" stroke="#9B5CFF" strokeWidth="2.5" strokeLinecap="square" />
+      {/* Left vertex — opens rightward */}
+      <path d="M 34 172 L 12 150 L 34 128"
+        fill="none" stroke="#00E5FF" strokeWidth="2.5" strokeLinecap="square" />
 
-      {/* ── 2. Binary tick marks (HUD bezel) ──────────────────────────── */}
-      {ticks.map((t, i) => (
-        <line key={i} x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2}
-          stroke={t.color} strokeWidth={t.width} />
-      ))}
+      {/* ── 2. Edge segments (connecting brackets, broken in middle) ─────── */}
+      {/* Top-right edge (two halves with gap at midpoint) */}
+      <line x1="177" y1="27"  x2="210" y2="60"  stroke="url(#dg)"   strokeWidth="1.4" opacity="0.75" />
+      <line x1="240" y1="90"  x2="273" y2="123" stroke="url(#dg)"   strokeWidth="1.4" opacity="0.75" />
+      {/* Bottom-right edge */}
+      <line x1="273" y1="177" x2="240" y2="210" stroke="url(#dg-r)" strokeWidth="1.4" opacity="0.75" />
+      <line x1="210" y1="240" x2="177" y2="273" stroke="url(#dg-r)" strokeWidth="1.4" opacity="0.75" />
+      {/* Bottom-left edge */}
+      <line x1="123" y1="273" x2="90"  y2="240" stroke="url(#dg-r)" strokeWidth="1.4" opacity="0.75" />
+      <line x1="60"  y1="210" x2="27"  y2="177" stroke="url(#dg-r)" strokeWidth="1.4" opacity="0.75" />
+      {/* Top-left edge */}
+      <line x1="27"  y1="123" x2="60"  y2="90"  stroke="url(#dg)"   strokeWidth="1.4" opacity="0.75" />
+      <line x1="90"  y1="60"  x2="123" y2="27"  stroke="url(#dg)"   strokeWidth="1.4" opacity="0.75" />
 
-      {/* ── 3. Cardinal HUD brackets ──────────────────────────────────── */}
-      {/* North bracket */}
-      <path d="M 141 15 L 150 15 L 150 25 M 159 15 L 150 15"
-        fill="none" stroke="#00E5FF" strokeWidth="1.8" />
-      {/* South bracket */}
-      <path d="M 141 285 L 150 285 L 150 275 M 159 285 L 150 285"
-        fill="none" stroke="#9B5CFF" strokeWidth="1.8" />
-      {/* East bracket */}
-      <path d="M 285 141 L 285 150 L 275 150 M 285 159 L 285 150"
-        fill="none" stroke="#9B5CFF" strokeWidth="1.8" />
-      {/* West bracket */}
-      <path d="M 15 141 L 15 150 L 25 150 M 15 159 L 15 150"
-        fill="none" stroke="#00E5FF" strokeWidth="1.8" />
+      {/* ── 3. Midpoint slash ticks (perpendicular to each edge) ─────────── */}
+      {/* Each edge midpoint is at 45° angle; perpendicular tick is 90° to it */}
+      {/* Top-right midpoint (219, 81): perpendicular direction (1,-1)/√2 */}
+      <line x1="211" y1="73"  x2="227" y2="89"  stroke="#00E5FF" strokeWidth="2" opacity="0.7" />
+      {/* Bottom-right midpoint (219, 219): perpendicular (1,1)/√2 */}
+      <line x1="227" y1="211" x2="211" y2="227" stroke="#9B5CFF" strokeWidth="2" opacity="0.7" />
+      {/* Bottom-left midpoint (81, 219) */}
+      <line x1="73"  y1="227" x2="89"  y2="211" stroke="#9B5CFF" strokeWidth="2" opacity="0.7" />
+      {/* Top-left midpoint (81, 81) */}
+      <line x1="89"  y1="73"  x2="73"  y2="89"  stroke="#00E5FF" strokeWidth="2" opacity="0.7" />
 
-      {/* ── 4. Glitch offset duplicate (behind main V) ─────────────────── */}
-      <g opacity="0.12">
-        <path d="M 67 52 L 117 52 L 154 242 Z" fill="#ff00cc" />
-        <path d="M 183 52 L 233 52 L 146 242 Z" fill="#00ff88" />
-      </g>
+      {/* ── 4. Circuit branch traces at midpoints (IC pad style) ──────────── */}
+      {/* Top-right: branch going up-right */}
+      <line x1="219" y1="81"  x2="234" y2="66"  stroke="#00E5FF" strokeWidth="0.9" opacity="0.55" />
+      <rect  x="233" y="62"   width="5" height="5" fill="#00E5FF" opacity="0.5" transform="rotate(45,235.5,64.5)" />
+      {/* Bottom-right: branch going down-right */}
+      <line x1="219" y1="219" x2="234" y2="234" stroke="#9B5CFF" strokeWidth="0.9" opacity="0.55" />
+      <rect  x="233" y="233"  width="5" height="5" fill="#9B5CFF" opacity="0.5" transform="rotate(45,235.5,235.5)" />
+      {/* Bottom-left: branch going down-left */}
+      <line x1="81"  y1="219" x2="66"  y2="234" stroke="#9B5CFF" strokeWidth="0.9" opacity="0.55" />
+      <rect  x="62"  y="233"  width="5" height="5" fill="#9B5CFF" opacity="0.5" transform="rotate(45,64.5,235.5)" />
+      {/* Top-left: branch going up-left */}
+      <line x1="81"  y1="81"  x2="66"  y2="66"  stroke="#00E5FF" strokeWidth="0.9" opacity="0.55" />
+      <rect  x="62"  y="62"   width="5" height="5" fill="#00E5FF" opacity="0.5" transform="rotate(45,64.5,64.5)" />
 
-      {/* ── 5. Main V arms ─────────────────────────────────────────────── */}
-      <path d="M 63 48 L 113 48 L 150 238 Z" fill="url(#v-left)" />
-      <path d="M 187 48 L 237 48 L 150 238 Z" fill="url(#v-right)" />
+      {/* ── 5. Crosshairs (gapped at centre so the rings show) ─────────── */}
+      {/* Left arm */}
+      <line x1="12"  y1="150" x2="118" y2="150" stroke="#00E5FF" strokeWidth="1"   opacity="0.55" />
+      {/* Right arm */}
+      <line x1="182" y1="150" x2="288" y2="150" stroke="#9B5CFF" strokeWidth="1"   opacity="0.55" />
+      {/* Top arm */}
+      <line x1="150" y1="12"  x2="150" y2="118" stroke="#00E5FF" strokeWidth="1"   opacity="0.55" />
+      {/* Bottom arm */}
+      <line x1="150" y1="182" x2="150" y2="288" stroke="#9B5CFF" strokeWidth="1"   opacity="0.55" />
 
-      {/* ── 6. Circuit traces on left outer edge ──────────────────────── */}
-      {leftNodes.map((n, i) => (
-        <g key={i}>
-          {/* Branch trace going left */}
-          <line x1={n.x} y1={n.y} x2={n.x - 18} y2={n.y}
-            stroke="#00E5FF" strokeWidth="0.9" opacity="0.65" />
-          {/* IC pad square at branch end */}
-          <rect x={n.x - 23} y={n.y - 2.5} width="5" height="5"
-            fill="#00E5FF" opacity="0.55" />
-          {/* Node dot on the edge */}
-          <circle cx={n.x} cy={n.y} r="2.2"
-            fill="none" stroke="#00E5FF" strokeWidth="1" opacity="0.8" />
-        </g>
-      ))}
+      {/* ── 6. Crosshair tick marks (range-finder / mil-dots) ─────────── */}
+      {hTicks.map((d, i) => {
+        const big = i % 2 === 0;
+        const h   = big ? 7 : 4;
+        return (
+          <g key={i}>
+            {/* Left side */}
+            <line x1={150 - d} y1={150 - h} x2={150 - d} y2={150 + h}
+              stroke="#00E5FF" strokeWidth={big ? 1.4 : 0.8} opacity="0.75" />
+            {/* Right side */}
+            <line x1={150 + d} y1={150 - h} x2={150 + d} y2={150 + h}
+              stroke="#9B5CFF" strokeWidth={big ? 1.4 : 0.8} opacity="0.75" />
+          </g>
+        );
+      })}
+      {vTicks.map((d, i) => {
+        const big = i % 2 === 0;
+        const w   = big ? 7 : 4;
+        return (
+          <g key={i}>
+            {/* Top side */}
+            <line x1={150 - w} y1={150 - d} x2={150 + w} y2={150 - d}
+              stroke="#00E5FF" strokeWidth={big ? 1.4 : 0.8} opacity="0.75" />
+            {/* Bottom side */}
+            <line x1={150 - w} y1={150 + d} x2={150 + w} y2={150 + d}
+              stroke="#9B5CFF" strokeWidth={big ? 1.4 : 0.8} opacity="0.75" />
+          </g>
+        );
+      })}
 
-      {/* ── 6b. Circuit traces on right outer edge ─────────────────────── */}
-      {rightNodes.map((n, i) => (
-        <g key={i}>
-          <line x1={n.x} y1={n.y} x2={n.x + 18} y2={n.y}
-            stroke="#9B5CFF" strokeWidth="0.9" opacity="0.65" />
-          <rect x={n.x + 18} y={n.y - 2.5} width="5" height="5"
-            fill="#9B5CFF" opacity="0.55" />
-          <circle cx={n.x} cy={n.y} r="2.2"
-            fill="none" stroke="#9B5CFF" strokeWidth="1" opacity="0.8" />
-        </g>
-      ))}
+      {/* ── 7. Inner rotated-square ring ──────────────────────────────── */}
+      <path
+        d="M 150 100 L 200 150 L 150 200 L 100 150 Z"
+        fill="none" stroke="url(#dg)" strokeWidth="1" opacity="0.4"
+        strokeDasharray="6 4"
+      />
 
-      {/* ── 7. Top rail, corner dots, inner edge highlights ────────────── */}
-      <line x1="63" y1="48" x2="237" y2="48" stroke="url(#ring-g)" strokeWidth="2.5" />
-      <circle cx="63"  cy="48" r="5" fill="#00E5FF" />
-      <circle cx="237" cy="48" r="5" fill="#9B5CFF" />
-      <line x1="113" y1="48" x2="150" y2="238" stroke="rgba(255,255,255,0.14)" strokeWidth="1" />
-      <line x1="187" y1="48" x2="150" y2="238" stroke="rgba(255,255,255,0.14)" strokeWidth="1" />
+      {/* ── 8. Centre targeting rings + core dot ──────────────────────── */}
+      <circle cx="150" cy="150" r="28"
+        fill="none" stroke="url(#dg)" strokeWidth="1.6" />
+      <circle cx="150" cy="150" r="14"
+        fill="none" stroke="rgba(0,229,255,0.5)" strokeWidth="0.8" />
+      <circle cx="150" cy="150" r="4"
+        fill="#00E5FF" />
+      {/* Tiny glitch offset dot */}
+      <circle cx="153" cy="147" r="3"
+        fill="#ff00cc" opacity="0.25" />
 
-      {/* ── 8. Horizontal scan line ───────────────────────────────────── */}
-      <line x1="14" y1="150" x2="286" y2="150"
-        stroke="rgba(0,229,255,0.07)" strokeWidth="1" />
-
-      {/* ── 9. Bottom point accent ─────────────────────────────────────── */}
-      <circle cx="150" cy="238" r="4"  fill="#ffffff" opacity="0.9" />
-      <circle cx="150" cy="238" r="8"  fill="none" stroke="rgba(255,255,255,0.28)" strokeWidth="1" />
+      {/* ── 9. Vertex accent dots ──────────────────────────────────────── */}
+      <circle cx={V.top[0]}    cy={V.top[1]}    r="3.5" fill="#00E5FF" opacity="0.9" />
+      <circle cx={V.right[0]}  cy={V.right[1]}  r="3.5" fill="#9B5CFF" opacity="0.9" />
+      <circle cx={V.bottom[0]} cy={V.bottom[1]} r="3.5" fill="#9B5CFF" opacity="0.9" />
+      <circle cx={V.left[0]}   cy={V.left[1]}   r="3.5" fill="#00E5FF" opacity="0.9" />
     </svg>
   );
 }
