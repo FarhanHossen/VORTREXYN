@@ -46,7 +46,7 @@ const slideFromRight = {
     x: 0,
     transition: {
       duration: 0.45,
-      delay: i * 0.12,
+      delay: i * 0.15,
       ease: 'easeOut' as const,
     },
   }),
