@@ -27,16 +27,27 @@ import { motion } from 'framer-motion';
 import { Github, Linkedin, Facebook, Instagram, ExternalLink } from 'lucide-react';
 
 /**
- * fadeUp — Staggered scroll-entrance animation.
- * Each card animates in with a delay of (index × 0.08s) so they reveal
- * left to right as the section enters the viewport.
+ * fadeUp — Used for the section label and heading only.
  */
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 16 },
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
     transition: { duration: 0.4, delay: i * 0.08, ease: 'easeOut' as const },
+  }),
+};
+
+/**
+ * slideFromRight — Staggered slide-in from the right for each profile card.
+ * Cards arrive one by one (slideshow effect) as the section enters the viewport.
+ */
+const slideFromRight = {
+  hidden: { opacity: 0, x: 90 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.45, delay: i * 0.15, ease: 'easeOut' as const },
   }),
 };
 
@@ -109,8 +120,8 @@ export function SocialProfiles() {
             {profiles.map(({ icon, label, handle, href, color, bg }, i) => (
               <motion.a
                 key={label}
-                variants={fadeUp}
-                custom={i + 2}          // offset stagger past the heading
+                variants={slideFromRight}
+                custom={i}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
