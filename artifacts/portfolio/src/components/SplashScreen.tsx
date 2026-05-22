@@ -291,22 +291,59 @@ function Stars() {
 }
 
 /** ── LogoEmblem ───────────────────────────────────────────────────────────
- * SVG logo mark for VORTREXYN — a sharp, clean V lettermark inside a circle.
+ * SVG logo mark for VORTREXYN — gamer / developer / hacker aesthetic.
  *
- * Two solid filled triangles (left arm in cyan→purple, right arm in
- * purple→cyan) converge to a single point, forming a bold geometric V.
- * No blur or glow — crisp hard edges like a professional brand mark.
+ * Built on the clean V lettermark but layered with:
+ *   - 24 binary tick marks around the outer ring (HUD bezel / gamer dial)
+ *   - A glitch-offset duplicate of the V in magenta/green at low opacity
+ *   - PCB circuit traces branching from the outer edges of each V arm
+ *   - Cardinal-point HUD brackets (North / South / East / West)
+ *   - A faint horizontal scan-line across the circle centre
+ *   - Square corner nodes on the circuit branch ends (IC pad style)
  *
  * Layers (back → front):
- *   1. Outer solid ring
- *   2. Inner thin ring
- *   3. Left V arm (triangle, cyan top → purple bottom)
- *   4. Right V arm (triangle, purple top → cyan bottom)
- *   5. Inner-edge highlight lines along the V gap
- *   6. Top rail + corner accent dots
- *   7. Bottom point dot
+ *   1. Outer circle (ring-g gradient)
+ *   2. 24 tick marks (binary bezel)
+ *   3. Cardinal HUD brackets
+ *   4. Glitch-offset V duplicate (magenta + green, opacity 0.12)
+ *   5. Main V arms (left cyan→purple, right purple→cyan)
+ *   6. Circuit traces along V outer edges
+ *   7. Top rail + corner dots + inner highlight lines
+ *   8. Horizontal scan line
+ *   9. Bottom point accent
  */
 function LogoEmblem() {
+  /** Interpolate a point along the left outer edge (63,48)→(150,238). */
+  const leftEdge = (t: number) => ({
+    x: 63  + t * (150 - 63),
+    y: 48  + t * (238 - 48),
+  });
+  /** Interpolate a point along the right outer edge (237,48)→(150,238). */
+  const rightEdge = (t: number) => ({
+    x: 237 + t * (150 - 237),
+    y: 48  + t * (238 - 48),
+  });
+
+  /** 24 tick angles (one per 15°, starting from top). */
+  const ticks = Array.from({ length: 24 }, (_, i) => {
+    const angle  = (i * 15 - 90) * (Math.PI / 180);
+    const major  = i % 6 === 0;   // quarter-marks
+    const medium = i % 3 === 0;   // third-marks
+    const r1     = major ? 120 : medium ? 124 : 128;  // inner radius
+    return {
+      x1: 150 + Math.cos(angle) * r1,
+      y1: 150 + Math.sin(angle) * r1,
+      x2: 150 + Math.cos(angle) * 134,
+      y2: 150 + Math.sin(angle) * 134,
+      color: major ? "#00E5FF" : "rgba(0,229,255,0.35)",
+      width: major ? 2 : 0.8,
+    };
+  });
+
+  /** Circuit branch node positions along each V arm outer edge. */
+  const leftNodes  = [0.18, 0.38, 0.58, 0.76].map(leftEdge);
+  const rightNodes = [0.18, 0.38, 0.58, 0.76].map(rightEdge);
+
   return (
     <svg
       viewBox="0 0 300 300"
@@ -315,91 +352,94 @@ function LogoEmblem() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        {/* Left arm gradient: cyan at top, purple at tip */}
-        <linearGradient
-          id="v-left"
-          x1="0" y1="48" x2="0" y2="240"
-          gradientUnits="userSpaceOnUse"
-        >
+        <linearGradient id="v-left" x1="0" y1="48" x2="0" y2="240" gradientUnits="userSpaceOnUse">
           <stop offset="0%"   stopColor="#00E5FF" />
           <stop offset="100%" stopColor="#9B5CFF" />
         </linearGradient>
-
-        {/* Right arm gradient: purple at top, cyan at tip */}
-        <linearGradient
-          id="v-right"
-          x1="0" y1="48" x2="0" y2="240"
-          gradientUnits="userSpaceOnUse"
-        >
+        <linearGradient id="v-right" x1="0" y1="48" x2="0" y2="240" gradientUnits="userSpaceOnUse">
           <stop offset="0%"   stopColor="#9B5CFF" />
           <stop offset="100%" stopColor="#00E5FF" />
         </linearGradient>
-
-        {/* Ring/accent gradient */}
         <linearGradient id="ring-g" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%"   stopColor="#00E5FF" />
           <stop offset="100%" stopColor="#9B5CFF" />
         </linearGradient>
       </defs>
 
-      {/* ── 1. Outer circle ────────────────────────────────────────────── */}
-      <circle
-        cx="150" cy="150" r="136"
-        fill="none"
-        stroke="url(#ring-g)"
-        strokeWidth="2"
-      />
+      {/* ── 1. Outer ring ──────────────────────────────────────────────── */}
+      <circle cx="150" cy="150" r="136" fill="none" stroke="url(#ring-g)" strokeWidth="2" />
 
-      {/* ── 2. Inner thin ring ─────────────────────────────────────────── */}
-      <circle
-        cx="150" cy="150" r="128"
-        fill="none"
-        stroke="url(#ring-g)"
-        strokeWidth="0.6"
-        opacity="0.35"
-      />
+      {/* ── 2. Binary tick marks (HUD bezel) ──────────────────────────── */}
+      {ticks.map((t, i) => (
+        <line key={i} x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2}
+          stroke={t.color} strokeWidth={t.width} />
+      ))}
 
-      {/* ── 3. Left arm — triangle from (63,48)→(113,48)→(150,238) ─────── */}
-      <path
-        d="M 63 48 L 113 48 L 150 238 Z"
-        fill="url(#v-left)"
-      />
+      {/* ── 3. Cardinal HUD brackets ──────────────────────────────────── */}
+      {/* North bracket */}
+      <path d="M 141 15 L 150 15 L 150 25 M 159 15 L 150 15"
+        fill="none" stroke="#00E5FF" strokeWidth="1.8" />
+      {/* South bracket */}
+      <path d="M 141 285 L 150 285 L 150 275 M 159 285 L 150 285"
+        fill="none" stroke="#9B5CFF" strokeWidth="1.8" />
+      {/* East bracket */}
+      <path d="M 285 141 L 285 150 L 275 150 M 285 159 L 285 150"
+        fill="none" stroke="#9B5CFF" strokeWidth="1.8" />
+      {/* West bracket */}
+      <path d="M 15 141 L 15 150 L 25 150 M 15 159 L 15 150"
+        fill="none" stroke="#00E5FF" strokeWidth="1.8" />
 
-      {/* ── 4. Right arm — triangle from (187,48)→(237,48)→(150,238) ───── */}
-      <path
-        d="M 187 48 L 237 48 L 150 238 Z"
-        fill="url(#v-right)"
-      />
+      {/* ── 4. Glitch offset duplicate (behind main V) ─────────────────── */}
+      <g opacity="0.12">
+        <path d="M 67 52 L 117 52 L 154 242 Z" fill="#ff00cc" />
+        <path d="M 183 52 L 233 52 L 146 242 Z" fill="#00ff88" />
+      </g>
 
-      {/* ── 5. Inner-edge highlight lines (along the V negative space) ─── */}
-      {/* Right edge of left arm */}
-      <line
-        x1="113" y1="48" x2="150" y2="238"
-        stroke="rgba(255,255,255,0.18)"
-        strokeWidth="1.2"
-      />
-      {/* Left edge of right arm */}
-      <line
-        x1="187" y1="48" x2="150" y2="238"
-        stroke="rgba(255,255,255,0.18)"
-        strokeWidth="1.2"
-      />
+      {/* ── 5. Main V arms ─────────────────────────────────────────────── */}
+      <path d="M 63 48 L 113 48 L 150 238 Z" fill="url(#v-left)" />
+      <path d="M 187 48 L 237 48 L 150 238 Z" fill="url(#v-right)" />
 
-      {/* ── 6. Top rail across the full width of the V ────────────────── */}
-      <line
-        x1="63" y1="48" x2="237" y2="48"
-        stroke="url(#ring-g)"
-        strokeWidth="2.5"
-      />
+      {/* ── 6. Circuit traces on left outer edge ──────────────────────── */}
+      {leftNodes.map((n, i) => (
+        <g key={i}>
+          {/* Branch trace going left */}
+          <line x1={n.x} y1={n.y} x2={n.x - 18} y2={n.y}
+            stroke="#00E5FF" strokeWidth="0.9" opacity="0.65" />
+          {/* IC pad square at branch end */}
+          <rect x={n.x - 23} y={n.y - 2.5} width="5" height="5"
+            fill="#00E5FF" opacity="0.55" />
+          {/* Node dot on the edge */}
+          <circle cx={n.x} cy={n.y} r="2.2"
+            fill="none" stroke="#00E5FF" strokeWidth="1" opacity="0.8" />
+        </g>
+      ))}
 
-      {/* Top-left corner dot (cyan) */}
+      {/* ── 6b. Circuit traces on right outer edge ─────────────────────── */}
+      {rightNodes.map((n, i) => (
+        <g key={i}>
+          <line x1={n.x} y1={n.y} x2={n.x + 18} y2={n.y}
+            stroke="#9B5CFF" strokeWidth="0.9" opacity="0.65" />
+          <rect x={n.x + 18} y={n.y - 2.5} width="5" height="5"
+            fill="#9B5CFF" opacity="0.55" />
+          <circle cx={n.x} cy={n.y} r="2.2"
+            fill="none" stroke="#9B5CFF" strokeWidth="1" opacity="0.8" />
+        </g>
+      ))}
+
+      {/* ── 7. Top rail, corner dots, inner edge highlights ────────────── */}
+      <line x1="63" y1="48" x2="237" y2="48" stroke="url(#ring-g)" strokeWidth="2.5" />
       <circle cx="63"  cy="48" r="5" fill="#00E5FF" />
-      {/* Top-right corner dot (purple) */}
       <circle cx="237" cy="48" r="5" fill="#9B5CFF" />
+      <line x1="113" y1="48" x2="150" y2="238" stroke="rgba(255,255,255,0.14)" strokeWidth="1" />
+      <line x1="187" y1="48" x2="150" y2="238" stroke="rgba(255,255,255,0.14)" strokeWidth="1" />
 
-      {/* ── 7. Bottom point accent ─────────────────────────────────────── */}
-      <circle cx="150" cy="238" r="4" fill="#ffffff" opacity="0.9" />
-      <circle cx="150" cy="238" r="8" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
+      {/* ── 8. Horizontal scan line ───────────────────────────────────── */}
+      <line x1="14" y1="150" x2="286" y2="150"
+        stroke="rgba(0,229,255,0.07)" strokeWidth="1" />
+
+      {/* ── 9. Bottom point accent ─────────────────────────────────────── */}
+      <circle cx="150" cy="238" r="4"  fill="#ffffff" opacity="0.9" />
+      <circle cx="150" cy="238" r="8"  fill="none" stroke="rgba(255,255,255,0.28)" strokeWidth="1" />
     </svg>
   );
 }
