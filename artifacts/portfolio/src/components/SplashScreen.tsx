@@ -291,17 +291,20 @@ function Stars() {
 }
 
 /** ── LogoEmblem ───────────────────────────────────────────────────────────
- * SVG logo mark for VORTREXYN — a 3-blade clockwise vortex swirl.
+ * SVG logo mark for VORTREXYN — a sharp, clean V lettermark inside a circle.
  *
- * Each blade is a curved crescent-like shape drawn with cubic bezier
- * curves and swept clockwise, creating the impression of a spinning
- * whirlpool. Three blades are rendered and rotated 120° apart.
+ * Two solid filled triangles (left arm in cyan→purple, right arm in
+ * purple→cyan) converge to a single point, forming a bold geometric V.
+ * No blur or glow — crisp hard edges like a professional brand mark.
  *
  * Layers (back → front):
- *   1. Outer dashed circle border
- *   2. Mid dashed orbit ring
- *   3. Three vortex blades (filled, each rotated 120° from the first)
- *   4. Central glowing core rings
+ *   1. Outer solid ring
+ *   2. Inner thin ring
+ *   3. Left V arm (triangle, cyan top → purple bottom)
+ *   4. Right V arm (triangle, purple top → cyan bottom)
+ *   5. Inner-edge highlight lines along the V gap
+ *   6. Top rail + corner accent dots
+ *   7. Bottom point dot
  */
 function LogoEmblem() {
   return (
@@ -312,95 +315,91 @@ function LogoEmblem() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        {/* Blade fill: purple at the tight root, cyan at the wide swept tip */}
-        <radialGradient id="blade-grad" cx="60%" cy="20%" r="80%">
-          <stop offset="0%"   stopColor="#00E5FF" stopOpacity="1" />
-          <stop offset="55%"  stopColor="#7B6FFF" stopOpacity="0.9" />
-          <stop offset="100%" stopColor="#9B5CFF" stopOpacity="0.5" />
-        </radialGradient>
-
-        {/* Ring gradient */}
-        <linearGradient id="ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        {/* Left arm gradient: cyan at top, purple at tip */}
+        <linearGradient
+          id="v-left"
+          x1="0" y1="48" x2="0" y2="240"
+          gradientUnits="userSpaceOnUse"
+        >
           <stop offset="0%"   stopColor="#00E5FF" />
           <stop offset="100%" stopColor="#9B5CFF" />
         </linearGradient>
 
-        {/* Core glow */}
-        <radialGradient id="core-grad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stopColor="#ffffff" stopOpacity="0.9" />
-          <stop offset="40%"  stopColor="#00E5FF" stopOpacity="0.8" />
-          <stop offset="100%" stopColor="#9B5CFF" stopOpacity="0" />
-        </radialGradient>
+        {/* Right arm gradient: purple at top, cyan at tip */}
+        <linearGradient
+          id="v-right"
+          x1="0" y1="48" x2="0" y2="240"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0%"   stopColor="#9B5CFF" />
+          <stop offset="100%" stopColor="#00E5FF" />
+        </linearGradient>
 
-        {/* Soft glow filter for blades */}
-        <filter id="blade-glow" x="-15%" y="-15%" width="130%" height="130%">
-          <feGaussianBlur stdDeviation="5" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-
-        {/* Strong glow for the core */}
-        <filter id="core-glow" x="-60%" y="-60%" width="220%" height="220%">
-          <feGaussianBlur stdDeviation="8" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
+        {/* Ring/accent gradient */}
+        <linearGradient id="ring-g" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stopColor="#00E5FF" />
+          <stop offset="100%" stopColor="#9B5CFF" />
+        </linearGradient>
       </defs>
 
-      {/* ── 1. Outer circle border ─────────────────────────────────────── */}
+      {/* ── 1. Outer circle ────────────────────────────────────────────── */}
       <circle
-        cx="150" cy="150" r="134"
+        cx="150" cy="150" r="136"
         fill="none"
-        stroke="url(#ring-grad)"
+        stroke="url(#ring-g)"
+        strokeWidth="2"
+      />
+
+      {/* ── 2. Inner thin ring ─────────────────────────────────────────── */}
+      <circle
+        cx="150" cy="150" r="128"
+        fill="none"
+        stroke="url(#ring-g)"
+        strokeWidth="0.6"
+        opacity="0.35"
+      />
+
+      {/* ── 3. Left arm — triangle from (63,48)→(113,48)→(150,238) ─────── */}
+      <path
+        d="M 63 48 L 113 48 L 150 238 Z"
+        fill="url(#v-left)"
+      />
+
+      {/* ── 4. Right arm — triangle from (187,48)→(237,48)→(150,238) ───── */}
+      <path
+        d="M 187 48 L 237 48 L 150 238 Z"
+        fill="url(#v-right)"
+      />
+
+      {/* ── 5. Inner-edge highlight lines (along the V negative space) ─── */}
+      {/* Right edge of left arm */}
+      <line
+        x1="113" y1="48" x2="150" y2="238"
+        stroke="rgba(255,255,255,0.18)"
         strokeWidth="1.2"
-        strokeDasharray="8 5"
-        opacity="0.5"
+      />
+      {/* Left edge of right arm */}
+      <line
+        x1="187" y1="48" x2="150" y2="238"
+        stroke="rgba(255,255,255,0.18)"
+        strokeWidth="1.2"
       />
 
-      {/* ── 2. Inner orbit ring ────────────────────────────────────────── */}
-      <circle
-        cx="150" cy="150" r="30"
-        fill="none"
-        stroke="url(#ring-grad)"
-        strokeWidth="0.8"
-        strokeDasharray="4 3"
-        opacity="0.45"
+      {/* ── 6. Top rail across the full width of the V ────────────────── */}
+      <line
+        x1="63" y1="48" x2="237" y2="48"
+        stroke="url(#ring-g)"
+        strokeWidth="2.5"
       />
 
-      {/* ── 3. Three vortex blades ─────────────────────────────────────── */}
-      {/*
-          Blade path (before rotation, sweeping clockwise):
-           M 150 150        — start at center
-           C 180 130, 220 70, 175 20  — right-leaning curve up to tip
-           C 145 5,  115 18, 115 45  — tight curve around the tip
-           C 110 70, 118 100, 150 150 — sweep back inward to center
-           Z
+      {/* Top-left corner dot (cyan) */}
+      <circle cx="63"  cy="48" r="5" fill="#00E5FF" />
+      {/* Top-right corner dot (purple) */}
+      <circle cx="237" cy="48" r="5" fill="#9B5CFF" />
 
-          The three blades are identical paths, rotated 0°, 120°, 240°
-          around the center point (150, 150).
-      */}
-      {[0, 120, 240].map((deg) => (
-        <path
-          key={deg}
-          d="M 150 150 C 180 130, 222 68, 176 20 C 150 3, 112 16, 112 46 C 108 72, 118 108, 150 150 Z"
-          fill="url(#blade-grad)"
-          filter="url(#blade-glow)"
-          transform={`rotate(${deg}, 150, 150)`}
-          opacity="0.92"
-        />
-      ))}
-
-      {/* ── 4. Central glowing core ────────────────────────────────────── */}
-      {/* Outer glow halo */}
-      <circle cx="150" cy="150" r="22" fill="url(#core-grad)" filter="url(#core-glow)" />
-      {/* Solid core ring */}
-      <circle cx="150" cy="150" r="10" fill="none" stroke="#00E5FF" strokeWidth="1.5" opacity="0.8" />
-      {/* Bright centre dot */}
-      <circle cx="150" cy="150" r="5"  fill="#ffffff" opacity="0.95" />
+      {/* ── 7. Bottom point accent ─────────────────────────────────────── */}
+      <circle cx="150" cy="238" r="4" fill="#ffffff" opacity="0.9" />
+      <circle cx="150" cy="238" r="8" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
     </svg>
   );
 }
