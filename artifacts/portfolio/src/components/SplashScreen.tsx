@@ -117,6 +117,27 @@ export function SplashScreen({ onDone }: SplashScreenProps) {
               }}
             />
 
+            {/* ── Logo emblem — sits behind the text as a large backdrop ──
+                Animates in before the letters so it's fully visible by the
+                time VORTREXYN starts dropping in. A slow breathing pulse
+                keeps it feeling alive throughout the splash hold.        */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.72, rotate: -10 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ delay: 0.05, duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute pointer-events-none flex items-center justify-center"
+              style={{ width: 560, height: 560 }}
+            >
+              {/* Gentle breathing pulse after the initial entrance */}
+              <motion.div
+                animate={{ scale: [1, 1.03, 1] }}
+                transition={{ delay: 1.2, duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                style={{ width: '100%', height: '100%', opacity: 0.22 }}
+              >
+                <LogoEmblem />
+              </motion.div>
+            </motion.div>
+
             {/* ── VORTREXYN letter-by-letter reveal ────────────────────── */}
             <div
               className="flex items-end select-none"
@@ -266,6 +287,140 @@ function Stars() {
         />
       ))}
     </div>
+  );
+}
+
+/** ── LogoEmblem ───────────────────────────────────────────────────────────
+ * SVG logo mark for VORTREXYN — a hexagonal crest with a bold V letterform
+ * at its centre, a dashed orbit ring, and gradient accent layers.
+ *
+ * Layers (back → front):
+ *   1. Outer hexagon border (cyan→purple gradient)
+ *   2. Dashed inner orbit ring
+ *   3. Inner hexagon (rotated 30°, reversed gradient)
+ *   4. Six diagonal spoke lines connecting hex rings
+ *   5. Large bold V stroke (main mark, with glow filter)
+ *   6. Thin white V highlight overlay
+ *   7. Horizontal caps across the V arms
+ *   8. Vertex accent dots at each hexagon point
+ *   9. Central dot
+ */
+function LogoEmblem() {
+  return (
+    <svg
+      viewBox="0 0 300 300"
+      width="100%"
+      height="100%"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        {/* Primary gradient: cyan top-left → purple bottom-right */}
+        <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stopColor="#00E5FF" />
+          <stop offset="100%" stopColor="#9B5CFF" />
+        </linearGradient>
+        {/* Reversed gradient for inner layers */}
+        <linearGradient id="lg2" x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stopColor="#9B5CFF" />
+          <stop offset="100%" stopColor="#00E5FF" />
+        </linearGradient>
+        {/* Glow filter applied to the V stroke */}
+        <filter id="vglow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="4" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+
+      {/* ── 1. Outer hexagon (pointy-top, radius ≈ 140) ──────────────── */}
+      <polygon
+        points="150,8 271,79 271,221 150,292 29,221 29,79"
+        fill="none"
+        stroke="url(#lg1)"
+        strokeWidth="2"
+      />
+
+      {/* ── 2. Dashed orbit ring ──────────────────────────────────────── */}
+      <circle
+        cx="150" cy="150" r="96"
+        fill="none"
+        stroke="url(#lg1)"
+        strokeWidth="0.8"
+        strokeDasharray="5 4"
+        opacity="0.55"
+      />
+
+      {/* ── 3. Inner hexagon (flat-top, radius ≈ 76) ─────────────────── */}
+      <polygon
+        points="226,150 188,216 112,216 74,150 112,84 188,84"
+        fill="none"
+        stroke="url(#lg2)"
+        strokeWidth="1.2"
+        opacity="0.6"
+      />
+
+      {/* ── 4. Spoke lines: outer-hex vertex → inner-hex vertex ──────── */}
+      {[
+        [150, 8,   150, 84],   // top
+        [271, 79,  226, 150],  // top-right
+        [271, 221, 188, 216],  // bottom-right
+        [150, 292, 150, 216],  // bottom
+        [29,  221, 74,  216],  // bottom-left
+        [29,  79,  74,  150],  // top-left
+      ].map(([x1, y1, x2, y2], i) => (
+        <line
+          key={i}
+          x1={x1} y1={y1} x2={x2} y2={y2}
+          stroke="url(#lg1)"
+          strokeWidth="0.8"
+          opacity="0.35"
+        />
+      ))}
+
+      {/* ── 5. Bold V lettermark with glow ───────────────────────────── */}
+      <path
+        d="M72,82 L150,208 L228,82"
+        fill="none"
+        stroke="url(#lg1)"
+        strokeWidth="18"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        filter="url(#vglow)"
+      />
+
+      {/* ── 6. Thin white V highlight (inner edge shimmer) ────────────── */}
+      <path
+        d="M72,82 L150,208 L228,82"
+        fill="none"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity="0.25"
+      />
+
+      {/* ── 7. Horizontal caps across both arms of the V ─────────────── */}
+      <line x1="29"  y1="82"  x2="72"  y2="82"  stroke="#00E5FF" strokeWidth="2" opacity="0.7" />
+      <line x1="228" y1="82"  x2="271" y2="82"  stroke="#9B5CFF" strokeWidth="2" opacity="0.7" />
+
+      {/* ── 8. Vertex accent dots at each outer-hexagon point ─────────── */}
+      {[
+        [150, 8,   "#00E5FF"],
+        [271, 79,  "#9B5CFF"],
+        [271, 221, "#9B5CFF"],
+        [150, 292, "#00E5FF"],
+        [29,  221, "#9B5CFF"],
+        [29,  79,  "#9B5CFF"],
+      ].map(([cx, cy, fill], i) => (
+        <circle key={i} cx={cx as number} cy={cy as number} r="3.5" fill={fill as string} opacity="0.85" />
+      ))}
+
+      {/* ── 9. Central dot ───────────────────────────────────────────── */}
+      <circle cx="150" cy="150" r="4" fill="#00E5FF" opacity="0.7" />
+      <circle cx="150" cy="150" r="8" fill="none" stroke="#00E5FF" strokeWidth="0.8" opacity="0.3" />
+    </svg>
   );
 }
 
