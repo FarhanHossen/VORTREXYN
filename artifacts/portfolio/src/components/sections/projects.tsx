@@ -130,7 +130,7 @@ const PROJECTS = [
       { src: '/screenshots/portfolio-contact.png',         alt: 'Contact' },
     ],
     tags: ['React', 'Vite', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Git'],
-    github: 'https://github.com/FarhanHossen',
+    github: 'https://github.com/FarhanHossen/VORTREXYN',
   },
   {
     id: 2,
