@@ -117,17 +117,6 @@ export function SplashScreen({ onDone }: SplashScreenProps) {
               }}
             />
 
-            {/* ── Top label ────────────────────────────────────────────── */}
-            <motion.p
-              initial={{ opacity: 0, letterSpacing: '0.5em' }}
-              animate={{ opacity: 1, letterSpacing: '0.35em' }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="font-mono text-xs mb-10 select-none"
-              style={{ color: 'rgba(0,229,255,0.5)' }}
-            >
-              // LOADING EXPERIENCE
-            </motion.p>
-
             {/* ── VORTREXYN letter-by-letter reveal ────────────────────── */}
             <div
               className="flex items-end select-none"
@@ -193,17 +182,6 @@ export function SplashScreen({ onDone }: SplashScreenProps) {
                 boxShadow: '0 0 16px rgba(0,229,255,0.4)',
               }}
             />
-
-            {/* ── Subtitle ─────────────────────────────────────────────── */}
-            <motion.p
-              initial={{ opacity: 0, y: 12, letterSpacing: '0.6em' }}
-              animate={{ opacity: 1, y: 0, letterSpacing: '0.45em' }}
-              transition={{ delay: 1.5, duration: 0.7, ease: 'easeOut' }}
-              className="font-mono text-xs mt-5 select-none tracking-widest"
-              style={{ color: 'rgba(148,163,184,0.7)' }}
-            >
-              ONLINE GROCERY STORE
-            </motion.p>
 
             {/* ── Pulsing accent dots ───────────────────────────────────── */}
             <motion.div
