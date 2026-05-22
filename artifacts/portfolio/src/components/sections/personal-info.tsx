@@ -21,16 +21,34 @@ import { motion } from 'framer-motion';
 import { User, Heart, Droplets, Calendar, Globe, Users } from 'lucide-react';
 
 /**
- * fadeUp — Staggered entrance animation.
- * Each card delays by (index × 0.08s) via the `custom` prop, so they
- * reveal sequentially as the section scrolls into view.
+ * fadeUp — Used for the section label and heading (subtle upward entrance).
  */
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 16 },
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
     transition: { duration: 0.4, delay: i * 0.08, ease: 'easeOut' as const },
+  }),
+};
+
+/**
+ * slideFromRight — Staggered slide-in from the right for each detail card.
+ * Cards enter one by one (slideshow effect) with a larger delay gap so the
+ * sequential motion is clearly perceptible as the section comes into view.
+ *   hidden  → 90px off-screen to the right, invisible
+ *   visible → natural position, fully opaque
+ */
+const slideFromRight = {
+  hidden: { opacity: 0, x: 90 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.45,
+      delay: i * 0.12,
+      ease: 'easeOut' as const,
+    },
   }),
 };
 
@@ -78,14 +96,15 @@ export function PersonalInfo() {
           </motion.h2>
 
           {/* ── Detail cards grid ────────────────────────────────────────
-              custom={i + 2} offsets the card stagger by 2 slots so they
-              begin animating after the label and heading have appeared. */}
+              Each card uses slideFromRight so they sweep in from the right
+              one by one (slideshow style) as the section enters the viewport.
+              custom={i} drives the stagger delay: card 0 first, card 5 last. */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {items.map(({ icon, label, value }, i) => (
               <motion.div
                 key={label}
-                variants={fadeUp}
-                custom={i + 2}
+                variants={slideFromRight}
+                custom={i}
                 className="flex items-start gap-4 rounded-lg p-5"
                 style={{ background: 'hsl(222 35% 8%)', border: '1px solid hsl(215 33% 15%)' }}
               >
