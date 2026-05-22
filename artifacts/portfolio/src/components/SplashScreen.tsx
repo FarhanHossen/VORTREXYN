@@ -291,19 +291,17 @@ function Stars() {
 }
 
 /** ── LogoEmblem ───────────────────────────────────────────────────────────
- * SVG logo mark for VORTREXYN — a hexagonal crest with a bold V letterform
- * at its centre, a dashed orbit ring, and gradient accent layers.
+ * SVG logo mark for VORTREXYN — a 3-blade clockwise vortex swirl.
+ *
+ * Each blade is a curved crescent-like shape drawn with cubic bezier
+ * curves and swept clockwise, creating the impression of a spinning
+ * whirlpool. Three blades are rendered and rotated 120° apart.
  *
  * Layers (back → front):
- *   1. Outer hexagon border (cyan→purple gradient)
- *   2. Dashed inner orbit ring
- *   3. Inner hexagon (rotated 30°, reversed gradient)
- *   4. Six diagonal spoke lines connecting hex rings
- *   5. Large bold V stroke (main mark, with glow filter)
- *   6. Thin white V highlight overlay
- *   7. Horizontal caps across the V arms
- *   8. Vertex accent dots at each hexagon point
- *   9. Central dot
+ *   1. Outer dashed circle border
+ *   2. Mid dashed orbit ring
+ *   3. Three vortex blades (filled, each rotated 120° from the first)
+ *   4. Central glowing core rings
  */
 function LogoEmblem() {
   return (
@@ -314,19 +312,38 @@ function LogoEmblem() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        {/* Primary gradient: cyan top-left → purple bottom-right */}
-        <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%">
+        {/* Blade fill: purple at the tight root, cyan at the wide swept tip */}
+        <radialGradient id="blade-grad" cx="60%" cy="20%" r="80%">
+          <stop offset="0%"   stopColor="#00E5FF" stopOpacity="1" />
+          <stop offset="55%"  stopColor="#7B6FFF" stopOpacity="0.9" />
+          <stop offset="100%" stopColor="#9B5CFF" stopOpacity="0.5" />
+        </radialGradient>
+
+        {/* Ring gradient */}
+        <linearGradient id="ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%"   stopColor="#00E5FF" />
           <stop offset="100%" stopColor="#9B5CFF" />
         </linearGradient>
-        {/* Reversed gradient for inner layers */}
-        <linearGradient id="lg2" x1="100%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%"   stopColor="#9B5CFF" />
-          <stop offset="100%" stopColor="#00E5FF" />
-        </linearGradient>
-        {/* Glow filter applied to the V stroke */}
-        <filter id="vglow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="4" result="blur" />
+
+        {/* Core glow */}
+        <radialGradient id="core-grad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stopColor="#ffffff" stopOpacity="0.9" />
+          <stop offset="40%"  stopColor="#00E5FF" stopOpacity="0.8" />
+          <stop offset="100%" stopColor="#9B5CFF" stopOpacity="0" />
+        </radialGradient>
+
+        {/* Soft glow filter for blades */}
+        <filter id="blade-glow" x="-15%" y="-15%" width="130%" height="130%">
+          <feGaussianBlur stdDeviation="5" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+
+        {/* Strong glow for the core */}
+        <filter id="core-glow" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="8" result="blur" />
           <feMerge>
             <feMergeNode in="blur" />
             <feMergeNode in="SourceGraphic" />
@@ -334,92 +351,56 @@ function LogoEmblem() {
         </filter>
       </defs>
 
-      {/* ── 1. Outer hexagon (pointy-top, radius ≈ 140) ──────────────── */}
-      <polygon
-        points="150,8 271,79 271,221 150,292 29,221 29,79"
-        fill="none"
-        stroke="url(#lg1)"
-        strokeWidth="2"
-      />
-
-      {/* ── 2. Dashed orbit ring ──────────────────────────────────────── */}
+      {/* ── 1. Outer circle border ─────────────────────────────────────── */}
       <circle
-        cx="150" cy="150" r="96"
+        cx="150" cy="150" r="134"
         fill="none"
-        stroke="url(#lg1)"
-        strokeWidth="0.8"
-        strokeDasharray="5 4"
-        opacity="0.55"
-      />
-
-      {/* ── 3. Inner hexagon (flat-top, radius ≈ 76) ─────────────────── */}
-      <polygon
-        points="226,150 188,216 112,216 74,150 112,84 188,84"
-        fill="none"
-        stroke="url(#lg2)"
+        stroke="url(#ring-grad)"
         strokeWidth="1.2"
-        opacity="0.6"
+        strokeDasharray="8 5"
+        opacity="0.5"
       />
 
-      {/* ── 4. Spoke lines: outer-hex vertex → inner-hex vertex ──────── */}
-      {[
-        [150, 8,   150, 84],   // top
-        [271, 79,  226, 150],  // top-right
-        [271, 221, 188, 216],  // bottom-right
-        [150, 292, 150, 216],  // bottom
-        [29,  221, 74,  216],  // bottom-left
-        [29,  79,  74,  150],  // top-left
-      ].map(([x1, y1, x2, y2], i) => (
-        <line
-          key={i}
-          x1={x1} y1={y1} x2={x2} y2={y2}
-          stroke="url(#lg1)"
-          strokeWidth="0.8"
-          opacity="0.35"
+      {/* ── 2. Inner orbit ring ────────────────────────────────────────── */}
+      <circle
+        cx="150" cy="150" r="30"
+        fill="none"
+        stroke="url(#ring-grad)"
+        strokeWidth="0.8"
+        strokeDasharray="4 3"
+        opacity="0.45"
+      />
+
+      {/* ── 3. Three vortex blades ─────────────────────────────────────── */}
+      {/*
+          Blade path (before rotation, sweeping clockwise):
+           M 150 150        — start at center
+           C 180 130, 220 70, 175 20  — right-leaning curve up to tip
+           C 145 5,  115 18, 115 45  — tight curve around the tip
+           C 110 70, 118 100, 150 150 — sweep back inward to center
+           Z
+
+          The three blades are identical paths, rotated 0°, 120°, 240°
+          around the center point (150, 150).
+      */}
+      {[0, 120, 240].map((deg) => (
+        <path
+          key={deg}
+          d="M 150 150 C 180 130, 222 68, 176 20 C 150 3, 112 16, 112 46 C 108 72, 118 108, 150 150 Z"
+          fill="url(#blade-grad)"
+          filter="url(#blade-glow)"
+          transform={`rotate(${deg}, 150, 150)`}
+          opacity="0.92"
         />
       ))}
 
-      {/* ── 5. Bold V lettermark with glow ───────────────────────────── */}
-      <path
-        d="M72,82 L150,208 L228,82"
-        fill="none"
-        stroke="url(#lg1)"
-        strokeWidth="18"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        filter="url(#vglow)"
-      />
-
-      {/* ── 6. Thin white V highlight (inner edge shimmer) ────────────── */}
-      <path
-        d="M72,82 L150,208 L228,82"
-        fill="none"
-        stroke="white"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        opacity="0.25"
-      />
-
-      {/* ── 7. Horizontal caps across both arms of the V ─────────────── */}
-      <line x1="29"  y1="82"  x2="72"  y2="82"  stroke="#00E5FF" strokeWidth="2" opacity="0.7" />
-      <line x1="228" y1="82"  x2="271" y2="82"  stroke="#9B5CFF" strokeWidth="2" opacity="0.7" />
-
-      {/* ── 8. Vertex accent dots at each outer-hexagon point ─────────── */}
-      {[
-        [150, 8,   "#00E5FF"],
-        [271, 79,  "#9B5CFF"],
-        [271, 221, "#9B5CFF"],
-        [150, 292, "#00E5FF"],
-        [29,  221, "#9B5CFF"],
-        [29,  79,  "#9B5CFF"],
-      ].map(([cx, cy, fill], i) => (
-        <circle key={i} cx={cx as number} cy={cy as number} r="3.5" fill={fill as string} opacity="0.85" />
-      ))}
-
-      {/* ── 9. Central dot ───────────────────────────────────────────── */}
-      <circle cx="150" cy="150" r="4" fill="#00E5FF" opacity="0.7" />
-      <circle cx="150" cy="150" r="8" fill="none" stroke="#00E5FF" strokeWidth="0.8" opacity="0.3" />
+      {/* ── 4. Central glowing core ────────────────────────────────────── */}
+      {/* Outer glow halo */}
+      <circle cx="150" cy="150" r="22" fill="url(#core-grad)" filter="url(#core-glow)" />
+      {/* Solid core ring */}
+      <circle cx="150" cy="150" r="10" fill="none" stroke="#00E5FF" strokeWidth="1.5" opacity="0.8" />
+      {/* Bright centre dot */}
+      <circle cx="150" cy="150" r="5"  fill="#ffffff" opacity="0.95" />
     </svg>
   );
 }
