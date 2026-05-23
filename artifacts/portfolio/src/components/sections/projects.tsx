@@ -108,7 +108,7 @@ const LANDSCAPE_CONFIG: CarouselConfig = {
 const PROJECTS = [
   {
     id: 1,
-    title: 'VORTREXYN Portfolio',
+    title: 'VORTREXYN',
     subtitle: 'Personal Developer Portfolio Website',
     year: '2026',
     type: 'web' as const,
