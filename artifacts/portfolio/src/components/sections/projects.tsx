@@ -131,6 +131,7 @@ const PROJECTS = [
     ],
     tags: ['React', 'Vite', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Git'],
     github: 'https://github.com/FarhanHossen/VORTREXYN',
+    website: 'https://farhanhossen.com/',
   },
   {
     id: 2,
